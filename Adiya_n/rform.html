@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="rform.css">
+</head>
+<body>
+    <form action="#" method="POST">
+        <h2>Registration Form</h2>
+
+        <!-- First Name -->
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name" name="first-name" required minlength="2" maxlength="50" placeholder="Enter your first name">
+        <br>
+
+        <!-- Last Name -->
+        <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name" name="last-name" required minlength="2" maxlength="50" placeholder="Enter your last name">
+        <br>
+
+        <!-- Email Address -->
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email address">
+        <br>
+
+        <!-- Password -->
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required minlength="8" placeholder="Enter your password">
+        <br>
+
+        <!-- Confirm Password -->
+        <label for="confirm-password">Confirm Password:</label>
+        <input type="password" id="confirm-password" name="confirm-password" required minlength="8" placeholder="Confirm your password">
+        <br>
+
+        <!-- Date of Birth -->
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required>
+        <br>
+
+        <!-- Gender -->
+        <label>Gender:</label>
+        <br>
+        <input type="radio" id="male" name="gender" value="Male" required>
+        
+        <label for="male">Male</label>
+        <br>
+        <input type="radio" id="female" name="gender" value="Female" required>
+        
+        <label for="female">Female</label>
+        <br>
+        
+        <!-- Hobbies/Interests -->
+        <label>Hobbies/Interests:</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="hobbies" value="Reading"> Reading</label>
+            <label><input type="checkbox" name="hobbies" value="Drawing"> Drawing</label>
+            <label><input type="checkbox" name="hobbies" value="Sports"> Sports</label>
+            <label><input type="checkbox" name="hobbies" value="Music"> Music</label>
+            <label><input type="checkbox" name="hobbies" value="Cooking"> Cooking</label>
+        </div>
+        <br>
+
+        <!-- Country -->
+        <label for="country">Country:</label>
+        <select id="country" name="country" required>
+            <option value="">Select your country</option>
+            <option value="usa">United States</option>
+            <option value="canada">Canada</option>
+            <option value="uk">United Kingdom</option>
+            <option value="kz">Kazakhstan</option>
+            <option value="australia">Australia</option>
+            <option value="india">India</option>
+            <option value="germany">Germany</option>
+            <option value="france">France</option>
+        </select>
+        <br>
+
+        <!-- Comments or Additional Information -->
+        <label for="comments">Comments or Additional Information:</label>
+        <textarea id="comments" name="comments" rows="4" placeholder="Enter any additional information..."></textarea>
+
+        <!-- Submit Button -->
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
