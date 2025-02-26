@@ -1,0 +1,129 @@
+/* Общие стили */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1f4037, #99f2c8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Контейнер формы */
+form {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Стилизация заголовков */
+legend {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Стилизация полей ввода */
+label {
+    display: block;
+    margin: 12px 0 5px;
+    font-weight: bold;
+    color: #fff;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    background: rgba(255, 255, 255, 0.6);
+    color: #333;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Эффект фокуса */
+input:focus, select:focus, textarea:focus {
+    background: white;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+/* Радиокнопки и чекбоксы */
+.checkbox-group, .radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.checkbox-group label, .radio-group label {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+/* Кастомизация чекбоксов и радио */
+input[type="checkbox"], input[type="radio"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background: transparent;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+    background: #ffcc00;
+    border: 2px solid #ffcc00;
+    box-shadow: 0 0 10px #ffcc00;
+}
+
+/* Стили кнопки */
+.submit-btn {
+    width: 100%;
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    color: white;
+    font-size: 1.2em;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(45deg, #ff4b2b, #ff416c);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+/* Подсказка пароля */
+.password-hint {
+    font-size: 0.9em;
+    color: #fff;
+    opacity: 0.8;
+    margin-top: 5px;
+}
+
+/* Стили для текстового поля */
+textarea {
+    resize: none;
+    height: 80px;
+}
