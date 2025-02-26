@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Registration Form</h2>
+        <form action="/submit" method="post">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="firstName" required placeholder="Aisha">
+
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lastName" required placeholder="Abilkhair">
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="aisha@email.com">
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required placeholder="******">
+
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob" required>
+
+            <label for="gender">Gender</label>
+            <div class="options-group">
+                <label><input type="radio" name="gender" value="male" required> Male</label>
+                <label><input type="radio" name="gender" value="female" required> Female</label>
+            </div>
+
+            <label for="hobbies">Hobbies</label>
+            <div class="options-group">
+                <label><input type="checkbox" name="hobbies" value="reading"> Reading</label>
+                <label><input type="checkbox" name="hobbies" value="travelling"> Travelling</label>
+                <label><input type="checkbox" name="hobbies" value="sleeping"> Sleeping</label>
+                <label><input type="checkbox" name="hobbies" value="watching_tiktok"> Watching TikTok</label>
+            </div>
+
+            <label for="country">Country</label>
+            <select id="country" name="country" required>
+                <option value="" disabled selected>Select Country</option>
+                <option value="usa">USA</option>
+                <option value="kazakhstan">Kazakhstan</option>
+                <option value="india">India</option>
+                <option value="russia">Russia</option>
+            </select>
+
+
+            <label for="comments">Comments</label>
+            <textarea id="comments" name="comments" placeholder="Additional info..." maxlength="200"></textarea>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</body>
+</html>
