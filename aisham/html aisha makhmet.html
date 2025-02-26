@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms</title>
+    <link rel="stylesheet" href="css.css">
+</head>
+<body>
+    <form>
+        <h2>Forms Apply</h2>
+    
+        <label for="first-name">First Name</label>
+        <input type="text" id="first-name" name="first-name" required>
+    
+        <label for="last-name">Last Name</label>
+        <input type="text" id="last-name" name="last-name" required>
+    
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required>
+    
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required minlength="8">
+    
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirm-password" required minlength="8">
+    
+        <label for="birth">Date of Birth</label>
+        <input type="date" id="birth" name="birth" required>
+    
+        <label>Gender</label>
+        <input type="radio" id="male" name="gender" value="male" required>
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female" required>
+        <label for="female">Female</label>
+    
+        <label>Hobbies/Interests</label>
+        <div class="checkbox-group">
+            <input type="checkbox" id="art" name="hobbies" value="art">
+            <label for="sports">Arts</label>
+            <input type="checkbox" id="singing" name="hobbies" value="singing">
+            <label for="music">Singing</label>
+            <input type="checkbox" id="reading" name="hobbies" value="reading">
+            <label for="reading">Reading</label>
+            <input type="checkbox" id="dancing" name="hobbies" value="dancing">
+            <label for="reading">Dancing</label>
+            <input type="checkbox" id="scrollingtiktok" name="hobbies" value="scrollingtiktok">
+            <label for="reading">Scrolling Tiktok</label>
+        </div>
+    
+        <label for="country">Country</label>
+        <select id="country" name="country" required>
+            <option value="">Select a country</option>
+            <option value="kz">Kazakhstan</option>
+            <option value="kyz">Kyrgystan</option>
+            <option value="uz">Uzbekistan</option>
+            <option value="ukr">Ukraine</option>
+        </select>
+    
+        <label for="comments">Comments or Additional Information</label>
+        <textarea id="comments" name="comments" rows="2"></textarea>
+    
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+</html>  
