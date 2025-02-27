@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Registration Form</h1>
+    <form action="#" method="POST" id="registrationForm">
+      <!-- First Name -->
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" name="firstName" required minlength="2" maxlength="50" placeholder="Enter your first name">
+
+      <!-- Last Name -->
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" name="lastName" required minlength="2" maxlength="50" placeholder="Enter your last name">
+
+      <!-- Email Address -->
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" required placeholder="Enter your email address">
+
+      <!-- Password -->
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required minlength="6" placeholder="Enter your password">
+
+      <!-- Confirm Password -->
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required minlength="6" placeholder="Confirm your password">
+
+      <!-- Date of Birth -->
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob" name="dob" required>
+
+      <!-- Gender -->
+      <label for="gender">Gender</label>
+      <input type="radio" id="male" name="gender" value="Male" required> <label for="male">Male</label>
+      <input type="radio" id="female" name="gender" value="Female" required> <label for="female">Female</label>
+      <input type="radio" id="other" name="gender" value="Other" required> <label for="other">Other</label>
+
+      <!-- Hobbies/Interests -->
+      <label>Hobbies/Interests</label>
+      <div class="hobbies">
+        <input type="checkbox" id="reading" name="hobbies" value="Reading">
+        <label for="reading">Reading</label>
+        <input type="checkbox" id="traveling" name="hobbies" value="Traveling">
+        <label for="traveling">Traveling</label>
+        <input type="checkbox" id="sports" name="hobbies" value="Sports">
+        <label for="sports">Sports</label>
+        <input type="checkbox" id="music" name="hobbies" value="Music">
+        <label for="music">Music</label>
+      </div>
+
+      <!-- Country -->
+      <label for="country">Country</label>
+      <select id="country" name="country" required>
+        <option value="">Select your country</option>
+        <option value="USA">United States</option>
+        <option value="Canada">Canada</option>
+        <option value="UK">United Kingdom</option>
+        <option value="Australia">Australia</option>
+        <option value="India">India</option>
+      </select>
+
+      <!-- Comments or Additional Information -->
+      <label for="comments">Comments or Additional Information</label>
+      <textarea id="comments" name="comments" placeholder="Enter any additional information here..."></textarea>
+
+      <!-- Submit Button -->
+      <input type="submit" value="Register" class="submit-btn">
+    </form>
+  </div>
+
+</body>
+</html>
