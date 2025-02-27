@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 30px;
+        }
+        form {
+            background: white;
+            padding: 50px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px gray;
+            width: 300px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .checkbox-group, .radio-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .checkbox-group {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        input[type="radio"], input[type="checkbox"] {
+            cursor: pointer;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form action="#" method="POST" id="registration-form">
+        <h2>Registration Form</h2>
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name" name="first-name" required>
+
+        <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name" name="last-name" required>
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required minlength="6">
+
+        <label for="confirm-password">Confirm Password:</label>
+        <input type="password" id="confirm-password" name="confirm-password" required minlength="6">
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <label>Gender:</label>
+        <div class="radio-group">
+            <input type="radio" id="male" name="gender" value="Male" required>
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="Female" required>
+            <label for="female">Female</label>
+        </div>
+        <br>
+
+        <label>Hobbies/Interests:</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" id="reading" name="hobbies[]" value="Reading"> Reading</label>
+            <label><input type="checkbox" id="sports" name="hobbies[]" value="Sports"> Sports</label>
+            <label><input type="checkbox" id="music" name="hobbies[]" value="Music"> Music</label>
+            <label><input type="checkbox" id="traveling" name="hobbies[]" value="Traveling"> Traveling</label>
+        </div>
+        <br>
+
+        <label for="city">City:</label>
+        <select id="city" name="city" required>
+            <option value="">Select your city</option>
+            <option value="Astana">Astana</option>
+            <option value="Almaty">Almaty</option>
+            <option value="Atyrau">Atyrau</option>
+            <option value="Aktobe">Aktobe</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label for="comments">Comments or Additional Information:</label>
+        <textarea id="comments" name="comments" rows="4"></textarea>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        document.getElementById("registration-form").addEventListener("submit", function(event) {
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirm-password").value;
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
+
