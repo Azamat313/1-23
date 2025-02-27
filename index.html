@@ -1,78 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registration Form</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction:column;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label {
+            font-weight: bold;
+            display:block;
+            margin-top:10 px;
+        }
+        input, select, textarea {
+            width: 100%;
+            margin: 5px 0;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .inline{
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .gender-container {
+            display:flex;
+            justify-content: space-between;
+            width:100px;
+            margin:5px 0;
+        }
+        .hobbies-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+        }
+        .hobby-item {
+            display: flex;
+            align-items: center;
+
+        }
+        .hobby-item input {
+            margin-right:10px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 10px;
+            background: black;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+    </style>
 </head>
 <body>
-
-  <div class="container">
-    <h1>Registration Form</h1>
-    <form action="#" method="POST" id="registrationForm">
-      <!-- First Name -->
-      <label for="firstName">First Name</label>
-      <input type="text" id="firstName" name="firstName" required minlength="2" maxlength="50" placeholder="Enter your first name">
-
-      <!-- Last Name -->
-      <label for="lastName">Last Name</label>
-      <input type="text" id="lastName" name="lastName" required minlength="2" maxlength="50" placeholder="Enter your last name">
-
-      <!-- Email Address -->
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" required placeholder="Enter your email address">
-
-      <!-- Password -->
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required minlength="6" placeholder="Enter your password">
-
-      <!-- Confirm Password -->
-      <label for="confirmPassword">Confirm Password</label>
-      <input type="password" id="confirmPassword" name="confirmPassword" required minlength="6" placeholder="Confirm your password">
-
-      <!-- Date of Birth -->
-      <label for="dob">Date of Birth</label>
-      <input type="date" id="dob" name="dob" required>
-
-      <!-- Gender -->
-      <label for="gender">Gender</label>
-      <input type="radio" id="male" name="gender" value="Male" required> <label for="male">Male</label>
-      <input type="radio" id="female" name="gender" value="Female" required> <label for="female">Female</label>
-      <input type="radio" id="other" name="gender" value="Other" required> <label for="other">Other</label>
-
-      <!-- Hobbies/Interests -->
-      <label>Hobbies/Interests</label>
-      <div class="hobbies">
-        <input type="checkbox" id="reading" name="hobbies" value="Reading">
-        <label for="reading">Reading</label>
-        <input type="checkbox" id="traveling" name="hobbies" value="Traveling">
-        <label for="traveling">Traveling</label>
-        <input type="checkbox" id="sports" name="hobbies" value="Sports">
-        <label for="sports">Sports</label>
-        <input type="checkbox" id="music" name="hobbies" value="Music">
-        <label for="music">Music</label>
-      </div>
-
-      <!-- Country -->
-      <label for="country">Country</label>
-      <select id="country" name="country" required>
-        <option value="">Select your country</option>
-        <option value="USA">United States</option>
-        <option value="Canada">Canada</option>
-        <option value="UK">United Kingdom</option>
-        <option value="Australia">Australia</option>
-        <option value="India">India</option>
-      </select>
-
-      <!-- Comments or Additional Information -->
-      <label for="comments">Comments or Additional Information</label>
-      <textarea id="comments" name="comments" placeholder="Enter any additional information here..."></textarea>
-
-      <!-- Submit Button -->
-      <input type="submit" value="Register" class="submit-btn">
-    </form>
-  </div>
-
+    
+    <form action="#" method="POST">
+        <h2 style="text-align: center;">Registration Form</h2>
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name" name="first_name" required>
+        
+        <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name" name="last_name" required>
+        
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required minlength="6">
+        
+        <label for="confirm-password">Confirm Password:</label>
+        <input type="password" id="confirm-password" name="confirm_password" required>
+        
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required>
+        
+        <label>Gender:</label>
+        <div class="gender-container">
+            <label><input type="radio" name="gender" value="male" required> Male</label>
+            <label><input type="radio" name="gender" value="female"> Female</label>
+            <label><input type="radio" name="gender" value="other"> Other</label>
+        </div>
+        <label>Hobbies/Interests:</label>
+        <div class="hobbies-container">
+            <label class="hobby-item"><input type="checkbox" name="hobbies" value="sports"> Sports</label>
+            <label class="hobby-item"><input type="checkbox" name="hobbies" value="music"> Music</label>
+            <label class="hobby-item"><input type="checkbox" name="hobbies" value="art"> Art</label>
+        </div>
+        
+       
+        
+        <label for="country">Country:</label>
+        <select id="country" name="country" required>
+            <option value="">Select Country</option>
+            <option value="Kazakhstan">Kazakhstan</option>
+            <option value="Turkey">Turkey</option>
+            <option value="Japan">Japan</option>
+            <option value="Switzerland">Switzerland</option>
+        </select>
+        
+        <label for="comments">Comments:</label>
+        <textarea id="comments" name="comments" rows="4"></textarea>
+   
+        <button type="submit">Register</button>
+        
+    
 </body>
 </html>
+
+    
+    
+    
