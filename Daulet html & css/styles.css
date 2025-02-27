@@ -1,0 +1,93 @@
+/* General Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 50px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Form Styling */
+form {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 600px; /* Wider form for PC */
+}
+
+/* Form Heading */
+form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Form Row for Side-by-Side Inputs */
+.form-row {
+    display: flex;
+    gap: 20px; /* Space between inputs */
+    margin-bottom: 15px;
+}
+
+/* Form Group Styling */
+.form-group {
+    flex: 1; /* Equal width for inputs in a row */
+}
+
+/* Label Styling */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Input Field Styling */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Radio and Checkbox Group Styling */
+.radio-group,
+.checkbox-group {
+    display: flex;
+    gap: 15px; /* Space between radio/checkbox options */
+    margin-bottom: 15px;
+}
+
+/* Button Styling */
+button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Textarea Styling */
+textarea {
+    resize: vertical; /* Allows vertical resizing */
+}
