@@ -1,0 +1,168 @@
+// Переменные
+$primary-color: #ff1111;
+$secondary-color: #8A74F9;
+$text-color: #333;
+$bg-light: #F8F9FF;
+$white: #fff;
+$dark-bg: #151C39;
+$gray-text: #AAA;
+
+// Миксин для кнопок
+@mixin button($bg, $color) {
+    background-color: $bg;
+    color: $color;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+// Глобальные стили
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: $text-color;
+    line-height: 1.6;
+}
+
+// Навигация
+.navbar {
+    background-color: $white;
+    height: 80px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+
+    .nav-container {
+        width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+    }
+
+    .logo {
+        font-size: 28px;
+        font-weight: 700;
+        color: $primary-color;
+    }
+
+    .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 20px;
+
+        a {
+            text-decoration: none;
+            color: $text-color;
+            font-weight: 500;
+            transition: color 0.3s;
+
+            &:hover {
+                color: $primary-color;
+            }
+        }
+    }
+
+    .nav-button {
+        @include button($primary-color, $white);
+        &:hover {
+            background-color: darken($primary-color, 10%);
+        }
+    }
+}
+
+// Секция Hero
+.hero {
+    height: 700px;
+    background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+    padding-top: 160px;
+    color: $white;
+    
+    .hero-container {
+        width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .hero-content {
+        width: 550px;
+
+        .hero-title {
+            font-size: 56px;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+    }
+
+    .hero-buttons {
+        display: flex;
+
+        .primary-button {
+            @include button($white, $primary-color);
+        }
+
+        .secondary-button {
+            background: transparent;
+            color: $white;
+            border: 2px solid $white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+        }
+    }
+}
+
+// Медиа-запросы
+@media (max-width: 1024px) {
+    .nav-container, .hero-container {
+        width: 95%;
+    }
+    .nav-links {
+        display: none;
+    }
+    .hero {
+        height: auto;
+        padding: 100px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 40px;
+    }
+    .hero-subtitle {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 32px;
+    }
+    .hero-subtitle {
+        font-size: 14px;
+    }
+}
