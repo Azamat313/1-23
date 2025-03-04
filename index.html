@@ -3,100 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horizon - Digital Solutions</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">Horizon</div>
-            <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Features</a></li>
-                <li><a href="#">Pricing</a></li>
-                <li><a href="#">Testimonials</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-            <button class="nav-button">Get Started</button>
-        </div>
-    </nav>
-    
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">Elevate Your Digital Presence Today</h1>
-                <p class="hero-subtitle">Transform your business with our cutting-edge solutions designed to boost your online presence and drive growth.</p>
-                <div class="hero-buttons">
-                    <button class="primary-button">Get Started</button>
-                    <button class="secondary-button">Learn More</button>
-                </div>
+
+    <form onsubmit="return validatePasswords()">
+        <fieldset>
+            <legend>Personal Information</legend>
+
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required minlength="2" maxlength="20" placeholder="John">
+
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required minlength="2" maxlength="20" placeholder="Doe">
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="example@mail.com">
+        </fieldset>
+
+        <fieldset>
+            <legend>Security</legend>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required pattern="(?=.\d)(?=.[A-Z]).{8,}" 
+                   placeholder="At least 8 characters" oninput="checkPasswordStrength()">
+            <div class="password-hint">Must be at least 8 characters, include a number and an uppercase letter.</div>
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Repeat password">
+        </fieldset>
+
+        <fieldset>
+            <legend>Additional Info</legend>
+
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob" required>
+
+            <label>Gender</label>
+            <label><input type="radio" name="gender" value="male" required> Male</label>
+            <label><input type="radio" name="gender" value="female"> Female</label>
+            <label><input type="radio" name="gender" value="other"> Other</label>
+
+            <label>Hobbies/Interests</label>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="hobbies" value="reading"> Reading</label>
+                <label><input type="checkbox" name="hobbies" value="sports"> Sports</label>
+                <label><input type="checkbox" name="hobbies" value="gaming"> Gaming</label>
+                <label><input type="checkbox" name="hobbies" value="travel"> Travel</label>
             </div>
-            <div class="hero-image">
-                <img src="/api/placeholder/400/320" alt="placeholder" />
-            </div>
-        </div>
-    </section>
-    
-    <!-- Features Section -->
-    <section class="features">
-        <h2 class="section-title">Why Choose Us</h2>
-        <p class="section-subtitle">We offer comprehensive solutions tailored to meet your business needs.</p>
-        <div class="features-container">
-            <div class="feature-card">
-                <div class="feature-icon">★</div>
-                <h3 class="feature-title">Advanced Analytics</h3>
-                <p class="feature-text">Gain valuable insights with powerful analytics tools.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚙️</div>
-                <h3 class="feature-title">Seamless Integration</h3>
-                <p class="feature-text">Integrate with your existing tools and systems smoothly.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3 class="feature-title">Enterprise Security</h3>
-                <p class="feature-text">Protect your data with industry-leading security measures.</p>
-            </div>
-        </div>
-    </section>
-    
-    <!-- CTA Section -->
-    <section class="cta">
-        <div class="cta-container">
-            <h2 class="cta-title">Ready to Get Started?</h2>
-            <p class="cta-text">Join thousands of businesses that trust Horizon for digital transformation.</p>
-            <button class="primary-button">Contact Us</button>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-column">
-                <div class="footer-logo">Horizon</div>
-                <p class="footer-desc">Empowering businesses with innovative digital solutions.</p>
-            </div>
-            <div class="footer-column">
-                <h3 class="footer-title">Company</h3>
-                <ul class="footer-links">
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Press</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3 class="footer-title">Contact</h3>
-                <ul class="footer-links">
-                    <li><a href="#">contact@horizon.com</a></li>
-                    <li><a href="#">+1 (555) 123-4567</a></li>
-                </ul>
-            </div>
-        </div>4
-    </footer>
-    <div class="copyright">
-        <p>© 2025 Horizon. All rights reserved.</p>
-    </div>
+
+            <label for="country">Country</label>
+            <input list="countries" id="country" name="country" required>
+            <datalist id="countries">
+                <option value="Kazakhstan">
+                <option value="USA">
+                <option value="UK">
+                <option value="Germany">
+                <option value="France">
+                <option value="Japan">
+            </datalist>
+
+            <label for="comments">Comments</label>
+            <textarea id="comments" name="comments" rows="3" placeholder="Any additional information..."></textarea>
+        </fieldset>
+
+        <button type="submit" class="submit-btn">Register</button>
+    </form>
+
+    <script src="script.js"></script>
+
 </body>
 </html>
