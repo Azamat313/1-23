@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Horizon - Digital Solutions</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">Horizon</div>
-            <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Features</a></li>
-                <li><a href="#">Pricing</a></li>
-                <li><a href="#">Testimonials</a></li>
-                <li><a href="#">Contact</a></li>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" onclick="closeNav()">Home</a></li>
+                <li><a href="#" onclick="closeNav()">Features</a></li>
+                <li><a href="#" onclick="closeNav()">Pricing</a></li>
+                <li><a href="#" onclick="closeNav()">Testimonials</a></li>
+                <li><a href="#" onclick="closeNav()">Contact</a></li>
             </ul>
             <button class="nav-button">Get Started</button>
+            <div class="hamburger" id="hamburger" onclick="toggleNav()">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
         </div>
     </nav>
     
@@ -124,7 +128,7 @@
                 <ul class="footer-links">
                     <li><a href="#">contact@horizon.com</a></li>
                     <li><a href="#">+1 (555) 123-4567</a></li>
-                    <li><a href="#">123 Business Ave, Suite 100</a></li>zz
+                    <li><a href="#">123 Business Ave, Suite 100</a></li>
                     <li><a href="#">San Francisco, CA 94107</a></li>
                 </ul>
             </div>
@@ -133,5 +137,33 @@
     <div class="copyright">
         <p>© 2025 Horizon. All rights reserved.</p>
     </div>
+    <script>
+        function toggleNav() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.getElementById('hamburger');
+    
+            navLinks.classList.toggle('active');
+    
+            hamburger.classList.toggle('active');
+        }
+    
+        function closeNav() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.getElementById('hamburger');
+    
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+    
+        document.addEventListener('click', function(event) {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.getElementById('hamburger');
+            const isClickInside = navLinks.contains(event.target) || hamburger.contains(event.target);
+    
+            if (!isClickInside) {
+                closeNav();
+            }
+        });
+    </script>
 </body>
 </html>
