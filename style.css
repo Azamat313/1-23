@@ -1,129 +1,226 @@
-/* Общие стили */
-body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #1f4037, #99f2c8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+/* Reset */
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+.navbar {
+    background-color: white;
+    height: 80px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: #4A6CF7;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #4A6CF7;
+}
+
+.nav-button {
+    background-color: #4A6CF7;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.nav-button:hover {
+    background-color: #3656D8;
+}
+
+/* Hero Section */
+.hero {
+    height: 600px;
+    background: linear-gradient(135deg, #4A6CF7 0%, #8A74F9 100%);
+    padding-top: 120px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-container {
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 20px;
 }
 
-/* Контейнер формы */
-form {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+.hero-content {
+    max-width: 550px;
+}
+
+.hero-title {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.hero-subtitle {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+}
+
+.primary-button, .secondary-button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.primary-button {
+    background-color: white;
+    color: #4A6CF7;
+    margin-right: 10px;
+}
+
+.secondary-button {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.hero-image img {
     width: 400px;
-    animation: fadeIn 1s ease-in-out;
+    height: auto;
 }
 
-/* Анимация появления */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Стилизация заголовков */
-legend {
-    font-size: 1.4em;
-    font-weight: bold;
-    color: #fff;
+/* Features Section */
+.features {
+    padding: 80px 20px;
+    background-color: #F8F9FF;
     text-align: center;
+}
+
+.features-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.feature-card {
+    background: white;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    font-size: 30px;
     margin-bottom: 10px;
 }
 
-/* Стилизация полей ввода */
-label {
-    display: block;
-    margin: 12px 0 5px;
-    font-weight: bold;
-    color: #fff;
-}
-
-input, select, textarea {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1em;
-    background: rgba(255, 255, 255, 0.6);
-    color: #333;
-    outline: none;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Эффект фокуса */
-input:focus, select:focus, textarea:focus {
-    background: white;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
-}
-
-/* Радиокнопки и чекбоксы */
-.checkbox-group, .radio-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.checkbox-group label, .radio-group label {
-    font-weight: normal;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
-}
-
-/* Кастомизация чекбоксов и радио */
-input[type="checkbox"], input[type="radio"] {
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    border: 2px solid white;
-    border-radius: 50%;
-    background: transparent;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-}
-
-input[type="checkbox"]:checked, input[type="radio"]:checked {
-    background: #ffcc00;
-    border: 2px solid #ffcc00;
-    box-shadow: 0 0 10px #ffcc00;
-}
-
-/* Стили кнопки */
-.submit-btn {
-    width: 100%;
-    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+/* CTA Section */
+.cta {
+    padding: 60px 20px;
+    background-color: #4A6CF7;
     color: white;
-    font-size: 1.2em;
-    padding: 12px;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    margin-top: 15px;
-    transition: all 0.3s ease-in-out;
+    text-align: center;
 }
 
-.submit-btn:hover {
-    background: linear-gradient(45deg, #ff4b2b, #ff416c);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+.cta-title {
+    font-size: 30px;
+    margin-bottom: 20px;
 }
 
-/* Подсказка пароля */
-.password-hint {
-    font-size: 0.9em;
-    color: #fff;
-    opacity: 0.8;
-    margin-top: 5px;
+/* Footer */
+.footer {
+    padding: 20px;
+    background-color: #151C39;
+    color: white;
+    text-align: center;
 }
 
-/* Стили для текстового поля */
-textarea {
-    resize: none;
-    height: 80px;
+/* Responsive */
+@media (max-width: 1024px) {
+    .nav-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .nav-links {
+        margin-top: 10px;
+    }
+
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-image img {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .features-container {
+        flex-direction: column;
+        align-items: center;
+    }
 }
+
+@media (max-width: 600px) {
+    .hero-title {
+        font-size: 28px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .primary-button, .secondary-button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}./
