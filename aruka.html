@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSЗадания</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px;background-image: url(https://wallpapers.com/images/file/spring-aesthetic-desktop-wallpaper-ts7x5dgf81lj5lws.jpg);}
+        p,h3,h2,input,button{ margin: 5px; padding: 8px; color: #c49696;}
+    </style>
+</head>
+<body>
+
+    <!-- 1 task -->
+    <h2>Вы на странице уже <span id="timeSpent">0</span> секунд</h2>
+
+    <!-- 2task -->
+    <h3>Сортировка имен по длине</h3>
+    <input type="text" id="nameInput" placeholder="Введите имена через запятую">
+    <button onclick="sortNames()">Сортировать</button>
+    <p id="sortedNames"></p>
+
+    <!-- 3Task -->
+    <h3>Проверка числа на простоту</h3>
+    <input type="number" id="numberInput" placeholder="Введите число">
+    <button onclick="checkPrime()">Проверить</button>
+    <p id="primeResult"></p>
+
+    <script>
+        // 1.
+        let startTime = Date.now();
+        setInterval(() => {
+            let timeSpent = Math.floor((Date.now() - startTime) / 1000);
+            document.getElementById("timeSpent").innerText = timeSpent;
+        }, 1000);
+
+        // 2. 
+        function sortNames() {
+            let input = document.getElementById("nameInput").value;
+            let names = input.split(",").map(name => name.trim());
+            names.sort((a, b) => a.length - b.length);
+            document.getElementById("sortedNames").innerText = "Отсортированные имена: " + names.join(", ");
+        }
+
+        // 3.
+        function isPrime(n) {
+            if (n < 2) return false;
+            for (let i = 2; i <= Math.sqrt(n); i++) {
+                if (n % i === 0) return false;
+            }
+            return true;
+        }
+
+        function checkPrime() {
+            let num = parseInt(document.getElementById("numberInput").value);
+            let result = isPrime(num) ? "Число простое" : "Число не является простым";
+            document.getElementById("primeResult").innerText = result;
+        }
+    </script>
+
+</body>
+</html>
