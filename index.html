@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Checker</title>
+    <title>Discount</title>
+    <link rel="stylesheet" href ="style.css">
 </head>
 <body>
+    <div class="container">
+        <h1>DISCOUNT!!!</h1>
+        <p>You can get discount by making a purchase.Click the button bellow to increase your discount.</p>
+        <div class="discount"><span id="discountValue"></span></div>
+        
+        <button id="purchaseButton">Make a purchase</button>
 
-    <div>
-        <h2>Password Checker</h2>
-        <input type="password" id="password" placeholder="Enter your password">
-        <p id="status"></p>
+        <div class="final-amount">Final amount: <span id="final-amount">100</span>$</div>
     </div>
-
     <script src="script.js"></script>
-
 </body>
 </html>
