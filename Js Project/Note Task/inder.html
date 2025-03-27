@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes with tags</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .note { border: 1px solid #ddd; padding: 10px; margin: 10px 0; }
+        .note .tags { font-size: 0.9em; color: #666; }
+    </style>
+</head>
+<body>
+    <h2>Notes</h2>
+    <input type="text" id="noteText" placeholder="Enter note...">
+    <input type="text" id="noteTags" placeholder="Tags">
+    <button onclick="addNote()">Add</button>
+    <input type="text" id="searchTag" placeholder="Search with tag" oninput="filterNotes()">
+    <button onclick="sortNotes()">filters</button>
+    <div id="notesList"></div>
+    
+<script src="script.js"></script>
+</body>
+</html>
