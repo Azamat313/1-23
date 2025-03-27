@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Менеджер рецептов</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Менеджер рецептов</h1>
+    <div id="newRecipe">
+      <input type="text" id="recipeName" placeholder="Название рецепта">
+      <input type="text" id="recipeCategory" placeholder="Категория">
+      <input type="text" id="recipeIngredients" placeholder="Ингредиенты (через запятую)">
+      <input type="text" id="recipeTime" placeholder="Время приготовления (мин)">
+      <button id="addRecipe">Добавить</button>
+      <input type="text" id="search" placeholder="Поиск рецепта...">
+    </div>
+
+    <div id="recipes"></div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
