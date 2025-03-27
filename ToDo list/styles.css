@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.container {
+    max-width: 400px;
+    margin: auto;
+}
+
+input {
+    width: 70%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    background: #bdbfff;
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+li:hover {
+    background: #9195ff;
+}

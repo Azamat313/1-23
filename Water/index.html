@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор расхода воды</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Калькулятор расхода воды</h1>
+        
+        <label for="people">Количество человек:</label>
+        <input type="number" id="people" min="1" value="1">
+
+        <label for="usage">Расход воды на человека (л/день):</label>
+        <input type="number" id="usage" min="1" value="100">
+
+        <label for="rate">Тариф за 1 м³ воды (тг.):</label>
+        <input type="number" id="rate" min="0" value="44">
+
+        <button id="calculate-btn">Рассчитать</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
