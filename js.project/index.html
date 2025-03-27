@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Notes Manager</h1>
+
+        <div class="note-controls">
+            <input type="text" id="note-title" placeholder="Title">
+            <textarea id="note-content" placeholder ="Note text"></textarea>
+            <select id="note-category">
+                <option value="work">Work</option>
+                <option value="personal">Personal</option>
+                <option value="study">Study</option>
+            </select>
+            <button id="add-note">Add Note</button>
+        </div>
+
+        <div class="filter-controls">
+            <select id="filter-category">
+                <option value="all">All</option>
+                <option value="work">Work</option>
+                <option value="personal">Personal</option>
+                <option value="study">Study</option>
+            </select>
+            <button id="clear-notes">Clear Notes</button>
+        </div>
+
+        <div id="notes-list"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
