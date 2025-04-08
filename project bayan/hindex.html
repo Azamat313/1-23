@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Timer</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        text-align: center;
+      }
+      #taskList {
+        list-style: none;
+        padding: 0;
+      }
+      .task {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin-top: 5px;
+      }
+      button {
+        margin-left: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Task Timer</h2>
+    <input type="text" id="taskInput" placeholder="Enter a task" />
+    <input type="number" id="timeInput" placeholder="Minutes" min="1" />
+    <button onclick="addTask()">Add a Task</button>
+
+    <ul id="taskList"></ul>
+
+    <script>
+      function addTask() {
+        const taskName = document.getElementById("taskInput").value;
+        const taskTime = document.getElementById("timeInput").value;
+
+        if (!taskName || !taskTime || taskTime <= 0) {
+          alert("Please enter a valid task and time!");
+          return;
+        }
+
+        const taskList = document.getElementById("taskList");
+        const li = document.createElement("li");
+        li.className = "task";
+        li.innerHTML = `
+                ${taskName} - <span class="time">${taskTime}:00</span>
+                <button onclick="startTimer(this)">Start</button>
+                <button onclick="removeTask(this)">Delete</button>
+            `;
+        taskList.appendChild(li);
+      }
+
+      function removeTask(button) {
+        button.parentElement.remove();
+      }
+
+      function startTimer(button) {
+        const timeSpan = button.parentElement.querySelector(".time");
+        let timeParts = timeSpan.innerText.split(":");
+        let minutes = parseInt(timeParts[0]);
+        let seconds = parseInt(timeParts[1]);
+
+        const interval = setInterval(() => {
+          if (minutes === 0 && seconds === 0) {
+            clearInterval(interval);
+            alert("Time is out!");
+            button.removeAttribute("disabled");
+            return;
+          }
+
+          if (seconds === 0) {
+            minutes--;
+            seconds = 59;
+          } else {
+            seconds--;
+          }
+
+          timeSpan.innerText = `${minutes}:${
+            seconds < 10 ? "0" + seconds : seconds
+          }`;
+        }, 1000);
+      }
+    </script>
+  </body>
+</html>
