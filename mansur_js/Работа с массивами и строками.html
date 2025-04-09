@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Working with Programming Languages</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    button {
+      margin: 5px 0;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Programming Languages Array</h1>
+
+  <button onclick="searchWord()">Search Word</button><br>
+  <button onclick="sortByLength()">Sort by Length</button><br>
+  <button onclick="filterByFirstLetter()">Filter by First Letter</button><br>
+  <button onclick="countVowels()">Count Vowels</button>
+
+  <script>
+    const words = ["JavaScript", "Python", "Kotlin", "Swift", "Go", "Rust"];
+
+    function searchWord() {
+      const query = prompt("Enter a word to search:");
+      const found = words.includes(query);
+      alert(found ? "Word found" : "Word not found");
+    }
+
+    function sortByLength() {
+      const sorted = [...words].sort((a, b) => a.length - b.length);
+      alert("Sorted by length: " + sorted.join(", "));
+    }
+
+    function filterByFirstLetter() {
+      const letter = prompt("Enter the first letter:");
+      const filtered = words.filter(word => word.toLowerCase().startsWith(letter.toLowerCase()));
+      alert("Words starting with '" + letter + "': " + filtered.join(", "));
+    }
+
+    function countVowels() {
+      const vowels = "aeiouy";
+      const result = words.map(word => {
+        const count = word.split('').filter(ch => vowels.includes(ch.toLowerCase())).length;
+        return word + ": " + count;
+      });
+      alert("Vowel counts:\n" + result.join("\n"));
+    }
+  </script>
+
+</body>
+</html>
