@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fairy Tales Library</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input, select { margin: 10px 0; padding: 5px; }
+    .book { margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <h1> Fairy Tales Library</h1>
+
+  <input type="text" id="searchInput" placeholder="Search by title">
+  <select id="genreFilter">
+    <option value="">All genres</option>
+    <option value="Fairy Tale">Fairy Tale</option>
+    <option value="Folklore">Folklore</option>
+    <option value="Poem">Poem</option>
+  </select>
+  <button onclick="sortBooks()">Sort by Year</button>
+  <button onclick="countBooksByAuthor()">Count Books by Author</button>
+
+  <div id="bookList"></div>
+  <div id="authorCount"></div>
+
+  <script>
+    const books = [
+      { title: "The Little Humpbacked Horse", author: "Pyotr Yershov", year: 1834, genre: "Fairy Tale" },
+      { title: "Kolobok", author: "Russian Folk Tale", year: 1860, genre: "Folklore" },
+      { title: "The Giant Turnip", author: "Russian Folk Tale", year: 1860, genre: "Folklore" },
+      { title: "The Scarlet Flower", author: "Sergey Aksakov", year: 1858, genre: "Fairy Tale" },
+      { title: "The Tale of Tsar Saltan", author: "Alexander Pushkin", year: 1831, genre: "Poem" }
+    ];
+
+    let filteredBooks = [...books];
+
+    function displayBooks(arr) {
+      const bookList = document.getElementById("bookList");
+      bookList.innerHTML = "";
+      arr.forEach(book => {
+        bookList.innerHTML += `
+          <div class="book">
+            <strong>${book.title}</strong> — ${book.author}, ${book.year} (${book.genre})
+          </div>`;
+      });
+    }
+
+    function searchBooks() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      filteredBooks = books.filter(book => book.title.toLowerCase().includes(query));
+      applyGenreFilter();
+    }
+
+    function applyGenreFilter() {
+      const genre = document.getElementById("genreFilter").value;
+      let booksToShow = filteredBooks;
+
+      if (genre) {
+        booksToShow = booksToShow.filter(book => book.genre === genre);
+      }
+
+      displayBooks(booksToShow);
+    }
+
+    function sortBooks() {
+      filteredBooks.sort((a, b) => a.year - b.year);
+      applyGenreFilter();
+    }
+
+    function countBooksByAuthor() {
+      const count = {};
+      books.forEach(book => {
+        count[book.author] = (count[book.author] || 0) + 1;
+      });
+
+      let output = "<h3>Number of books per author:</h3><ul>";
+      for (let author in count) {
+        output += `<li>${author}: ${count[author]}</li>`;
+      }
+      output += "</ul>";
+      document.getElementById("authorCount").innerHTML = output;
+    }
+
+    document.getElementById("searchInput").addEventListener("input", searchBooks);
+    document.getElementById("genreFilter").addEventListener("change", applyGenreFilter);
+
+    displayBooks(books);
+  </script>
+</body>
+</html>

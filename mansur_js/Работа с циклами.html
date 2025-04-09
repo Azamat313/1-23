@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multiplication Table</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+    td {
+      border: 1px solid #999;
+      padding: 8px 12px;
+    }
+    .even {
+      background-color: #d0ebff;
+    }
+    .odd {
+      background-color: #ffd6e0;
+    }
+    select, button {
+      padding: 8px 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Multiplication Table (1–10)</h1>
+
+  <label for="numberSelect">Choose a number:</label>
+  <select id="numberSelect">
+    <option value="all">All</option>
+    
+  </select>
+
+  <button onclick="generateTable()">Generate</button>
+
+  <table id="outputTable"></table>
+
+  <script>
+  
+    for (let i = 1; i <= 10; i++) {
+      const option = document.createElement("option");
+      option.value = i;
+      option.textContent = i;
+      document.getElementById("numberSelect").appendChild(option);
+    }
+
+    function generateTable() {
+      const value = document.getElementById("numberSelect").value;
+      const table = document.getElementById("outputTable");
+      table.innerHTML = ""; 
+
+      if (value === "all") {
+        console.log("Full multiplication table (1–10):");
+        for (let i = 1; i <= 10; i++) {
+          const row = table.insertRow();
+          for (let j = 1; j <= 10; j++) {
+            const cell = row.insertCell();
+            const result = i * j;
+            cell.textContent = `${i}×${j}=${result}`;
+            cell.className = result % 2 === 0 ? "even" : "odd";
+            console.log(`${i}×${j}=${result}`);
+          }
+        }
+      } else {
+        const num = parseInt(value);
+        console.log(`Multiplication table for ${num}:`);
+        for (let i = 1; i <= 10; i++) {
+          const row = table.insertRow();
+          const result = num * i;
+          const cell = row.insertCell();
+          cell.textContent = `${num} × ${i} = ${result}`;
+          cell.className = result % 2 === 0 ? "even" : "odd";
+          console.log(`${num} × ${i} = ${result}`);
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
