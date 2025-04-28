@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #282c36;
+    color: white;
+    flex-direction: column;
+}
+#timer {
+    font-size: 60px;
+    font-weight: bold;
+    margin: 20px;
+}
+button {
+    padding: 10px 20px;
+    font-size: 20px;
+    background: #ff5722;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+button:hover {
+    background: #e64a19;
+}
