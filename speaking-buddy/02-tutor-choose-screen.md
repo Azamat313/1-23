@@ -1,67 +1,107 @@
-# Speaking Buddy — тексты для главного экрана выбора (tutor-choose)
+# Speaking Buddy — экран выбора (tutor-choose): карточки и приветствия
 
-Два языка интерфейса: RU и EN. Все тексты переключаются вместе с языком интерфейса.
-Приветствие («Послушать») — статичный аудио-текст, записывается заранее на обоих языках.
-В скобках `[emotion]` — состояние аватара во время приветствия, `(…)` — ремарка для озвучки.
+Сверено со скриншотом рабочего экрана. Структура карточки сохранена один-в-один,
+меняется только содержимое под новое ТЗ (RU/EN вместо казахского, один режим вместо 18+-режимов,
+новый характер Спарка).
+
+## Структура экрана (как есть, не меняем)
+
+```
+[ 🗓 Язык интерфейса: Русский ]   [ 💬 Язык объяснения: Русский ]
+
+┌──────────────┐  ┌──────────────┐  ┌──────────────┐
+│   аватар     │  │   аватар     │  │   аватар     │
+│  Имя  [18+]  │  │  Имя  [18+]  │  │  Имя         │
+│ чип чип чип  │  │ чип чип чип  │  │ чип чип чип  │
+│  описание    │  │  описание    │  │  описание    │
+│ Послушать 🔊 │  │ Послушать 🔊 │  │ Послушать 🔊 │
+│  Выбрать     │  │  Выбрать     │  │  Выбрать     │
+└──────────────┘  └──────────────┘  └──────────────┘
+```
+
+**Правило языков на этом экране** (важно, было неоднозначно):
+- «Язык интерфейса» → язык заголовков, чипов, описаний и кнопок.
+- «Язык объяснения» → язык озвучки по кнопке «Послушать голос…» и язык, на котором тьютор
+  будет объяснять в самом диалоге (`explanation_language` в промте).
+- Английский во всех случаях остаётся целевым языком, его не выбирают.
 
 ---
 
-## Заголовок экрана
+## Что меняется относительно текущего экрана
 
-| RU | EN |
-|---|---|
-| Выбери своего Speaking Buddy | Choose your Speaking Buddy |
-| Три характера — один английский. Выбери того, с кем тебе легче говорить. | Three personalities, one goal: your English. Pick the one you feel comfortable talking to. |
+| Карточка | Было на сайте | Стало | Почему |
+|---|---|---|---|
+| Луна | чипы: Русскоязычная · Чуткая · Спокойная | Спокойная · Чуткая · Понимающая + чип `RU / EN` | язык теперь настройка, а не свойство тьютора |
+| Декстер | 18+ · Русскоязычный · Вайбовый · Свой парень | 18+ остаётся; чипы: Прямой · Жёсткий · Свой парень | по ТЗ Декстер грубый и может материться с согласия |
+| Спарк | 18+ · **Казахскоязычный** · Энергичный · Свой | **18+ снимается**; чипы: Зумер · Саркастичный · Свой пацан | казахского больше нет; мата у Спарка нет, только сарказм и сленг |
 
-Кнопки: «Послушать» / «Listen» · «Выбрать» / «Choose» · «Сменить язык» / «Switch language».
+Решение, которое стоит подтвердить: **бейдж 18+ у Спарка снят**, потому что по новому ТЗ он не
+матерится. Если хотите оставить предупреждение из-за сленга и подколов — верните бейдж, тексты не
+изменятся.
 
 ---
 
-## 🌙 Luna — Луна
+## 🌙 Луна
 
-**Карточка (RU)**
-- Тэглайн: *Спокойная. Мягкая. Понимающая.*
-- Описание: Луна никогда не торопит и не давит. Исправляет мягко, объясняет простыми словами и всегда даёт время подумать.
-- Кому подходит: если ты волнуешься, устал(а) или только начинаешь говорить.
-- Бейджи: `Без давления` · `A1–C2` · `RU / EN`
+**Чипы (RU):** `Спокойная` · `Чуткая` · `Понимающая` · `RU / EN`
+**Chips (EN):** `Calm` · `Caring` · `Understanding` · `RU / EN`
 
-**Card (EN)**
-- Tagline: *Calm. Gentle. Understanding.*
-- Description: Luna never rushes you and never pushes. She corrects softly, explains in simple words and always gives you time to think.
-- Best for: nervous, tired or beginner speakers.
-- Badges: `Zero pressure` · `A1–C2` · `RU / EN`
+**Описание (RU)**
+> Нежная и спокойная. Никогда не торопит и не давит: даёт подумать, поддерживает любую попытку и
+> мягко показывает, как сказать иначе. С ней не страшно ошибаться и молчать. Объясняет на выбранном
+> языке, а английский даёт живыми примерами, под твой уровень.
 
-**Приветствие — RU** `[happy]`
-> Привет… я Луна. (мягкий выдох) Я не тороплю и не ставлю оценок. Мы будем говорить по-английски спокойно, в твоём темпе, а если что-то непонятно — я объясню по-русски. Ошибки — это нормально, я просто покажу, как сказать иначе. Готов начать, когда будешь готов ты.
+**Description (EN)**
+> Gentle and calm. She never rushes you and never pushes: she gives you time to think, backs every
+> attempt and softly shows you another way to say it. With her, being wrong or silent is fine. She
+> explains in your chosen language and gives English through living examples, at your level.
 
-**Greeting — EN** `[happy]`
-> Hi… I'm Luna. (soft breath) I don't rush, and I don't grade. We'll speak English calmly, at your pace, and if something isn't clear, I'll explain it in simple words. Mistakes are okay — I'll just show you another way to say it. I'm ready whenever you are.
+**Кнопки:** `Послушать голос Луны 🔊` · `Выбрать Луну` / `Listen to Luna 🔊` · `Choose Luna`
 
-**Короткая версия (для карточки-превью, ≤ 8 сек)**
-- RU: «Привет, я Луна. Спокойно, без спешки — учим английский в твоём темпе.»
+**Транскрипт приветствия — RU** `[happy]`
+> Привет… я Луна. (мягкий выдох) Я не тороплю и не ставлю оценок. Мы будем говорить по-английски
+> спокойно, в твоём темпе, а если что-то непонятно — я объясню простыми словами. Ошибки — это
+> нормально, я просто покажу, как сказать иначе. Готова начать, когда будешь готов ты.
+
+**Greeting transcript — EN** `[happy]`
+> Hi… I'm Luna. (soft breath) I don't rush, and I don't grade. We'll speak English calmly, at your own
+> pace, and if something isn't clear, I'll explain it in simple words. Mistakes are okay — I'll just
+> show you another way to say it. I'm ready whenever you are.
+
+**Короткая версия (≤ 8 сек, если кнопка играет превью)**
+- RU: «Привет, я Луна. Спокойно, без спешки — английский в твоём темпе.»
 - EN: "Hi, I'm Luna. Calm, no rush — English at your own pace."
 
 ---
 
-## 🔥 Dexter — Декстер
+## 🔥 Декстер `18+`
 
-**Карточка (RU)**
-- Тэглайн: *Грубый. Прямой. Не даст расслабиться.*
-- Описание: Декстер — американец без официоза. Говорит как в жизни, ошибки называет в лоб и требует полных предложений. Может материться — но только если тебе это окей.
-- Кому подходит: если тебе нужен жёсткий тренер, а не поддержка.
-- Бейджи: `18+` · `Жёстко` · `Возможен мат (по согласию)` · `RU / EN`
+**Чипы (RU):** `Прямой` · `Жёсткий` · `Свой парень` · `RU / EN`
+**Chips (EN):** `Blunt` · `Tough` · `One of your own` · `RU / EN`
 
-**Card (EN)**
-- Tagline: *Rude. Blunt. Won't let you slack.*
-- Description: Dexter is an American with zero formality. He talks the way people actually talk, calls out mistakes to your face and demands full sentences. He can swear — but only if you're okay with it.
-- Best for: people who want a tough coach, not a cheerleader.
-- Badges: `18+` · `Tough` · `May swear (with consent)` · `RU / EN`
+**Описание (RU)**
+> Свой парень из Америки, но без поблажек. Говорит как в жизни, а не как в учебнике: сленг, ноль
+> официоза, ошибку назовёт прямо и заставит сказать целым предложением. Может ругаться — но только
+> если тебе это окей, он спросит или поймёт по тебе. Берите, если нужен жёсткий тренер, а не
+> поддержка.
 
-**Приветствие — RU** `[default]`
-> (короткий смешок) Йоу. Я Декстер. Я не буду с тобой сюсюкать: ошибся — скажу прямо, ответил тремя словами — заставлю сказать целым предложением. Иногда я ругаюсь, но только если тебе норм — ты сам решаешь. Если хочешь реально заговорить по-английски, а не «I like it» — го, погнали.
+**Description (EN)**
+> An American guy who cuts you no slack. He talks the way people actually talk — slang, zero formality
+> — calls out a mistake to your face and makes you say the whole sentence. He can swear, but only if
+> you're okay with it: he'll ask, or he'll read it off you. Pick him if you want a tough coach, not a
+> cheerleader.
 
-**Greeting — EN** `[default]`
-> (short laugh) Yo. I'm Dexter. I'm not gonna baby you: you mess up, I say it straight; you give me three words, I make you say the whole sentence. Sometimes I swear — but only if you're cool with it, your call. If you actually wanna speak English and not just "I like it"… let's go.
+**Кнопки:** `Послушать голос Декстера 🔊` · `Выбрать Декстера` / `Listen to Dexter 🔊` · `Choose Dexter`
+
+**Транскрипт приветствия — RU** `[default]`
+> (короткий смешок) Йоу. Я Декстер. Сюсюкать не буду: ошибся — скажу прямо, ответил тремя словами —
+> заставлю сказать целым предложением. Иногда я ругаюсь, но только если тебе норм — решаешь ты. Хочешь
+> реально заговорить, а не мычать «I like it»? Го.
+
+**Greeting transcript — EN** `[default]`
+> (short laugh) Yo. I'm Dexter. I'm not gonna baby you: you mess up, I say it straight; you give me
+> three words, I make you say the whole sentence. Sometimes I swear — only if you're cool with it,
+> your call. Wanna actually speak, not just mumble "I like it"? Let's go.
 
 **Короткая версия**
 - RU: «Йоу, я Декстер. Прямо, жёстко, без сюсюканья. Готов?»
@@ -69,25 +109,32 @@
 
 ---
 
-## ⚡ Spark — Спарк
+## ⚡ Спарк
 
-**Карточка (RU)**
-- Тэглайн: *Зумер. Саркастичный. Свой пацан.*
-- Описание: Спарк говорит на твоём языке — сленг, мемы, лёгкий сарказм. Превращает урок в челлендж, подкалывает по-дружески и заряжает, когда лень.
-- Кому подходит: если скучно учиться «по учебнику» и нужна энергия.
-- Бейджи: `Энергия` · `Сленг` · `Дружеский сарказм` · `RU / EN`
+**Чипы (RU):** `Зумер` · `Саркастичный` · `Свой пацан` · `RU / EN`
+**Chips (EN):** `Gen-Z` · `Sarcastic` · `One of your own` · `RU / EN`
 
-**Card (EN)**
-- Tagline: *Gen-Z. Sarcastic. One of your own.*
-- Description: Spark speaks your language — slang, memes, light sarcasm. He turns lessons into challenges, roasts you like a friend and gets you moving when you're lazy.
-- Best for: people bored by textbook English who need energy.
-- Badges: `Energy` · `Slang` · `Friendly sarcasm` · `RU / EN`
+**Описание (RU)**
+> Зумер, который превращает урок в челлендж. Сленг, мемы и лёгкий сарказм — подколет по-дружески,
+> тут же покажет, как надо, и заставит повторить. Скучно с ним не будет: за хороший ответ — «имба»,
+> за «I don't know» — подъём. Берите, если лень и учебники не заходят.
 
-**Приветствие — RU** `[sarcastic]`
-> Ооо, ещё один хочет заговорить по-английски? База. Я Спарк. Никаких «учебников», только живой язык: сленг, мемы и немного сарказма — по-дружески, без обид. Ошибёшься — подколю и покажу, как надо. Ответишь круто — скажу «имба». Ну что, го или кринжуем дальше?
+**Description (EN)**
+> A Gen-Z guy who turns a lesson into a challenge. Slang, memes and light sarcasm — he'll roast you
+> like a friend, then immediately show you how it's done and make you run it back. Never boring: a
+> good answer gets a "W", an "I don't know" gets you moving. Pick him if textbooks bore you.
 
-**Greeting — EN** `[sarcastic]`
-> Ooh, another one who wants to speak English? Based. I'm Spark. No textbooks here, just real language: slang, memes, a bit of sarcasm — friendly, no hard feelings. Mess up and I'll roast you a little, then show you how it's done. Nail it and I'll say "W". So… we going, or we just gonna sit here?
+**Кнопки:** `Послушать голос Спарка 🔊` · `Выбрать Спарка` / `Listen to Spark 🔊` · `Choose Spark`
+
+**Транскрипт приветствия — RU** `[sarcastic]`
+> Ооо, ещё один хочет заговорить по-английски? База. Я Спарк. Учебников тут нет, есть челленджи:
+> сленг, мемы и немного сарказма — по-дружески, без обид. Ошибёшься — подколю и покажу, как надо.
+> Ответишь круто — скажу «имба». Ну что, го?
+
+**Greeting transcript — EN** `[sarcastic]`
+> Ooh, another one who wants to speak English? Based. I'm Spark. No textbooks here, only challenges:
+> slang, memes and a bit of sarcasm — friendly, no hard feelings. Mess up and I'll roast you a little,
+> then show you how it's done. Nail it and I'll say "W". So… we going?
 
 **Короткая версия**
 - RU: «Йоу, я Спарк. Сленг, сарказм, ноль скуки. Го?»
@@ -95,10 +142,13 @@
 
 ---
 
-## Правила переключения языка на экране
+## Технические правила
 
-1. Язык карточек и приветствий = язык интерфейса (`ui_language`). Меняется без перезагрузки.
-2. Английское приветствие — простое (A2-уровень), чтобы понял и новичок.
-3. Тег `[emotion]` в начале приветствия задаёт состояние аватара на время воспроизведения.
-4. Ремарки в скобках `(soft breath)` не озвучиваются текстом: либо реальный вздох в записи,
-   либо удалить, если TTS не умеет.
+1. Тексты карточек берут язык из «Язык интерфейса», озвучка — из «Язык объяснения».
+   Переключение происходит без перезагрузки экрана.
+2. Английские приветствия написаны на уровне A2, чтобы их понял новичок.
+3. Тег `[emotion]` в начале приветствия задаёт состояние аватара на время воспроизведения
+   (`happy` у Луны, `default` у Декстера, `sarcastic` у Спарка).
+4. Ремарки в скобках — «(мягкий выдох)», «(короткий смешок)» — не читаются как текст: либо реальный
+   звук в записи, либо удаляются, если движок озвучки их не поддерживает.
+5. В селекторе «Язык объяснения» остаются только «Русский» и «English». Казахский убирается везде.
