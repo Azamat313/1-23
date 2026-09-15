@@ -1,0 +1,459 @@
+[
+  {
+    "id": "us-visa-interview",
+    "title": "U.S. Visa Interview",
+    "level": "B1",
+    "setting": "a U.S. embassy visa window",
+    "buddy_role": "visa officer",
+    "learner_role": "visa applicant",
+    "goal": "answer the officer's probing questions without contradicting your own story",
+    "key_phrases": [
+      "the purpose of my trip is",
+      "I'll be staying for",
+      "my employer confirmed",
+      "I have a return ticket"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "hotel-check-in",
+    "title": "Hotel Check-In",
+    "level": "A2",
+    "setting": "a hotel front desk in the evening",
+    "buddy_role": "receptionist",
+    "learner_role": "guest with a booking",
+    "goal": "check in and sort out the mix-up with the room",
+    "key_phrases": [
+      "I have a reservation under",
+      "for three nights",
+      "could I have",
+      "is breakfast included"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "asking-for-directions",
+    "title": "Asking for Directions",
+    "level": "A2",
+    "setting": "a street in an unfamiliar city",
+    "buddy_role": "local passer-by",
+    "learner_role": "lost tourist",
+    "goal": "get to the station, asking for a repeat when you miss something",
+    "key_phrases": [
+      "how do I get to",
+      "go straight",
+      "turn left at",
+      "opposite",
+      "could you repeat that"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "ordering-coffee",
+    "title": "Ordering Coffee",
+    "level": "A2",
+    "setting": "a busy coffee shop at rush hour",
+    "buddy_role": "barista",
+    "learner_role": "customer",
+    "goal": "order a drink and something with it, keeping the queue moving",
+    "key_phrases": [
+      "can I get",
+      "I'd like",
+      "for here or to take away",
+      "medium",
+      "oat milk",
+      "that's all"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "the-job-interview",
+    "title": "The Job Interview",
+    "level": "B1",
+    "setting": "a hiring manager's office",
+    "buddy_role": "hiring manager",
+    "learner_role": "job candidate",
+    "goal": "describe yourself and ask one real question at the end",
+    "key_phrases": [
+      "I've been working as",
+      "my strongest skill is",
+      "I'd say my weakness is",
+      "could you tell me about the team"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "setting-up-the-apartment",
+    "title": "Setting Up the Apartment",
+    "level": "B1",
+    "setting": "a home goods shop",
+    "buddy_role": "shop assistant",
+    "learner_role": "new tenant furnishing a flat",
+    "goal": "describe an object whose English name you don't know",
+    "key_phrases": [
+      "it's a thing you use for",
+      "it's made of",
+      "it goes on the wall",
+      "something like a",
+      "what do you call it"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "at-the-doctors-office",
+    "title": "At the Doctor's Office",
+    "level": "B1",
+    "setting": "a doctor's consulting room",
+    "buddy_role": "doctor",
+    "learner_role": "patient",
+    "goal": "describe symptoms precisely and answer follow-up questions",
+    "key_phrases": [
+      "it hurts when I",
+      "I've had a sore throat since",
+      "it's a dull ache",
+      "it comes and goes"
+    ],
+    "heavy": true
+  },
+  {
+    "id": "emergency-call",
+    "title": "Emergency Call",
+    "level": "A2",
+    "setting": "a 911 emergency call",
+    "buddy_role": "911 dispatcher",
+    "learner_role": "caller who doesn't know the address",
+    "goal": "describe your location without an address and get help sent",
+    "key_phrases": [
+      "I need an ambulance",
+      "I don't know the address",
+      "I'm near",
+      "across from",
+      "please hurry"
+    ],
+    "heavy": true
+  },
+  {
+    "id": "the-neighbour-downstairs",
+    "title": "The Neighbour Downstairs",
+    "level": "A2",
+    "setting": "your doorway in the evening",
+    "buddy_role": "neighbour from the flat below",
+    "learner_role": "tenant accused of noise",
+    "goal": "admit what is fair, push back on the rest, agree on quiet hours",
+    "key_phrases": [
+      "I'm sorry about that",
+      "that wasn't me",
+      "could we agree on",
+      "after ten I'll keep it quiet"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "the-boy-by-the-fountain",
+    "title": "The Boy By The Fountain",
+    "level": "A1",
+    "setting": "a mall information desk",
+    "buddy_role": "information desk staff",
+    "learner_role": "adult who found a lost boy",
+    "goal": "describe the child: age, clothes, hair",
+    "key_phrases": [
+      "a little boy",
+      "he is about five",
+      "he has a red T-shirt",
+      "near the fountain",
+      "he is crying"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "two-tickets-please",
+    "title": "Two Tickets, Please",
+    "level": "A1",
+    "setting": "a museum ticket desk before closing",
+    "buddy_role": "ticket clerk",
+    "learner_role": "visitor",
+    "goal": "buy two tickets and ask about closing time",
+    "key_phrases": [
+      "two tickets, please",
+      "how much is it",
+      "what time do you close",
+      "student ticket"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "a-jacket-for-monday",
+    "title": "A Jacket For Monday",
+    "level": "A2",
+    "setting": "a clothes shop",
+    "buddy_role": "sales assistant",
+    "learner_role": "shopper",
+    "goal": "compare three jackets and choose one for an interview",
+    "key_phrases": [
+      "can I try it on",
+      "do you have a bigger size",
+      "this one is cheaper than",
+      "I'll take it"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "the-shop-before-dinner",
+    "title": "The Shop Before Dinner",
+    "level": "A2",
+    "setting": "a small corner shop with goods behind the counter",
+    "buddy_role": "shopkeeper",
+    "learner_role": "customer expecting guests",
+    "goal": "buy food by naming quantity and weight, with no pointing",
+    "key_phrases": [
+      "half a kilo of",
+      "three of those, please",
+      "how much is that",
+      "a bit more",
+      "that's enough"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "two-centimetres-no-more",
+    "title": "Two Centimetres, No More",
+    "level": "A2",
+    "setting": "a barber's chair",
+    "buddy_role": "barber who cuts faster than he listens",
+    "learner_role": "client",
+    "goal": "state the length as a number and stop the barber in time",
+    "key_phrases": [
+      "just two centimetres",
+      "not too short",
+      "please stop there",
+      "a little shorter on the sides"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "the-melon-stall",
+    "title": "The Melon Stall",
+    "level": "A2",
+    "setting": "a fruit stall at a market",
+    "buddy_role": "market seller",
+    "learner_role": "shopper on a budget",
+    "goal": "pick fruit, ask which is sweeter, and haggle the price down",
+    "key_phrases": [
+      "which one is sweeter",
+      "can you cut it",
+      "how much for two",
+      "that's too expensive",
+      "I'll take this one"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "the-night-window",
+    "title": "The Night Window",
+    "level": "A2",
+    "setting": "a pharmacy night window",
+    "buddy_role": "pharmacist",
+    "learner_role": "customer at 3 a.m.",
+    "goal": "explain the symptom and get a substitute medicine",
+    "key_phrases": [
+      "do you have something for",
+      "it's for a sore throat",
+      "is there anything else",
+      "how do I take it"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "the-ticket-window",
+    "title": "The Ticket Window",
+    "level": "A2",
+    "setting": "a railway station ticket window",
+    "buddy_role": "ticket clerk",
+    "learner_role": "passenger",
+    "goal": "work out the connection and buy the right ticket",
+    "key_phrases": [
+      "the next train to",
+      "do I have to change",
+      "which platform",
+      "a return ticket",
+      "what time does it arrive"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "the-card-that-vanished",
+    "title": "The Card That Vanished",
+    "level": "B1",
+    "setting": "a phone call to your bank",
+    "buddy_role": "bank operator",
+    "learner_role": "customer whose card is gone",
+    "goal": "block the card and dispute three payments you didn't make",
+    "key_phrases": [
+      "I need to block my card",
+      "I didn't make that payment",
+      "when exactly was it",
+      "I'd like to dispute"
+    ],
+    "heavy": true
+  },
+  {
+    "id": "what-do-you-do-all-day",
+    "title": "What Do You Do All Day",
+    "level": "B1",
+    "setting": "a family kitchen table",
+    "buddy_role": "curious nine-year-old",
+    "learner_role": "adult explaining their job",
+    "goal": "explain your job with no jargon at all",
+    "key_phrases": [
+      "it's a bit like",
+      "imagine you have",
+      "my job is to make sure",
+      "so that people can"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "the-room-with-no-window",
+    "title": "The Room With No Window",
+    "level": "B1",
+    "setting": "a hotel front desk, late evening",
+    "buddy_role": "hotel manager who resists",
+    "learner_role": "guest in the wrong room",
+    "goal": "get the room changed or compensated, staying polite",
+    "key_phrases": [
+      "this isn't what I booked",
+      "I have the confirmation here",
+      "I'd like you to",
+      "that's not acceptable"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "passport-control-at-heathrow",
+    "title": "Passport Control At Heathrow",
+    "level": "B1",
+    "setting": "passport control at Heathrow",
+    "buddy_role": "border officer",
+    "learner_role": "arriving traveller with no hotel booking",
+    "goal": "account for all nine days coherently",
+    "key_phrases": [
+      "I'm staying with a friend",
+      "for nine days",
+      "I'm here as a tourist",
+      "then I'm flying to"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "the-report-number",
+    "title": "The Report Number",
+    "level": "B1",
+    "setting": "a police station front desk",
+    "buddy_role": "officer who'd rather write 'lost'",
+    "learner_role": "person reporting a stolen phone",
+    "goal": "get the word 'stolen' into the report and obtain a reference number",
+    "key_phrases": [
+      "it was stolen, not lost",
+      "could you put that in the report",
+      "I need a reference number",
+      "that's not what happened"
+    ],
+    "heavy": true
+  },
+  {
+    "id": "the-long-way-round",
+    "title": "The Long Way Round",
+    "level": "B1",
+    "setting": "the end of a taxi ride at night",
+    "buddy_role": "taxi driver who took a detour",
+    "learner_role": "passenger",
+    "goal": "challenge the route and agree a fair fare",
+    "key_phrases": [
+      "you took the long way",
+      "the app said fifteen",
+      "I'm not paying for that",
+      "I'll pay what it should be"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "the-empty-chair",
+    "title": "The Empty Chair",
+    "level": "B1",
+    "setting": "a phone call the day after",
+    "buddy_role": "friend whose dinner you missed",
+    "learner_role": "the person who didn't show up",
+    "goal": "apologise for the specific thing and repair it",
+    "key_phrases": [
+      "I'm really sorry about",
+      "I know you waited",
+      "there's no excuse",
+      "let me make it up to you"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "the-brake-job-invoice",
+    "title": "The Brake Job Invoice",
+    "level": "B2",
+    "setting": "a garage service counter",
+    "buddy_role": "service manager defending every line",
+    "learner_role": "car owner",
+    "goal": "take the invoice apart line by line and get the extras removed",
+    "key_phrases": [
+      "you quoted me",
+      "what's this line for",
+      "I never approved that",
+      "I'd like that removed from the invoice"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "the-essay-extension",
+    "title": "The Essay Extension",
+    "level": "B2",
+    "setting": "a university tutor's office",
+    "buddy_role": "teacher who has heard every excuse",
+    "learner_role": "student",
+    "goal": "get an extension by giving a credible reason and a real date",
+    "key_phrases": [
+      "I'd like to ask for an extension",
+      "the reason is",
+      "I can have it in by",
+      "I understand if not"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "the-balcony-at-ainurs",
+    "title": "The Balcony At Ainur's",
+    "level": "B2",
+    "setting": "a balcony at a party where you know nobody",
+    "buddy_role": "stranger with a drink",
+    "learner_role": "guest",
+    "goal": "start and hold small talk without turning it into an interview",
+    "key_phrases": [
+      "how do you know",
+      "I'm here with",
+      "oh really, what's that like",
+      "same here, actually"
+    ],
+    "heavy": false
+  },
+  {
+    "id": "saying-no-to-the-offer",
+    "title": "Saying No To The Offer",
+    "level": "B2",
+    "setting": "a phone call with a hiring manager",
+    "buddy_role": "hiring manager who pushes back once",
+    "learner_role": "candidate declining an offer",
+    "goal": "say no clearly without burning the bridge",
+    "key_phrases": [
+      "I've decided to decline",
+      "it wasn't an easy decision",
+      "I really appreciate",
+      "I'd love to stay in touch"
+    ],
+    "heavy": false
+  }
+]
