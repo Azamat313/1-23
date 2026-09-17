@@ -7,8 +7,8 @@ no server, no build step, no npm, no external JS library.
 
 | Section | Purpose |
 | --- | --- |
-| `I18N`, `TOPIC_NAMES`, `LEVEL_HINTS` | every interface string, KZ / RU / EN. Nothing is hardcoded in the markup. |
-| `ICONS`, `BACKDROPS`, `renderScene()` | procedural SVG art used when a real illustration is absent. |
+| `I18N`, `LEVEL_HINTS` | every interface string, KZ / RU / EN. Nothing is hardcoded in the markup. |
+| `ICONS`, `BACKDROPS`, `renderScene()` | generated artwork used when a real illustration is absent: perspective room, light pool, per-object contact shadow and a light pass masked to the object silhouette. |
 | `ASSETS`, `MEDIA` | media resolution: local `assets/` first, optional CDN second, generated scene last. |
 | `CONTENT` | one flat array of rounds, the schema below. |
 | `AudioEngine` | replay, 0.5/0.75/1/1.25 with `preservesPitch`, seekable progress, `speechSynthesis` fallback. |
@@ -19,13 +19,18 @@ no server, no build step, no npm, no external JS library.
 content integrity (one correct option per round, hotspot radius ≥ 8 %, translations
 present) and KZ/RU/EN key parity.
 
+## Selection
+
+The start screen offers a level and nothing else — a session draws from all rounds
+of that level. `topic` stays on each round as metadata but never splits the content.
+
 ## Round schema
 
 ```js
 {
   id: "a2_home_012",
   level: "A2",                      // A0 A1 A2 B1 B2 C1
-  topic: "home",
+  topic: "home",              // metadata only, the interface no longer splits by topic
   mode: "pinpoint",                 // classic | pinpoint | multipin | elimination
                                     // difference | truefalse | sequence | oddoneout
   accent: "UK",                     // optional: US | UK | AUS (picks the voice)
@@ -66,12 +71,6 @@ distractor can never differ by anything the audio did not name.
 
 Anything not listed falls back automatically: audio to `speechSynthesis`
 (en-US / en-GB / en-AU by `accent`), pictures to the procedural scene.
-
-## Adding a topic
-
-`TOPICS` already lists `food, city, people, nature, school, work`. They appear on the
-start screen as “soon” until `CONTENT` gains rounds with that `topic`; nothing else
-needs changing.
 
 ## Keyboard
 

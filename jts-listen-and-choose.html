@@ -533,10 +533,6 @@ img{display:block;max-width:100%}
       <div class="section-title" data-i18n="start.level">Level</div>
       <div class="chips" id="levelChips"></div>
     </div>
-    <div class="card">
-      <div class="section-title" data-i18n="start.topic">Topic</div>
-      <div class="chips" id="topicChips"></div>
-    </div>
   </div>
 
   <div class="start-actions">
@@ -655,11 +651,9 @@ var I18N = {
     "start.title": "Тыңда және таңда",
     "start.subtitle": "Ағылшын сипаттамасын тыңдап, соған сәйкес суретті таңда. Мәтін жауаптан кейін ғана көрінеді.",
     "start.level": "Деңгей",
-    "start.topic": "Тақырып",
     "start.cta": "Бастау",
     "start.reset": "Прогресті тазалау",
     "start.note": "Дыбыс тек ағылшынша. Интерфейс тілі жауапқа әсер етпейді.",
-    "start.soon": "жақында",
     "session.quit": "Шығу",
     "session.transcript": "Мәтінді көрсету",
     "session.transcriptHide": "Мәтінді жасыру",
@@ -722,7 +716,7 @@ var I18N = {
     "result.sub": "{c} / {t} дұрыс жауап",
     "toast.reset": "Прогресс тазаланды",
     "toast.noMistakes": "Қате жоқ — жарайсың!",
-    "toast.noContent": "Бұл тақырып әзірге дайын емес",
+    "toast.noContent": "Бұл деңгей әзірге дайын емес",
     "toast.speed": "Жылдамдық: {n}×"
   },
   ru: {
@@ -731,11 +725,9 @@ var I18N = {
     "start.title": "Слушай и выбирай",
     "start.subtitle": "Послушай описание на английском и выбери подходящую картинку. Текст появляется только после ответа.",
     "start.level": "Уровень",
-    "start.topic": "Тема",
     "start.cta": "Начать",
     "start.reset": "Сбросить прогресс",
     "start.note": "Аудио всегда только на английском. Язык интерфейса не влияет на задание.",
-    "start.soon": "скоро",
     "session.quit": "Выйти",
     "session.transcript": "Показать транскрипт",
     "session.transcriptHide": "Скрыть транскрипт",
@@ -798,7 +790,7 @@ var I18N = {
     "result.sub": "{c} из {t} верных ответов",
     "toast.reset": "Прогресс сброшен",
     "toast.noMistakes": "Ошибок нет — отлично!",
-    "toast.noContent": "Эта тема пока не наполнена",
+    "toast.noContent": "Этот уровень пока не наполнен",
     "toast.speed": "Скорость: {n}×"
   },
   en: {
@@ -807,11 +799,9 @@ var I18N = {
     "start.title": "Listen & Choose",
     "start.subtitle": "Listen to the English description and pick the matching picture. The text appears only after you answer.",
     "start.level": "Level",
-    "start.topic": "Topic",
     "start.cta": "Start",
     "start.reset": "Reset progress",
     "start.note": "Audio is always English only. The interface language never changes the task.",
-    "start.soon": "soon",
     "session.quit": "Exit",
     "session.transcript": "Show transcript",
     "session.transcriptHide": "Hide transcript",
@@ -874,19 +864,9 @@ var I18N = {
     "result.sub": "{c} of {t} correct",
     "toast.reset": "Progress cleared",
     "toast.noMistakes": "No mistakes — well done!",
-    "toast.noContent": "This topic is not filled yet",
+    "toast.noContent": "This level is not filled yet",
     "toast.speed": "Speed: {n}×"
   }
-};
-
-var TOPIC_NAMES = {
-  home:   { kz: "Үй",       ru: "Дом",      en: "Home" },
-  food:   { kz: "Тағам",    ru: "Еда",      en: "Food" },
-  city:   { kz: "Қала",     ru: "Город",    en: "City" },
-  people: { kz: "Адамдар",  ru: "Люди",     en: "People" },
-  nature: { kz: "Табиғат",  ru: "Природа",  en: "Nature" },
-  school: { kz: "Мектеп",   ru: "Школа",    en: "School" },
-  work:   { kz: "Жұмыс",    ru: "Работа",   en: "Work" }
 };
 
 var LEVEL_HINTS = {
@@ -1200,59 +1180,156 @@ var ICONS = {
   }
 };
 
-/* Background layers, 800 x 600 */
+/* ---------------------------------------------------------------------
+   Rendering: shared lighting rig.
+   Defined once per document and referenced by every scene, so adding a
+   fourth option costs one <svg>, not another copy of the gradients.
+   --------------------------------------------------------------------- */
+var SCENE_SEQ = 0;
+function ensureArtDefs() {
+  if (document.getElementById("jtsArtDefs")) return;
+  var host = document.createElement("div");
+  host.id = "jtsArtDefs";
+  host.setAttribute("aria-hidden", "true");
+  host.style.cssText = "position:absolute;width:0;height:0;overflow:hidden";
+  var lg = function (id, x1, y1, x2, y2, stops) {
+    return '<linearGradient id="' + id + '" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '">' + stops + "</linearGradient>";
+  };
+  var st = function (o, c, a) { return '<stop offset="' + o + '" stop-color="' + c + '"' + (a === undefined ? "" : ' stop-opacity="' + a + '"') + "/>"; };
+  host.innerHTML = '<svg width="0" height="0"><defs>' +
+    /* volume: one pass of light across every object */
+    lg("jtsSheen", 0.1, 0, 0.75, 1,
+      st(0, "#ffffff", 0.24) + st(0.36, "#ffffff", 0.05) + st(0.6, "#000000", 0.02) + st(1, "#1b1030", 0.22)) +
+    /* rim light on the lit side */
+    lg("jtsRim", 0, 0, 1, 0.2, st(0, "#fff6e0", 0.3) + st(0.18, "#fff6e0", 0) + st(1, "#fff6e0", 0)) +
+    /* rooms */
+    lg("wallWarm", 0, 0, 0.2, 1, st(0, "#FBEAC9") + st(1, "#EFD3A6")) +
+    lg("floorWarm", 0, 0, 0, 1, st(0, "#C79A66") + st(1, "#E2BE92")) +
+    lg("wallLilac", 0, 0, 0.2, 1, st(0, "#F7F3FE") + st(1, "#E6DCF7")) +
+    lg("floorWood", 0, 0, 0, 1, st(0, "#B98D63") + st(1, "#D9B68C")) +
+    lg("wallCool", 0, 0, 0.2, 1, st(0, "#F3F0FE") + st(1, "#DCD2F2")) +
+    lg("floorLilac", 0, 0, 0, 1, st(0, "#B7A3D2") + st(1, "#D6C8E8")) +
+    lg("wallNeutral", 0, 0, 0.2, 1, st(0, "#F6F8FC") + st(1, "#E2E8F1")) +
+    lg("floorNeutral", 0, 0, 0, 1, st(0, "#AEB8C6") + st(1, "#CFD7E1")) +
+    lg("wallMint", 0, 0, 0.2, 1, st(0, "#EEF9F4") + st(1, "#D8EEE5")) +
+    lg("skyG", 0, 0, 0, 1, st(0, "#8FD0F5") + st(1, "#DCF1FD")) +
+    lg("grassG", 0, 0, 0, 1, st(0, "#7CC167") + st(1, "#AEDD96")) +
+    lg("roadG", 0, 0, 0, 1, st(0, "#8C95A4") + st(1, "#B4BCC8")) +
+    lg("glassG", 0, 0, 0.3, 1, st(0, "#EAF8FF") + st(0.5, "#BFE7FA") + st(1, "#9FD4F2")) +
+    /* light pool cast on the floor */
+    '<radialGradient id="jtsPool"><stop offset="0" stop-color="#FFF3D6" stop-opacity=".62"/>' +
+    '<stop offset="1" stop-color="#FFF3D6" stop-opacity="0"/></radialGradient>' +
+    /* vignette */
+    '<radialGradient id="jtsVig" cx=".5" cy=".46" r=".78">' +
+    '<stop offset=".55" stop-color="#1a1030" stop-opacity="0"/>' +
+    '<stop offset="1" stop-color="#1a1030" stop-opacity=".26"/></radialGradient>' +
+    /* soft contact shadow + depth of field on the backdrop */
+    '<filter id="jtsSoft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4.5"/></filter>' +
+    '<filter id="jtsDof" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="2.4"/></filter>' +
+    "</defs></svg>";
+  document.body.appendChild(host);
+}
+
+/* Turn an icon's markup into a white silhouette so it can mask the light pass. */
+function whiteify(markup) {
+  return markup
+    .replace(/fill="(?!none)[^"]*"/g, 'fill="#fff"')
+    .replace(/stroke="(?!none)[^"]*"/g, 'stroke="#fff"')
+    .replace(/opacity="[^"]*"/g, 'opacity="1"');
+}
+
+/* A room drawn in perspective: wall, floor, converging boards, baseboard. */
+function room(wall, floor, horizon, extra) {
+  var s = '<g filter="url(#jtsDof)">' +
+    '<rect width="800" height="600" fill="url(#' + wall + ')"/>' +
+    '<path d="M0 ' + horizon + 'H800V600H0Z" fill="url(#' + floor + ')"/>';
+  for (var i = -4; i <= 4; i++) {
+    s += '<path d="M400 ' + horizon + "L" + (400 + i * 210) + ' 600" stroke="#1b1030" stroke-opacity=".05" stroke-width="3"/>';
+  }
+  s += '<rect y="' + (horizon - 14) + '" width="800" height="16" fill="#1b1030" fill-opacity=".07"/>' +
+    '<rect y="' + horizon + '" width="800" height="22" fill="#1b1030" fill-opacity=".05"/>' +
+    "</g>";
+  return s + (extra || "");
+}
+function windowPane(x, y, w, h) {
+  return '<g><rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="14" fill="url(#glassG)"/>' +
+    '<path d="M' + x + " " + (y + h * 0.62) + "L" + (x + w) + " " + (y + h * 0.18) + "V" + y + "H" + (x + w * 0.45) + 'Z" fill="#fff" opacity=".28"/>' +
+    '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="14" fill="none" stroke="#fffaf0" stroke-width="13"/>' +
+    '<path d="M' + (x + w / 2) + " " + y + "v" + h + "M" + x + " " + (y + h / 2) + "h" + w + '" stroke="#fffaf0" stroke-width="9"/></g>';
+}
+
 var BACKDROPS = {
-  plain: function () { return '<rect width="800" height="600" fill="url(#skyG)"/>'; },
+  plain: function () { return room("wallLilac", "floorWood", 420); },
   kitchen: function () {
-    return '<rect width="800" height="600" fill="#FBEFD9"/><rect y="0" width="800" height="430" fill="#F6E2C0"/>' +
-      '<rect y="430" width="800" height="170" fill="#D9B98C"/>' +
-      '<rect x="60" y="70" width="200" height="150" rx="14" fill="#BFE6F5"/>' +
-      '<rect x="60" y="70" width="200" height="150" rx="14" fill="none" stroke="#E8D3AE" stroke-width="12"/>';
+    return room("wallWarm", "floorWarm", 418,
+      windowPane(64, 66, 216, 168) +
+      '<ellipse cx="200" cy="520" rx="250" ry="92" fill="url(#jtsPool)"/>');
   },
   living: function () {
-    return '<rect width="800" height="600" fill="#F3EEFB"/><rect y="430" width="800" height="170" fill="#D9C9B0"/>' +
-      '<circle cx="660" cy="130" r="70" fill="#E7DCFA"/>';
+    return room("wallLilac", "floorWood", 424,
+      '<ellipse cx="640" cy="518" rx="240" ry="88" fill="url(#jtsPool)"/>');
   },
   bedroom: function () {
-    return '<rect width="800" height="600" fill="#F0ECFB"/><rect y="440" width="800" height="160" fill="#CBB9E0"/>' +
-      '<rect x="540" y="60" width="180" height="140" rx="12" fill="#BFE6F5"/>';
+    return room("wallCool", "floorLilac", 432,
+      windowPane(556, 62, 190, 152) +
+      '<ellipse cx="630" cy="522" rx="230" ry="86" fill="url(#jtsPool)"/>');
   },
   hall: function () {
-    return '<rect width="800" height="600" fill="#EFF3F8"/><rect y="440" width="800" height="160" fill="#C9D2DE"/>';
-  },
-  garden: function () {
-    return '<rect width="800" height="600" fill="#D9F1FF"/><rect y="400" width="800" height="200" fill="#A8DC93"/>';
-  },
-  street: function () {
-    return '<rect width="800" height="600" fill="#CFE9FB"/><rect y="440" width="800" height="160" fill="#9AA3B2"/>' +
-      '<rect y="500" width="800" height="8" fill="#F3EEFB"/>';
+    return room("wallNeutral", "floorNeutral", 430,
+      '<ellipse cx="400" cy="524" rx="250" ry="84" fill="url(#jtsPool)"/>');
   },
   classroom: function () {
-    return '<rect width="800" height="600" fill="#EAF6F2"/><rect y="440" width="800" height="160" fill="#C6B8A0"/>' +
-      '<rect x="120" y="60" width="300" height="170" rx="10" fill="#2F6B58"/>';
+    return room("wallMint", "floorWood", 438,
+      '<rect x="118" y="58" width="304" height="172" rx="12" fill="#2F6B58"/>' +
+      '<rect x="118" y="58" width="304" height="172" rx="12" fill="none" stroke="#C2A277" stroke-width="12"/>' +
+      '<path d="M150 200l250-130v18L150 214z" fill="#fff" opacity=".07"/>');
+  },
+  garden: function () {
+    return '<g filter="url(#jtsDof)"><rect width="800" height="600" fill="url(#skyG)"/>' +
+      '<path d="M0 396H800V600H0Z" fill="url(#grassG)"/>' +
+      '<circle cx="682" cy="98" r="54" fill="#FFE08A" opacity=".85"/>' +
+      '<ellipse cx="170" cy="392" rx="180" ry="30" fill="#5FA94E" opacity=".35"/></g>';
+  },
+  street: function () {
+    return '<g filter="url(#jtsDof)"><rect width="800" height="600" fill="url(#skyG)"/>' +
+      '<path d="M0 438H800V600H0Z" fill="url(#roadG)"/>' +
+      '<rect y="438" width="800" height="12" fill="#fff" opacity=".35"/>' +
+      '<path d="M330 520h60v14h-60zM450 560h70v16h-70zM200 560h70v16h-70z" fill="#fff" opacity=".5"/></g>';
   }
 };
 
 /* Render a scene spec to an <svg> string. */
 function renderScene(scene, title) {
   if (!scene) return placeholderSVG(title || "");
+  ensureArtDefs();
+  var uid = "s" + (++SCENE_SEQ);
   var bg = BACKDROPS[scene.bg] || BACKDROPS.plain;
-  var body = "";
-  (scene.items || []).forEach(function (it) {
+  var defs = "", body = "";
+  (scene.items || []).forEach(function (it, n) {
     var fn = ICONS[it.i];
     if (!fn) return;
+    var raw = fn(col(it.c), it);
+    var mid = uid + "_m" + n;
     var k = (it.s || 1) * 1.6;
     var px = (it.x / 100) * 800;
     var py = (it.y / 100) * 600;
     var flip = it.f ? " scale(-1,1) translate(-100,0)" : "";
-    body += '<g transform="translate(' + (px - 50 * k).toFixed(1) + ',' + (py - 100 * k).toFixed(1) +
-      ') scale(' + k.toFixed(3) + ')' + flip + '">' + fn(col(it.c), it) + "</g>";
+    defs += '<mask id="' + mid + '" maskUnits="userSpaceOnUse" x="-10" y="-10" width="120" height="120">' +
+      '<rect x="-10" y="-10" width="120" height="120" fill="#000"/>' + whiteify(raw) + "</mask>";
+    body += '<g transform="translate(' + (px - 50 * k).toFixed(1) + "," + (py - 100 * k).toFixed(1) +
+      ") scale(" + k.toFixed(3) + ")" + flip + '">' +
+      /* contact shadow grounds the object on the floor */
+      '<ellipse cx="50" cy="99" rx="34" ry="6.5" fill="#1b1030" opacity=".32" filter="url(#jtsSoft)"/>' +
+      raw +
+      /* one light pass, clipped to the object's own silhouette */
+      '<rect x="-10" y="-10" width="120" height="120" fill="url(#jtsSheen)" mask="url(#' + mid + ')"/>' +
+      '<rect x="-10" y="-10" width="120" height="120" fill="url(#jtsRim)" mask="url(#' + mid + ')"/>' +
+      "</g>";
   });
   return '<svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img"' +
     (title ? ' aria-label="' + escapeAttr(title) + '"' : ' aria-hidden="true"') + ">" +
-    '<defs><linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">' +
-    '<stop offset="0" stop-color="#E7F4FF"/><stop offset="1" stop-color="#F6F1FF"/></linearGradient></defs>' +
-    bg() + body + "</svg>";
+    "<defs>" + defs + "</defs>" + bg() + body +
+    '<rect width="800" height="600" fill="url(#jtsVig)"/></svg>';
 }
 
 function placeholderSVG(label) {
@@ -1676,10 +1753,10 @@ var A2_BASE = {
   apples: sc("kitchen", [
     { i: "table", x: 50, y: 92, s: 1.7, c: "wood" },
     { i: "bowl", x: 50, y: 66, s: 0.9, c: "cyan" },
-    { i: "apple", x: 40, y: 60, s: 0.38, c: "red" },
-    { i: "apple", x: 48, y: 60, s: 0.38, c: "red" },
-    { i: "apple", x: 56, y: 60, s: 0.38, c: "red" },
-    { i: "apple", x: 64, y: 60, s: 0.38, c: "red" }
+    { i: "apple", x: 44, y: 62, s: 0.34, c: "red" },
+    { i: "apple", x: 49, y: 60, s: 0.34, c: "red" },
+    { i: "apple", x: 54, y: 60, s: 0.34, c: "red" },
+    { i: "apple", x: 58, y: 62, s: 0.34, c: "red" }
   ])
 };
 
@@ -2337,8 +2414,6 @@ var SET_C1 = [
 /* ---- the single flat content array ---- */
 var CONTENT = [].concat(SET_A0, SET_A1, SET_A2, SET_B1, SET_B2, SET_C1);
 
-/* Topics that exist in the UI. Empty ones are shown as "soon". */
-var TOPICS = ["home", "food", "city", "people", "nature", "school", "work"];
 var LEVELS = ["A0", "A1", "A2", "B1", "B2", "C1"];
 
 /* ---------------------------------------------------------------------
@@ -2684,7 +2759,6 @@ function buzz(ms) { try { if (navigator.vibrate) navigator.vibrate(ms); } catch 
 var App = {
   lang: "ru",
   level: "A2",
-  topic: "home",
   screen: "start",
   queue: [],
   idx: 0,
@@ -2696,8 +2770,8 @@ var App = {
 };
 
 /* ---------- content helpers ---------- */
-function roundsFor(level, topic) {
-  return CONTENT.filter(function (r) { return r.level === level && r.topic === topic; });
+function roundsFor(level) {
+  return CONTENT.filter(function (r) { return r.level === level; });
 }
 /* Alternate modes so the same mode never repeats back to back. */
 function alternateModes(list) {
@@ -2711,8 +2785,8 @@ function alternateModes(list) {
   }
   return out;
 }
-function buildQueue(level, topic, size) {
-  var pool = roundsFor(level, topic);
+function buildQueue(level, size) {
+  var pool = roundsFor(level);
   if (!pool.length) return [];
   return alternateModes(shuffle(pool)).slice(0, size || App.SESSION_SIZE);
 }
@@ -2752,7 +2826,7 @@ function applyI18N() {
 }
 
 /* ---------- start screen ---------- */
-function progressKey(level, topic) { return level + "|" + topic; }
+function progressKey(level) { return level; }
 function getProgress() { return Store.get(K_PROG, {}) || {}; }
 function renderChips() {
   if (!D.levelChips) return;
@@ -2764,22 +2838,10 @@ function renderChips() {
     b.setAttribute("aria-pressed", lv === App.level ? "true" : "false");
     b.appendChild(el("span", null, lv));
     var hint = LEVEL_HINTS[lv] ? LEVEL_HINTS[lv][App.lang] : "";
-    var p = prog[progressKey(lv, App.topic)];
+    var p = prog[progressKey(lv)];
     b.appendChild(el("span", "chip__meta", p ? p.best + "/" + p.total : hint));
     b.addEventListener("click", function () { App.level = lv; renderChips(); });
     D.levelChips.appendChild(b);
-  });
-  D.topicChips.innerHTML = "";
-  TOPICS.forEach(function (tp) {
-    var has = roundsFor(App.level, tp).length > 0;
-    var b = el("button", "chip");
-    b.type = "button";
-    b.disabled = !has;
-    b.setAttribute("aria-pressed", tp === App.topic ? "true" : "false");
-    b.appendChild(el("span", null, TOPIC_NAMES[tp][App.lang]));
-    if (!has) b.appendChild(el("span", "chip__meta", t("start.soon")));
-    b.addEventListener("click", function () { App.topic = tp; renderChips(); });
-    D.topicChips.appendChild(b);
   });
 }
 
@@ -2793,7 +2855,7 @@ function showScreen(name) {
 
 /* ---------- session ---------- */
 function startSession(queue) {
-  App.queue = queue && queue.length ? queue : buildQueue(App.level, App.topic);
+  App.queue = queue && queue.length ? queue : buildQueue(App.level);
   if (!App.queue.length) { toast(t("toast.noContent")); return; }
   App.idx = 0;
   App.log = [];
@@ -3471,7 +3533,7 @@ function buildTranscript(data) {
 /* ---- result ---- */
 function showResult() {
   AudioEngine.stop();
-  var key = progressKey(App.level, App.topic);
+  var key = progressKey(App.level);
   var prog = getProgress();
   var correct = App.log.filter(function (x) { return x.firstTry; }).length;
   var prev = prog[key] || { best: 0, points: 0, plays: 0, total: App.queue.length };
@@ -3526,7 +3588,7 @@ function applyTheme(mode) {
    9. Boot
    --------------------------------------------------------------------- */
 function boot() {
-  ["screenStart", "screenSession", "screenResult", "langSwitch", "levelChips", "topicChips",
+  ["screenStart", "screenSession", "screenResult", "langSwitch", "levelChips",
    "btnStart", "btnResetProgress", "hudCounter", "hudMode", "hudStreak", "hudScore", "hudBar",
    "audioBox", "btnReplay", "audioTrack", "audioPlayed", "audioLeft", "audioStatus", "speedSwitch",
    "btnQuit", "taskPromptText", "stageHost", "feedback", "feedbackText", "transcript",
