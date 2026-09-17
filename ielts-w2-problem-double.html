@@ -1,0 +1,2420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IELTS Writing Task 2 — Problem–Solution &amp; Double Question (Band 8)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent:#2f6bff; --accent-dark:#1c4fd0; --accent-soft:#eaf0ff;
+  --ink:#16202f; --muted:#64748b; --line:#e3e8f0; --bg:#f4f6fb; --card:#ffffff;
+  --ok:#16a34a; --ok-bg:#e8f7ee; --bad:#dc2626; --bad-bg:#fdecec; --warn:#d97706; --warn-bg:#fff5e6;
+  --c-topic:#1d4ed8; --c-topic-bg:#e6edff;
+  --c-expl:#7c3aed; --c-expl-bg:#f1e9ff;
+  --c-ex:#ea580c;  --c-ex-bg:#ffeede;
+  --c-res:#15803d; --c-res-bg:#e4f7ea;
+  --c-para:#0f766e; --c-para-bg:#dff5f2;
+  --c-out:#4338ca;  --c-out-bg:#e8e8ff;
+  --c-conc:#0e7490; --c-conc-bg:#def3f9;
+  --c-conc2:#be185d; --c-conc2-bg:#fde7f1;
+  --radius:14px; --shadow:0 1px 2px rgba(16,32,60,.05),0 8px 24px rgba(16,32,60,.07);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  background:var(--bg); color:var(--ink); font-size:16px; line-height:1.6; -webkit-text-size-adjust:100%;
+}
+h1,h2,h3,h4{line-height:1.25;margin:0 0 .5em}
+h1{font-size:1.5rem;font-weight:700}
+h2{font-size:1.25rem;font-weight:700}
+h3{font-size:1.05rem;font-weight:600}
+p{margin:0 0 .8em}
+button{font-family:inherit;font-size:1rem}
+a{color:var(--accent)}
+
+/* ---------- header ---------- */
+header{
+  position:sticky; top:0; z-index:40; background:rgba(255,255,255,.95);
+  backdrop-filter:saturate(180%) blur(8px); border-bottom:1px solid var(--line);
+}
+.hbar{display:flex; align-items:center; gap:12px; padding:10px 18px; max-width:1360px; margin:0 auto}
+.brand{font-weight:700; font-size:1rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.brand small{display:block;font-weight:400;color:var(--muted);font-size:.72rem}
+.hspace{flex:1}
+.langs{display:flex; gap:4px; background:#eef1f7; padding:3px; border-radius:999px}
+.langs button{
+  border:0; background:transparent; padding:8px 12px; border-radius:999px; cursor:pointer;
+  font-weight:600; font-size:.82rem; color:var(--muted); min-height:34px;
+}
+.langs button.on{background:#fff; color:var(--accent); box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.progwrap{padding:0 18px 10px; max-width:1360px; margin:0 auto}
+.progbar{height:8px; background:#e6eaf2; border-radius:999px; overflow:hidden}
+.progbar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#6f9bff);width:0;transition:width .35s ease}
+.proglabel{font-size:.74rem;color:var(--muted);margin-top:4px;display:flex;justify-content:space-between}
+#menuBtn{display:none;border:1px solid var(--line);background:#fff;border-radius:10px;min-width:44px;min-height:44px;cursor:pointer}
+
+/* ---------- layout ---------- */
+.shell{display:grid; grid-template-columns:282px 1fr; gap:22px; max-width:1360px; margin:0 auto; padding:20px 18px 120px}
+nav.side{position:sticky; top:104px; align-self:start; max-height:calc(100vh - 130px); overflow:auto}
+.modblock{margin-bottom:14px}
+.modtitle{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;margin:0 0 6px 10px}
+.steplink{
+  display:flex; align-items:center; gap:9px; width:100%; text-align:left; border:0; background:transparent;
+  padding:9px 10px; border-radius:10px; cursor:pointer; color:var(--ink); font-size:.86rem; min-height:40px;
+}
+.steplink:hover{background:#eaeef6}
+.steplink.on{background:var(--accent-soft); color:var(--accent-dark); font-weight:600}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);flex:0 0 auto;display:grid;place-items:center;font-size:.66rem;color:#fff}
+.steplink.done .dot{background:var(--ok);border-color:var(--ok)}
+.steplink.on .dot{border-color:var(--accent)}
+main{min-width:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+@media (max-width:1040px){
+  #menuBtn{display:block}
+  .shell{grid-template-columns:1fr; padding-bottom:96px}
+  nav.side{position:fixed; inset:0 auto 0 0; width:84%; max-width:320px; background:#fff; z-index:60;
+    transform:translateX(-102%); transition:transform .25s ease; padding:14px; max-height:none; box-shadow:var(--shadow); overflow:auto}
+  nav.side.open{transform:none}
+  .scrim{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:55;display:none}
+  .scrim.on{display:block}
+  #sideClose{display:flex !important}
+  .two{grid-template-columns:1fr}
+}
+
+/* ---------- cards ---------- */
+.card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px; margin-bottom:16px}
+.card.tight{padding:14px}
+.kicker{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:4px}
+.note{background:var(--accent-soft);border:1px solid #d3e0ff;border-radius:12px;padding:12px 14px;margin:10px 0;font-size:.92rem}
+.rule{background:#fff8e6;border:1px solid #f4dfae;border-left:5px solid var(--warn);border-radius:12px;padding:12px 14px;margin:12px 0}
+.rule b{color:#8a5a06}
+.muted{color:var(--muted)}
+.small{font-size:.86rem}
+.tasktext{background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:12px 14px;font-size:.95rem}
+ul.tick{list-style:none;padding-left:0;margin:.4em 0}
+ul.tick li{padding-left:24px;position:relative;margin-bottom:6px}
+ul.tick li:before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:700}
+
+/* ---------- buttons ---------- */
+.btn{
+  border:0; background:var(--accent); color:#fff; padding:11px 18px; border-radius:11px; cursor:pointer;
+  font-weight:600; min-height:44px; box-shadow:0 1px 2px rgba(16,32,60,.12)
+}
+.btn:hover{background:var(--accent-dark)}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none}
+.btn.ghost:hover{background:#f1f4fa}
+.btn.soft{background:var(--accent-soft);color:var(--accent-dark);box-shadow:none}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--muted);min-height:40px}
+.tab.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* ---------- feedback ---------- */
+.fb{margin-top:12px;border-radius:12px;padding:11px 13px;font-size:.9rem;display:none}
+.fb.show{display:block}
+.fb.good{background:var(--ok-bg);border:1px solid #b7e6c7;color:#14532d}
+.fb.bad{background:var(--bad-bg);border:1px solid #f6c4c4;color:#7f1d1d}
+.fb.info{background:var(--accent-soft);border:1px solid #d3e0ff;color:#1e3a8a}
+
+/* ---------- essay colour coding ---------- */
+.s{border-radius:6px;padding:1px 2px}
+.cc .r-topic,.cc .r-cause,.cc .r-problem,.cc .r-solution,.cc .r-position{background:var(--c-topic-bg);color:var(--c-topic)}
+.cc .r-explanation{background:var(--c-expl-bg);color:var(--c-expl)}
+.cc .r-example{background:var(--c-ex-bg);color:var(--c-ex)}
+.cc .r-result{background:var(--c-res-bg);color:var(--c-res)}
+.cc .r-paraphrase{background:var(--c-para-bg);color:var(--c-para)}
+.cc .r-outline{background:var(--c-out-bg);color:var(--c-out)}
+.cc .r-conclusion{background:var(--c-conc-bg);color:var(--c-conc)}
+.cc .r-concession{background:var(--c-conc2-bg);color:var(--c-conc2)}
+.cc .r-solutionOpen{background:var(--c-out-bg);color:var(--c-out)}
+.lnk{font-weight:700;text-decoration:underline;text-underline-offset:2px}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.legend span{font-size:.75rem;border-radius:999px;padding:4px 10px;font-weight:600}
+.essay p{margin-bottom:.9em}
+
+/* ---------- generic exercise widgets ---------- */
+.chip{
+  border:1px solid var(--line); background:#fff; border-radius:11px; padding:10px 12px; cursor:pointer;
+  font-size:.9rem; min-height:44px; display:flex; align-items:center; text-align:left; width:100%;
+}
+.chip:hover{border-color:var(--accent)}
+.chip.sel{border-color:var(--accent);background:var(--accent-soft)}
+.chip.good{border-color:var(--ok);background:var(--ok-bg)}
+.chip.bad{border-color:var(--bad);background:var(--bad-bg)}
+.chip.used{opacity:.45;pointer-events:none}
+.pool{display:flex;flex-direction:column;gap:8px}
+.boxes{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+@media(max-width:640px){.boxes{grid-template-columns:1fr}}
+.box{border:2px dashed #cbd5e1;border-radius:12px;padding:10px;min-height:96px;background:#fbfcfe}
+.box.hot{border-color:var(--accent);background:var(--accent-soft)}
+.box h4{font-size:.84rem;margin:0 0 8px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.box .chip{margin-bottom:6px}
+.wordline{line-height:2.3;font-size:1rem}
+.w{cursor:pointer;border-radius:6px;padding:2px 3px;border-bottom:2px solid transparent}
+.w:hover{background:#eef2ff}
+.w.sel{background:#fde68a;border-bottom-color:#d97706}
+.w.good{background:var(--ok-bg);border-bottom-color:var(--ok)}
+.w.bad{background:var(--bad-bg);border-bottom-color:var(--bad)}
+.w.miss{outline:2px dashed var(--bad);outline-offset:1px}
+.matchgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.matchgrid{grid-template-columns:1fr}}
+.pairline{font-size:.8rem;color:var(--muted);margin-top:2px}
+select.gap{border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-size:.92rem;min-height:38px;background:#fff;font-family:inherit}
+select.gap.good{border-color:var(--ok);background:var(--ok-bg)}
+select.gap.bad{border-color:var(--bad);background:var(--bad-bg)}
+input.gapin{border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-size:.92rem;min-height:38px;font-family:inherit;min-width:150px}
+input.gapin.good{border-color:var(--ok);background:var(--ok-bg)}
+input.gapin.bad{border-color:var(--bad);background:var(--bad-bg)}
+textarea{
+  width:100%; border:1px solid var(--line); border-radius:12px; padding:12px; font-family:inherit;
+  font-size:.96rem; line-height:1.6; resize:vertical; background:#fff;
+}
+textarea:focus,input:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.counter{font-size:.78rem;color:var(--muted);margin-top:4px;display:flex;gap:10px;flex-wrap:wrap}
+.counter b{color:var(--ink)}
+.counter .okc{color:var(--ok)}
+.counter .badc{color:var(--bad)}
+.score{font-size:.82rem;font-weight:600;color:var(--muted)}
+.tmpl{background:#f8fafc;border-left:4px solid var(--accent);border-radius:8px;padding:8px 12px;font-size:.9rem;margin:8px 0}
+table.t{width:100%;border-collapse:collapse;font-size:.88rem}
+table.t td,table.t th{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
+table.t th{background:#f5f7fb;font-weight:600}
+.mapblock{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;overflow:hidden;background:#fff}
+.mapblock>button{width:100%;text-align:left;border:0;background:#fff;padding:13px 14px;cursor:pointer;font-weight:600;display:flex;gap:10px;align-items:center;min-height:48px}
+.mapblock>button:hover{background:#f6f8fc}
+.mapblock .body{display:none;padding:0 14px 14px;border-top:1px solid var(--line)}
+.mapblock.open .body{display:block}
+.mapblock .num{width:26px;height:26px;border-radius:8px;background:var(--accent-soft);color:var(--accent-dark);display:grid;place-items:center;font-size:.8rem;flex:0 0 auto}
+.flip{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden;margin-bottom:10px}
+.flip>button{width:100%;text-align:left;border:0;background:#fff;padding:13px 14px;cursor:pointer;font-weight:600;min-height:48px}
+.flip .body{display:none;padding:0 14px 14px}
+.flip.open .body{display:block}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+@media(max-width:640px){.vs{grid-template-columns:1fr}}
+.vs div{border-radius:10px;padding:10px;font-size:.88rem}
+.vs .b6{background:var(--bad-bg);border:1px solid #f6c4c4}
+.vs .b8{background:var(--ok-bg);border:1px solid #b7e6c7}
+.timer{font-variant-numeric:tabular-nums;font-weight:700;font-size:1.15rem}
+.timer.low{color:var(--bad)}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:860px){.cmp{grid-template-columns:1fr}}
+.sim-g{background:var(--ok-bg);border-left:4px solid var(--ok);padding:4px 8px;border-radius:6px;margin-bottom:5px;font-size:.87rem}
+.sim-y{background:var(--warn-bg);border-left:4px solid var(--warn);padding:4px 8px;border-radius:6px;margin-bottom:5px;font-size:.87rem}
+.sim-r{background:var(--bad-bg);border-left:4px solid var(--bad);padding:4px 8px;border-radius:6px;margin-bottom:5px;font-size:.87rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:12px 0}
+.stat{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+.stat b{display:block;font-size:1.5rem;color:var(--accent)}
+.stat span{font-size:.76rem;color:var(--muted)}
+label.chk{display:flex;gap:10px;align-items:flex-start;padding:9px;border-radius:10px;cursor:pointer;font-size:.9rem;min-height:44px}
+label.chk:hover{background:#f6f8fc}
+label.chk input{margin-top:4px;width:18px;height:18px;flex:0 0 auto}
+.footnav{
+  position:fixed;left:0;right:0;bottom:0;z-index:45;background:rgba(255,255,255,.96);border-top:1px solid var(--line);
+  padding:10px 18px; display:flex; gap:10px; align-items:center; backdrop-filter:blur(8px)
+}
+.footnav .sp{flex:1;font-size:.8rem;color:var(--muted)}
+@media(min-width:1041px){.footnav{padding-left:calc(50% - 680px + 18px);padding-right:calc(50% - 680px + 18px)}}
+#sideClose{display:none;align-items:center;justify-content:space-between;width:100%;border:1px solid var(--line);
+  background:#fff;border-radius:11px;padding:10px 12px;margin-bottom:12px;min-height:44px;cursor:pointer;font-weight:600}
+.hide{display:none !important}
+</style>
+</head>
+<body>
+<header>
+  <div class="hbar">
+    <button id="menuBtn" aria-label="Menu">☰</button>
+    <div class="brand">IELTS Writing Task 2 — Band 8<small id="brandSub">Problem–Solution &amp; Double Question</small></div>
+    <div class="hspace"></div>
+    <div class="langs" id="langs">
+      <button data-lang="ru">RU</button><button data-lang="kz">KZ</button><button data-lang="en">EN</button>
+    </div>
+  </div>
+  <div class="progwrap">
+    <div class="progbar"><i id="progFill"></i></div>
+    <div class="proglabel"><span id="progText">0%</span><span id="stepText"></span></div>
+  </div>
+</header>
+<div class="scrim" id="scrim"></div>
+<div class="shell">
+  <nav class="side" id="side"></nav>
+  <main id="content"></main>
+</div>
+<div class="footnav">
+  <button class="btn ghost" id="prevBtn">←</button>
+  <div class="sp" id="footInfo"></div>
+  <button class="btn" id="nextBtn">Next →</button>
+</div>
+<script>
+"use strict";
+/* =========================================================================
+   1. STATE + STORAGE
+   ========================================================================= */
+var state = {
+  lang: 'ru',
+  screen: 0,
+  done: {},
+  ex: {},            /* exerciseId -> {correct:n, total:n} */
+  essays: {},        /* key -> text */
+  builder: {},       /* track -> {stepIndex: sentence} */
+  track: 'cs'
+};
+
+function save(){
+  try{ localStorage.setItem('ielts_w2_pd', JSON.stringify(state)); }catch(e){}
+}
+function load(){
+  try{
+    var raw = localStorage.getItem('ielts_w2_pd');
+    if(raw){ var o = JSON.parse(raw); for(var k in o){ if(o.hasOwnProperty(k)) state[k]=o[k]; } }
+  }catch(e){}
+}
+
+/* =========================================================================
+   2. I18N — L({en,ru,kz}) or L('plain string')
+   ========================================================================= */
+function L(x){
+  if(x===null||x===undefined) return '';
+  if(typeof x === 'string') return x;
+  return x[state.lang] || x.en || '';
+}
+/* reusable "why" explanations */
+var WHY = {
+  informal:{en:'Band 8 needs formal academic words: "children", not "kids"; "a large number of", not "a lot of".',
+            ru:'Для Band 8 нужен формальный академический стиль: "children", а не "kids"; "a large number of", а не "a lot of".',
+            kz:'Band 8 үшін ресми академиялық стиль керек: "kids" емес "children"; "a lot of" емес "a large number of".'},
+  repeat:{en:'Repeating the words of the task lowers Lexical Resource. Paraphrase instead.',
+          ru:'Копирование слов задания снижает Lexical Resource. Нужен перефраз.',
+          kz:'Тапсырманың сөздерін көшіру Lexical Resource баллын төмендетеді. Перефраз жаса.'},
+  redundant:{en:'"In my opinion I think" says the same thing twice. Choose one.',
+             ru:'"In my opinion I think" — это повтор одной мысли. Оставь что-то одно.',
+             kz:'"In my opinion I think" — бір ойды екі рет қайталау. Біреуін ғана қалдыр.'},
+  grammar:{en:'Grammar error (article, verb form or agreement). Band 8 needs mostly error-free sentences.',
+           ru:'Грамматическая ошибка (артикль, форма глагола или согласование). Band 8 = почти без ошибок.',
+           kz:'Грамматикалық қате (артикль, етістік формасы немесе келісім). Band 8 — қатесі жоқ сөйлемдер.'},
+  linker:{en:'The linking word must match the logic: cause, addition, result or contrast.',
+          ru:'Связка должна соответствовать логике: причина, добавление, результат или противопоставление.',
+          kz:'Байланыстырушы сөз логикаға сай болуы керек: себеп, қосу, нәтиже немесе қарсылық.'},
+  cause:{en:'A CAUSE explains WHY the situation happens (what people do).',
+         ru:'ПРИЧИНА (cause) объясняет, ПОЧЕМУ ситуация возникает (что делают люди).',
+         kz:'СЕБЕП (cause) жағдайдың НЕЛІКТЕН болатынын түсіндіреді (адамдар не істейді).'},
+  problem:{en:'A PROBLEM / EFFECT is the bad RESULT that the situation produces.',
+           ru:'ПРОБЛЕМА / ПОСЛЕДСТВИЕ (problem/effect) — это плохой РЕЗУЛЬТАТ ситуации.',
+           kz:'МӘСЕЛЕ / САЛДАР (problem/effect) — жағдайдың жаман НӘТИЖЕСІ.'},
+  bothQ:{en:'Answer ALL parts of the task. One missing part = Task Response max Band 5–6.',
+         ru:'Отвечай на ВСЕ части задания. Пропустил часть — Task Response максимум Band 5–6.',
+         kz:'Тапсырманың БАРЛЫҚ бөлігіне жауап бер. Бір бөлігі жоқ болса — Task Response ең көбі Band 5–6.'},
+  vague:{en:'Too general. Band 8 uses precise topic vocabulary and a concrete example.',
+         ru:'Слишком общо. Band 8 = точная тематическая лексика и конкретный пример.',
+         kz:'Тым жалпы. Band 8 — нақты тақырыптық лексика және нақты мысал.'},
+  match:{en:'Each solution must answer a cause/problem you wrote in Body 1 — that is Coherence.',
+         ru:'Каждое решение должно отвечать причине/проблеме из Body 1 — это Coherence.',
+         kz:'Әр шешім Body 1-дегі себеп/мәселеге жауап беруі керек — бұл Coherence.'}
+};
+function why(x){ return (typeof x==='string' && WHY[x]) ? L(WHY[x]) : L(x); }
+
+/* UI strings used in many places */
+var UI = {
+  check:{en:'Check',ru:'Проверить',kz:'Тексеру'},
+  again:{en:'Try again',ru:'Ещё раз',kz:'Қайта'},
+  show:{en:'Show answer',ru:'Показать ответ',kz:'Жауапты көрсету'},
+  next:{en:'Next →',ru:'Далее →',kz:'Келесі →'},
+  finish:{en:'Finish ✓',ru:'Завершить ✓',kz:'Аяқтау ✓'},
+  correct:{en:'Correct!',ru:'Верно!',kz:'Дұрыс!'},
+  notyet:{en:'Not yet — look at the highlighted items.',ru:'Пока не всё верно — посмотри на выделенные ответы.',kz:'Әлі толық емес — белгіленгендерді қара.'},
+  words:{en:'words',ru:'слов',kz:'сөз'},
+  target:{en:'target 250–290 words',ru:'цель 250–290 слов',kz:'мақсат 250–290 сөз'},
+  copy:{en:'Copy text',ru:'Копировать текст',kz:'Мәтінді көшіру'},
+  copied:{en:'Copied ✓',ru:'Скопировано ✓',kz:'Көшірілді ✓'},
+  yourAnswer:{en:'Your sentence',ru:'Твоё предложение',kz:'Сенің сөйлемің'},
+  model:{en:'Model sentence (Band 8)',ru:'Образец (Band 8)',kz:'Үлгі (Band 8)'},
+  task:{en:'Task',ru:'Задание',kz:'Тапсырма'},
+  score:{en:'Score',ru:'Результат',kz:'Нәтиже'},
+  reset:{en:'Reset',ru:'Сбросить',kz:'Тазалау'},
+  tapHint:{en:'Tap an item, then tap a box (or drag it).',ru:'Нажми на карточку, потом на нужную рамку (или перетащи).',kz:'Карточканы бас, сосын қажет рамканы бас (немесе сүйреп апар).'},
+  colourOn:{en:'Colour-coding: ON',ru:'Цветовая разметка: ВКЛ',kz:'Түстік белгілеу: ҚОСУЛЫ'},
+  colourOff:{en:'Colour-coding: OFF',ru:'Цветовая разметка: ВЫКЛ',kz:'Түстік белгілеу: ӨШУЛІ'},
+  linkersUsed:{en:'linkers',ru:'связок',kz:'байланыстырушы'},
+  paragraphs:{en:'paragraphs',ru:'абзацев',kz:'абзац'},
+  found:{en:'found',ru:'найдено',kz:'табылды'},
+  of:{en:'of',ru:'из',kz:'ішінен'}
+};
+function U(k){ return L(UI[k]); }
+
+/* =========================================================================
+   3. SMALL HELPERS
+   ========================================================================= */
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function countWords(t){ t=(t||'').trim(); if(!t) return 0; return t.split(/\s+/).length; }
+function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+function norm(s){ return String(s).toLowerCase().replace(/[^a-z0-9' ]/g,' ').replace(/\s+/g,' ').trim(); }
+function el(tag, cls, html){ var d=document.createElement(tag); if(cls) d.className=cls; if(html!==undefined) d.innerHTML=html; return d; }
+function qs(root,sel){ return root.querySelector(sel); }
+function qsa(root,sel){ return Array.prototype.slice.call(root.querySelectorAll(sel)); }
+
+/* record exercise result */
+function record(id, correct, total){
+  state.ex[id] = {c:correct, t:total};
+  save(); renderProgress();
+}
+
+/* linking words used across the app (longest first when matching) */
+var LINKERS = [
+  'To address this issue','This is mainly because','This is largely because','In recent years','In conclusion',
+  'On the other hand','As a result','For example','For instance','In addition','In my opinion','Furthermore',
+  'Consequently','Additionally','Nevertheless','Admittedly','Similarly','Therefore','Moreover','However',
+  'Overall','Firstly','Secondly','Finally','Nowadays','Because of this','provided that','Thus','Hence',
+  'This is because','which means that','due to','such as'
+];
+var LINKER_RE = new RegExp('(' + LINKERS.slice().sort(function(a,b){return b.length-a.length;})
+  .map(function(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}).join('|') + ')','gi');
+
+function markLinkers(text){
+  return esc(text).replace(LINKER_RE, function(m){ return '<b class="lnk">'+m+'</b>'; });
+}
+function countLinkers(text){
+  var m = String(text).match(LINKER_RE);
+  if(!m) return 0;
+  var set = {}; m.forEach(function(x){ set[x.toLowerCase()]=1; });
+  return Object.keys(set).length;
+}
+
+/* =========================================================================
+   4. CONTENT — three model essays as structured data
+   ========================================================================= */
+var ROLE_LABEL = {
+  topic:{en:'Topic sentence',ru:'Тема',kz:'Тақырып'},
+  paraphrase:{en:'Paraphrase',ru:'Перефраз',kz:'Перефраз'},
+  outline:{en:'Outline',ru:'План (outline)',kz:'Жоспар (outline)'},
+  cause:{en:'Cause',ru:'Причина',kz:'Себеп'},
+  problem:{en:'Problem / effect',ru:'Проблема / следствие',kz:'Мәселе / салдар'},
+  explanation:{en:'Explanation',ru:'Объяснение',kz:'Түсіндірме'},
+  example:{en:'Example',ru:'Пример',kz:'Мысал'},
+  result:{en:'Result',ru:'Результат',kz:'Нәтиже'},
+  solutionOpen:{en:'Solution opener',ru:'Вступление к решениям',kz:'Шешімдерге кіріспе'},
+  solution:{en:'Solution',ru:'Решение',kz:'Шешім'},
+  position:{en:'Opinion / position',ru:'Мнение / позиция',kz:'Пікір / ұстаным'},
+  concession:{en:'Concession',ru:'Уступка',kz:'Мойындау'},
+  conclusion:{en:'Conclusion',ru:'Вывод',kz:'Қорытынды'}
+};
+
+var TRACKS = {
+  cs:{
+    name:{en:'Causes + Solutions',ru:'Причины + Решения',kz:'Себептер + Шешімдер'},
+    task:'Obesity among children is increasing in many countries. What are the causes of this, and what solutions can be offered?',
+    paras:[
+      [ {r:'topic',t:'In recent years, childhood obesity has become a serious global issue.'},
+        {r:'paraphrase',t:'A growing number of young people in many countries now weigh far more than is healthy for their age.'},
+        {r:'outline',t:'This essay will examine the main causes of this problem and propose several effective solutions.'} ],
+      [ {r:'cause',t:'One of the primary causes of this issue is the widespread availability of cheap processed food.'},
+        {r:'explanation',t:'This is mainly because fast-food chains and snack manufacturers target children with aggressive advertising and low prices.'},
+        {r:'example',t:'For example, many schools are surrounded by outlets selling sugary drinks and fried food for less than the price of a healthy meal.'},
+        {r:'result',t:'As a result, children consume far more calories than they burn.'},
+        {r:'cause',t:'Furthermore, young people today lead increasingly sedentary lifestyles.'},
+        {r:'explanation',t:'This is mainly because much of their free time is spent on smartphones, tablets and video games rather than outdoor play.'},
+        {r:'result',t:'Consequently, their daily physical activity has fallen well below recommended levels.'} ],
+      [ {r:'solutionOpen',t:'To address this issue, several measures could be implemented.'},
+        {r:'solution',t:'Firstly, governments should restrict the marketing of unhealthy food to children and introduce taxes on sugary products.'},
+        {r:'explanation',t:'This would make nutritious options more affordable and competitive.'},
+        {r:'example',t:'For instance, after the United Kingdom introduced a levy on sugary drinks, many manufacturers reduced the sugar content of their products.'},
+        {r:'result',t:'As a result, children would be exposed to fewer harmful foods.'},
+        {r:'solution',t:'Secondly, schools should make daily physical education compulsory and offer a wider range of sports clubs.'},
+        {r:'example',t:'For example, a school could organise football, dance or swimming sessions after lessons at no cost to families.'},
+        {r:'result',t:'Therefore, pupils would develop active habits that could last a lifetime.'} ],
+      [ {r:'conclusion',t:'In conclusion, childhood obesity is largely caused by the easy availability of unhealthy food and a lack of physical activity.'},
+        {r:'conclusion',t:'However, if governments regulate the food industry and schools promote regular exercise, the next generation will have a far better chance of growing up healthy.'} ]
+    ]
+  },
+  ps:{
+    name:{en:'Problems + Solutions',ru:'Проблемы + Решения',kz:'Мәселелер + Шешімдер'},
+    task:'More and more people are using single-use plastic products. What problems does this cause, and how can these problems be solved?',
+    paras:[
+      [ {r:'topic',t:'In recent years, single-use plastic has become a serious global issue.'},
+        {r:'paraphrase',t:'Vast quantities of bottles, bags and packaging are produced, used for a few minutes and then thrown away.'},
+        {r:'outline',t:'This essay will discuss the main problems this causes and suggest several ways to tackle them.'} ],
+      [ {r:'problem',t:'One of the most serious problems this creates is the pollution of oceans and rivers.'},
+        {r:'explanation',t:'This is mainly because plastic does not decompose but breaks into tiny particles that enter the food chain.'},
+        {r:'example',t:'For example, fishing crews in some coastal regions now haul up more packaging than fish.'},
+        {r:'result',t:'As a result, marine species die in large numbers and the seafood people eat becomes contaminated.'},
+        {r:'problem',t:'Furthermore, disposable plastic places an enormous burden on municipal waste systems.'},
+        {r:'explanation',t:'This is mainly because cities must collect, sort and bury volumes of rubbish that grow every year.'},
+        {r:'result',t:'Consequently, landfill sites expand into farmland and local authorities divert money from schools and hospitals.'} ],
+      [ {r:'solutionOpen',t:'To address this issue, several measures could be implemented.'},
+        {r:'solution',t:'Firstly, governments should ban the least necessary items and require producers to pay for the waste they generate.'},
+        {r:'explanation',t:'This would force companies to redesign their packaging rather than pass the cost to taxpayers.'},
+        {r:'example',t:'For instance, several European countries have already prohibited plastic straws and cutlery without economic harm.'},
+        {r:'result',t:'As a result, far less unnecessary plastic would reach the environment.'},
+        {r:'solution',t:'Secondly, individuals should be encouraged to choose reusable alternatives through deposit schemes and clear labelling.'},
+        {r:'example',t:'For example, a small refund on every returned bottle makes recycling worthwhile for ordinary shoppers.'},
+        {r:'result',t:'Therefore, household waste would fall and valuable materials would return to production rather than the sea.'} ],
+      [ {r:'conclusion',t:'In conclusion, single-use plastic pollutes natural habitats and overloads municipal waste management systems.'},
+        {r:'conclusion',t:'However, with stricter regulation of producers and practical incentives for consumers, societies can greatly reduce this damage for future generations.'} ]
+    ]
+  },
+  dq:{
+    name:{en:'Double Question',ru:'Двойной вопрос',kz:'Қос сұрақ'},
+    task:'Nowadays, more and more people choose to work from home. Why is this happening? Is this a positive or negative development?',
+    paras:[
+      [ {r:'topic',t:'Nowadays, remote work is becoming increasingly common in many parts of the world.'},
+        {r:'paraphrase',t:'A rising number of employees now carry out their jobs from home instead of commuting to an office.'},
+        {r:'outline',t:'This essay will explain why this trend is happening and argue that it is a largely positive development.'} ],
+      [ {r:'cause',t:'One of the main reasons for this shift is rapid technological progress.'},
+        {r:'explanation',t:'This is mainly because high-speed internet and video-conferencing platforms allow colleagues to communicate instantly wherever they are.'},
+        {r:'example',t:'For example, a marketing team can hold an online meeting with members in three different cities.'},
+        {r:'result',t:'As a result, physical presence in an office is no longer essential for many roles.'},
+        {r:'cause',t:'Furthermore, employers increasingly recognise the financial benefits of remote work.'},
+        {r:'explanation',t:'This is largely because they can reduce spending on office rent, electricity and equipment.'},
+        {r:'result',t:'Consequently, many companies actively encourage their staff to work from home.'} ],
+      [ {r:'position',t:'In my opinion, this development is mostly positive.'},
+        {r:'solution',t:'Firstly, working from home gives employees a better work-life balance.'},
+        {r:'explanation',t:'This is because they no longer lose one or two hours a day travelling to and from work.'},
+        {r:'example',t:'For instance, parents can use this time to take their children to school or prepare family meals.'},
+        {r:'result',t:'As a result, workers often feel less stressed and more motivated.'},
+        {r:'concession',t:'Admittedly, some people may feel isolated without daily contact with colleagues.'},
+        {r:'concession',t:'However, this problem can be reduced through regular online meetings or occasional days in the office.'},
+        {r:'result',t:'Therefore, the advantages clearly outweigh the drawbacks.'} ],
+      [ {r:'conclusion',t:'In conclusion, remote work is growing mainly because of advances in technology and the savings it offers employers.'},
+        {r:'conclusion',t:"Overall, I believe it is a positive trend, as it improves employees' quality of life, provided that companies take steps to prevent social isolation."} ]
+    ]
+  }
+};
+var TRACK_IDS = ['cs','ps','dq'];
+
+function essayText(tr){
+  return TRACKS[tr].paras.map(function(p){ return p.map(function(s){return s.t;}).join(' '); }).join('\n\n');
+}
+function essayWords(tr){ return countWords(essayText(tr)); }
+function essaySentences(tr){
+  var out=[]; TRACKS[tr].paras.forEach(function(p,pi){ p.forEach(function(s,si){ out.push({r:s.r,t:s.t,p:pi,i:si}); }); });
+  return out;
+}
+/* render a model essay, optionally colour-coded */
+function renderEssay(tr, coloured){
+  var html = '<div class="essay '+(coloured?'cc':'')+'">';
+  TRACKS[tr].paras.forEach(function(p){
+    html += '<p>' + p.map(function(s){
+      return '<span class="s r-'+s.r+'">'+markLinkers(s.t)+'</span>';
+    }).join(' ') + '</p>';
+  });
+  return html + '</div>';
+}
+function legendHtml(){
+  var items = [['r-topic','topic'],['r-explanation','explanation'],['r-example','example'],['r-result','result'],
+               ['r-paraphrase','paraphrase'],['r-outline','outline'],['r-conclusion','conclusion']];
+  return '<div class="legend cc">' + items.map(function(x){
+    return '<span class="'+x[0]+'">'+L(ROLE_LABEL[x[1]])+'</span>';
+  }).join('') + '<span style="background:#fff;border:1px solid var(--line)"><b class="lnk">linkers</b></span></div>';
+}
+/* =========================================================================
+   5. EXERCISE ENGINE — shared frame
+   ========================================================================= */
+function exFrame(host, cfg){
+  var wrap = el('div','card');
+  var head = '<div class="kicker">'+esc(cfg.no||'')+'</div><h3>'+L(cfg.title)+'</h3>';
+  if(cfg.instr) head += '<p class="small muted">'+L(cfg.instr)+'</p>';
+  wrap.innerHTML = head;
+  var body = el('div','exbody'); wrap.appendChild(body);
+  var fb = el('div','fb'); 
+  var row = el('div','btnrow');
+  wrap.appendChild(row); wrap.appendChild(fb);
+  host.appendChild(wrap);
+  var api = {
+    wrap:wrap, body:body, fb:fb, row:row,
+    btn:function(label, cls, fn){ var b=el('button','btn '+(cls||''),label); b.onclick=fn; row.appendChild(b); return b; },
+    say:function(kind, msg){ fb.className='fb show '+kind; fb.innerHTML=msg; },
+    clear:function(){ fb.className='fb'; fb.innerHTML=''; },
+    result:function(c,t,note){
+      record(cfg.id, c, t);
+      var ok = c===t;
+      api.say(ok?'good':'bad', '<b>'+(ok?U('correct'):U('notyet'))+'</b> '+U('score')+': '+c+'/'+t + (note?('<br>'+note):''));
+    }
+  };
+  return api;
+}
+
+/* ---------- 5.1 sorting (drag & drop + tap) ---------- */
+function sortEx(host, cfg){
+  var f = exFrame(host, cfg);
+  var sel = null, placed = {};
+  f.body.innerHTML = '<p class="small muted">'+U('tapHint')+'</p>';
+  var pool = el('div','pool'); f.body.appendChild(pool);
+  var boxes = el('div','boxes'); boxes.style.gridTemplateColumns = cfg.boxes.length>2 ? '' : 'repeat(2,1fr)';
+  f.body.appendChild(boxes);
+  var boxEls = {};
+  cfg.boxes.forEach(function(b){
+    var d = el('div','box','<h4>'+L(b.label)+'</h4>');
+    d.dataset.key = b.key;
+    d.addEventListener('dragover', function(e){ e.preventDefault(); d.classList.add('hot'); });
+    d.addEventListener('dragleave', function(){ d.classList.remove('hot'); });
+    d.addEventListener('drop', function(e){ e.preventDefault(); d.classList.remove('hot');
+      var id = e.dataTransfer.getData('text/plain'); var c = qs(f.body,'[data-item="'+id+'"]'); if(c) place(c,d); });
+    d.onclick = function(){ if(sel){ place(sel,d); } };
+    boxes.appendChild(d); boxEls[b.key]=d;
+  });
+  function place(chip, box){
+    box.appendChild(chip); placed[chip.dataset.item]=box.dataset.key;
+    chip.classList.remove('sel'); sel=null;
+  }
+  shuffle(cfg.items).forEach(function(it,i){
+    var c = el('button','chip', esc(L(it.t)));
+    c.dataset.item = it.k+'_'+i; c.dataset.key = it.k; c.draggable = true;
+    c.addEventListener('dragstart', function(e){ e.dataTransfer.setData('text/plain', c.dataset.item); });
+    c.onclick = function(e){
+      e.stopPropagation();
+      if(sel===c){ c.classList.remove('sel'); sel=null; return; }
+      if(sel) sel.classList.remove('sel');
+      sel = c; c.classList.add('sel');
+    };
+    pool.appendChild(c);
+  });
+  f.btn(U('check'),'',function(){
+    var chips = qsa(f.body,'.chip'), c=0;
+    chips.forEach(function(ch){
+      ch.classList.remove('good','bad');
+      var inBox = ch.parentNode.classList.contains('box');
+      if(inBox && ch.parentNode.dataset.key===ch.dataset.key){ ch.classList.add('good'); c++; }
+      else if(inBox){ ch.classList.add('bad'); }
+    });
+    f.result(c, cfg.items.length, cfg.why?why(cfg.why):'');
+  });
+  f.btn(U('again'),'ghost',function(){
+    qsa(f.body,'.chip').forEach(function(ch){ ch.classList.remove('good','bad','sel'); pool.appendChild(ch); });
+    placed={}; sel=null; f.clear();
+  });
+  f.btn(U('show'),'ghost',function(){
+    qsa(f.body,'.chip').forEach(function(ch){ ch.classList.remove('bad'); ch.classList.add('good'); boxEls[ch.dataset.key].appendChild(ch); });
+    f.say('info', cfg.why?why(cfg.why):L({en:'These are the correct groups.',ru:'Это правильные группы.',kz:'Дұрыс топтар осы.'}));
+  });
+}
+
+/* ---------- 5.2 click the words ---------- */
+function clickWordsEx(host, cfg){
+  var f = exFrame(host, cfg);
+  cfg.items.forEach(function(item, ix){
+    var box = el('div','card tight');
+    box.innerHTML = '<div class="small muted">'+U('task')+' '+(ix+1)+'</div>';
+    var line = el('div','wordline'); box.appendChild(line);
+    var tokens = L(item.text).split(/\s+/);
+    tokens.forEach(function(tok){
+      var target = /^\*.*\*$/.test(tok.replace(/^[^*\w]*/,''));
+      var clean = tok.replace(/\*/g,'');
+      var s = el('span','w', esc(clean));
+      s.dataset.target = target ? '1':'0';
+      s.onclick = function(){ s.classList.toggle('sel'); };
+      line.appendChild(s); line.appendChild(document.createTextNode(' '));
+    });
+    f.body.appendChild(box);
+  });
+  f.btn(U('check'),'',function(){
+    var all = qsa(f.body,'.w'), c=0, total=0;
+    all.forEach(function(s){
+      s.classList.remove('good','bad','miss');
+      var t = s.dataset.target==='1'; if(t) total++;
+      if(t && s.classList.contains('sel')){ s.classList.add('good'); c++; }
+      else if(t){ s.classList.add('miss'); }
+      else if(s.classList.contains('sel')){ s.classList.add('bad'); }
+    });
+    f.result(c, total, why(cfg.why));
+  });
+  f.btn(U('again'),'ghost',function(){ qsa(f.body,'.w').forEach(function(s){s.className='w';}); f.clear(); });
+  f.btn(U('show'),'ghost',function(){
+    qsa(f.body,'.w').forEach(function(s){ s.className='w'+(s.dataset.target==='1'?' good sel':''); });
+    f.say('info', why(cfg.why));
+  });
+}
+
+/* ---------- 5.3 multiple choice ---------- */
+function mcqEx(host, cfg){
+  var f = exFrame(host, cfg);
+  var answered = {};
+  cfg.items.forEach(function(item, ix){
+    var box = el('div','card tight');
+    box.innerHTML = (item.q? '<p><b>'+(ix+1)+'.</b> '+L(item.q)+'</p>' : '<div class="small muted">'+(ix+1)+'</div>');
+    var opts = el('div','pool'); box.appendChild(opts);
+    var fb = el('div','fb');
+    item.options.forEach(function(o){
+      var b = el('button','chip', esc(o.t));
+      b.onclick = function(){
+        qsa(opts,'.chip').forEach(function(x){ x.classList.remove('sel'); });
+        b.classList.add(o.ok?'good':'bad');
+        if(!answered.hasOwnProperty(ix)) answered[ix] = o.ok?1:0;
+        fb.className = 'fb show '+(o.ok?'good':'bad');
+        fb.innerHTML = (o.ok?'✓ ':'✗ ') + why(o.why || item.why);
+        if(o.ok){ qsa(opts,'.chip').forEach(function(x){ x.classList.add('used'); }); b.classList.remove('used'); }
+        var c=0,t=cfg.items.length; for(var k in answered){ if(answered[k]) c++; }
+        record(cfg.id, c, t);
+      };
+      opts.appendChild(b);
+    });
+    box.appendChild(fb);
+    f.body.appendChild(box);
+  });
+  f.btn(U('again'),'ghost',function(){
+    qsa(f.body,'.chip').forEach(function(x){ x.className='chip'; });
+    qsa(f.body,'.fb').forEach(function(x){ x.className='fb'; x.innerHTML=''; });
+    answered={}; f.clear();
+  });
+  f.btn(U('show'),'ghost',function(){
+    qsa(f.body,'.card.tight').forEach(function(box,ix){
+      qsa(box,'.chip').forEach(function(b,oi){ b.className='chip'+(cfg.items[ix].options[oi].ok?' good':' used'); });
+      var fb = qs(box,'.fb'); var good = cfg.items[ix].options.filter(function(o){return o.ok;})[0];
+      fb.className='fb show info'; fb.innerHTML = why(good.why || cfg.items[ix].why);
+    });
+  });
+}
+
+/* ---------- 5.4 matching ---------- */
+function matchEx(host, cfg){
+  var f = exFrame(host, cfg);
+  var chosen = null, pairs = {};
+  f.body.innerHTML = '<p class="small muted">'+L({en:'Click an item on the left, then its pair on the right.',ru:'Нажми пункт слева, затем его пару справа.',kz:'Сол жақтағы тармақты бас, сосын оң жақтағы жұбын бас.'})+'</p>';
+  var grid = el('div','matchgrid'); f.body.appendChild(grid);
+  var lc = el('div','pool'), rc = el('div','pool');
+  grid.appendChild(lc); grid.appendChild(rc);
+  cfg.pairs.forEach(function(p,i){
+    var b = el('button','chip', esc(L(p.l)));
+    b.dataset.i = i;
+    b.onclick = function(){
+      if(chosen) chosen.classList.remove('sel');
+      chosen = b; b.classList.add('sel');
+    };
+    lc.appendChild(b);
+  });
+  shuffle(cfg.pairs.map(function(p,i){return {i:i,r:p.r};})).forEach(function(p){
+    var b = el('button','chip', esc(L(p.r)));
+    b.dataset.i = p.i;
+    b.onclick = function(){
+      if(!chosen) return;
+      pairs[chosen.dataset.i] = b.dataset.i;
+      var tag = qs(chosen,'.pairline');
+      chosen.innerHTML = esc(L(cfg.pairs[chosen.dataset.i].l)) + '<span class="pairline"> → '+esc(L(cfg.pairs[b.dataset.i].r))+'</span>';
+      chosen.classList.remove('sel'); chosen.classList.add('used'); chosen=null;
+      b.classList.add('used');
+    };
+    rc.appendChild(b);
+  });
+  f.btn(U('check'),'',function(){
+    var c=0;
+    qsa(lc,'.chip').forEach(function(b){
+      b.classList.remove('good','bad');
+      if(pairs[b.dataset.i]===b.dataset.i){ b.classList.add('good'); c++; } else if(pairs[b.dataset.i]!==undefined){ b.classList.add('bad'); }
+    });
+    f.result(c, cfg.pairs.length, why(cfg.why));
+  });
+  f.btn(U('again'),'ghost',function(){ renderScreen(); });
+  f.btn(U('show'),'ghost',function(){
+    qsa(lc,'.chip').forEach(function(b){
+      var i=b.dataset.i;
+      b.className='chip good';
+      b.innerHTML = esc(L(cfg.pairs[i].l)) + '<span class="pairline"> → '+esc(L(cfg.pairs[i].r))+'</span>';
+    });
+    qsa(rc,'.chip').forEach(function(b){ b.classList.add('used'); });
+    f.say('info', why(cfg.why));
+  });
+}
+
+/* ---------- 5.5 gap fill with dropdowns ---------- */
+function gapDropEx(host, cfg){
+  var f = exFrame(host, cfg);
+  var html = esc(L(cfg.text)).replace(/\{\{(\d+)\}\}/g, function(m,n){
+    var g = cfg.gaps[+n];
+    return '<select class="gap" data-g="'+n+'"><option value="">— ? —</option>' +
+      shuffle(g.options).map(function(o){ return '<option>'+esc(o)+'</option>'; }).join('') + '</select>';
+  });
+  f.body.innerHTML = '<div class="card tight" style="line-height:2.4">'+html+'</div>';
+  f.btn(U('check'),'',function(){
+    var c=0;
+    qsa(f.body,'select.gap').forEach(function(s){
+      var g = cfg.gaps[+s.dataset.g];
+      s.classList.remove('good','bad');
+      if(s.value===g.a){ s.classList.add('good'); c++; } else { s.classList.add('bad'); }
+    });
+    f.result(c, cfg.gaps.length, why(cfg.why));
+  });
+  f.btn(U('again'),'ghost',function(){ qsa(f.body,'select.gap').forEach(function(s){ s.value=''; s.classList.remove('good','bad'); }); f.clear(); });
+  f.btn(U('show'),'ghost',function(){
+    qsa(f.body,'select.gap').forEach(function(s){ s.value = cfg.gaps[+s.dataset.g].a; s.classList.remove('bad'); s.classList.add('good'); });
+    f.say('info', why(cfg.why));
+  });
+}
+
+/* ---------- 5.6 gap fill by typing ---------- */
+function gapTypeEx(host, cfg){
+  var f = exFrame(host, cfg);
+  cfg.items.forEach(function(it,i){
+    var d = el('div','card tight');
+    d.innerHTML = '<p>'+(i+1)+'. '+esc(it.s).replace('___','<input class="gapin" data-i="'+i+'" placeholder="...">')+'</p>';
+    f.body.appendChild(d);
+  });
+  if(cfg.bank){
+    f.body.insertBefore(el('div','note','<b>Word bank:</b> '+cfg.bank.map(esc).join(' · ')), f.body.firstChild);
+  }
+  f.btn(U('check'),'',function(){
+    var c=0;
+    qsa(f.body,'input.gapin').forEach(function(inp){
+      var a = cfg.items[+inp.dataset.i].a;
+      inp.classList.remove('good','bad');
+      if(norm(inp.value)===norm(a)){ inp.classList.add('good'); c++; } else { inp.classList.add('bad'); }
+    });
+    f.result(c, cfg.items.length, why(cfg.why));
+  });
+  f.btn(U('again'),'ghost',function(){ qsa(f.body,'input.gapin').forEach(function(s){ s.value=''; s.classList.remove('good','bad'); }); f.clear(); });
+  f.btn(U('show'),'ghost',function(){
+    qsa(f.body,'input.gapin').forEach(function(inp){ inp.value = cfg.items[+inp.dataset.i].a; inp.classList.remove('bad'); inp.classList.add('good'); });
+    f.say('info', why(cfg.why));
+  });
+}
+
+/* ---------- 5.7 rewrite / fix the mistake ---------- */
+function rewriteEx(host, cfg){
+  var f = exFrame(host, cfg);
+  cfg.items.forEach(function(it,i){
+    var d = el('div','card tight');
+    d.innerHTML = '<p class="small muted">'+(i+1)+'</p><p style="background:var(--bad-bg);border-radius:8px;padding:8px 10px">'+esc(it.bad)+'</p>';
+    var ta = el('textarea'); ta.rows=2; ta.placeholder = L({en:'Your improved sentence…',ru:'Твой улучшенный вариант…',kz:'Жақсартылған нұсқаң…'});
+    d.appendChild(ta);
+    var cnt = el('div','counter'); d.appendChild(cnt);
+    attachCounter(ta, cnt);
+    var res = el('div','fb'); d.appendChild(res);
+    var b = el('button','btn soft', U('show')); b.style.marginTop='8px';
+    b.onclick = function(){
+      res.className='fb show info';
+      res.innerHTML = '<b>'+U('model')+':</b> '+markLinkers(it.good)+'<br><span class="small">'+why(it.why)+'</span>';
+      var done = qsa(f.body,'.fb.show').length;
+      record(cfg.id, done, cfg.items.length);
+    };
+    d.appendChild(b);
+    f.body.appendChild(d);
+  });
+}
+
+/* ---------- 5.8 word counter ---------- */
+function attachCounter(ta, node, min, max){
+  function upd(){
+    var n = countWords(ta.value);
+    var cls = '';
+    if(min){ cls = (n>=min && (!max || n<=max+40)) ? 'okc' : 'badc'; }
+    node.innerHTML = '<span class="'+cls+'"><b>'+n+'</b> '+U('words')+'</span>' +
+      (min? '<span class="muted">'+(max?(min+'–'+max):('min '+min))+'</span>':'') +
+      '<span class="muted">'+U('linkersUsed')+': <b>'+countLinkers(ta.value)+'</b></span>';
+  }
+  ta.addEventListener('input', upd); upd();
+  return upd;
+}
+
+/* ---------- 5.9 accordion / flip cards ---------- */
+function accordion(host, items){
+  items.forEach(function(it){
+    var d = el('div','flip');
+    var b = el('button', '', L(it.h));
+    var body = el('div','body', L(it.b));
+    b.onclick = function(){ d.classList.toggle('open'); };
+    d.appendChild(b); d.appendChild(body); host.appendChild(d);
+  });
+}
+/* =========================================================================
+   6. SCREEN REGISTRY
+   ========================================================================= */
+var SCREENS = [];
+function S(mod, title, render){ SCREENS.push({mod:mod, title:title, render:render, id:'s'+SCREENS.length}); }
+var M = {
+  m0:{en:'0 · Recognise the type',ru:'0 · Определить тип',kz:'0 · Түрін тану'},
+  m1:{en:'1 · What Band 8 means',ru:'1 · Что такое Band 8',kz:'1 · Band 8 деген не'},
+  m2:{en:'2 · Problem–Solution',ru:'2 · Проблема–Решение',kz:'2 · Мәселе–Шешім'},
+  m3:{en:'3 · Double Question',ru:'3 · Двойной вопрос',kz:'3 · Қос сұрақ'},
+  m4:{en:'4 · Model essay analysis',ru:'4 · Разбор эссе',kz:'4 · Эссені талдау'},
+  m5:{en:'5 · Sentence by sentence',ru:'5 · По предложениям',kz:'5 · Сөйлем-сөйлем'},
+  m6:{en:'6 · Write the whole essay',ru:'6 · Пишем всё эссе',kz:'6 · Толық эссе жазу'},
+  m7:{en:'7 · Finish',ru:'7 · Итоги',kz:'7 · Қорытынды'}
+};
+
+/* track tabs helper: calls cb(host, trackId) */
+function trackTabs(host, cb, ids){
+  ids = ids || TRACK_IDS;
+  var tabs = el('div','tabs'); host.appendChild(tabs);
+  var area = el('div'); host.appendChild(area);
+  function draw(tr){
+    state.track = tr; save();
+    qsa(tabs,'.tab').forEach(function(b){ b.classList.toggle('on', b.dataset.tr===tr); });
+    area.innerHTML=''; cb(area, tr);
+  }
+  ids.forEach(function(tr){
+    var b = el('button','tab', L(TRACKS[tr].name)); b.dataset.tr=tr;
+    b.onclick = function(){ draw(tr); };
+    tabs.appendChild(b);
+  });
+  draw(ids.indexOf(state.track)>=0 ? state.track : ids[0]);
+}
+
+/* =========================================================================
+   MODULE 0
+   ========================================================================= */
+var TYPE_NAMES = {
+  cs:{en:'Causes + Solutions',ru:'Причины + Решения',kz:'Себептер + Шешімдер'},
+  ps:{en:'Problems + Solutions',ru:'Проблемы + Решения',kz:'Мәселелер + Шешімдер'},
+  dq:{en:'Double Question',ru:'Двойной вопрос',kz:'Қос сұрақ'},
+  no:{en:'NOT our type (Opinion / Discussion)',ru:'НЕ наш тип (Opinion / Discussion)',kz:'Біздің түр ЕМЕС (Opinion / Discussion)'}
+};
+var KEYWORDS = [
+  {w:'What are the causes of this?', t:'cs'},
+  {w:'Why is this happening? (+ solutions)', t:'cs'},
+  {w:'What are the reasons for this trend?', t:'cs'},
+  {w:'What problems does this cause?', t:'ps'},
+  {w:'What are the effects / consequences?', t:'ps'},
+  {w:'How can these problems be solved?', t:'ps'},
+  {w:'Why is this happening? Is it positive or negative?', t:'dq'},
+  {w:'Why do people do this? How does it affect families?', t:'dq'},
+  {w:'To what extent do you agree or disagree?', t:'no'},
+  {w:'Discuss both views and give your opinion.', t:'no'}
+];
+
+S(M.m0, {en:'How to recognise the essay type',ru:'Как определить тип эссе',kz:'Эссе түрін қалай тану керек'}, function(host){
+  var c = el('div','card');
+  c.innerHTML = '<div class="kicker">Module 0.1</div><h2>'+L({en:'Keywords tell you the type',ru:'Ключевые слова подсказывают тип',kz:'Кілт сөздер түрін көрсетеді'})+'</h2>'+
+   '<p>'+L({en:'Read the question twice. Underline the question words. They decide the whole structure of your essay.',
+            ru:'Прочитай вопрос дважды. Подчеркни вопросительные слова. Именно они определяют всю структуру эссе.',
+            kz:'Сұрақты екі рет оқы. Сұрау сөздерін сыз. Дәл солар эссенің бүкіл құрылымын анықтайды.'})+'</p>';
+  host.appendChild(c);
+
+  var c2 = el('div','card');
+  c2.innerHTML = '<h3>'+L({en:'Tap a phrase from a task → see the type',ru:'Нажми на фразу из задания → увидишь тип',kz:'Тапсырмадағы тіркесті бас → түрін көресің'})+'</h3>';
+  var pool = el('div','pool'); c2.appendChild(pool);
+  var out = el('div','fb show info'); out.innerHTML = L({en:'Nothing selected yet.',ru:'Пока ничего не выбрано.',kz:'Әзірге ештеңе таңдалмады.'});
+  KEYWORDS.forEach(function(k){
+    var b = el('button','chip','"'+esc(k.w)+'"');
+    b.onclick = function(){
+      qsa(pool,'.chip').forEach(function(x){x.classList.remove('sel');});
+      b.classList.add('sel');
+      var expl = {
+        cs:{en:'Body 1 = WHY it happens (causes). Body 2 = what to do (solutions).',ru:'Body 1 = ПОЧЕМУ это происходит (причины). Body 2 = что делать (решения).',kz:'Body 1 = НЕЛІКТЕН болады (себептер). Body 2 = не істеу керек (шешімдер).'},
+        ps:{en:'Body 1 = the bad RESULTS (problems/effects). Body 2 = solutions for those results.',ru:'Body 1 = плохие РЕЗУЛЬТАТЫ (проблемы). Body 2 = решения именно этих проблем.',kz:'Body 1 = жаман НӘТИЖЕЛЕР (мәселелер). Body 2 = сол мәселелердің шешімі.'},
+        dq:{en:'Two different questions → Body 1 answers Q1, Body 2 answers Q2. Never mix them.',ru:'Два разных вопроса → Body 1 отвечает на Q1, Body 2 — на Q2. Никогда не смешивай.',kz:'Екі түрлі сұрақ → Body 1 Q1-ге, Body 2 Q2-ге жауап береді. Ешқашан араластырма.'},
+        no:{en:'This is an Opinion or Discussion essay — a different structure, not in this course.',ru:'Это Opinion или Discussion эссе — другая структура, не в этом курсе.',kz:'Бұл Opinion немесе Discussion эссе — басқа құрылым, бұл курста жоқ.'}
+      }[k.t];
+      out.className = 'fb show '+(k.t==='no'?'bad':'good');
+      out.innerHTML = '<b>'+L(TYPE_NAMES[k.t])+'</b><br>'+L(expl);
+    };
+    pool.appendChild(b);
+  });
+  c2.appendChild(out);
+  host.appendChild(c2);
+
+  var r = el('div','rule');
+  r.innerHTML = '<b>'+L({en:'KEY RULE',ru:'ГЛАВНОЕ ПРАВИЛО',kz:'НЕГІЗГІ ЕРЕЖЕ'})+':</b> '+
+    L({en:'Answer ALL parts of the question — missing one part = Task Response max Band 5–6.',
+       ru:'Отвечай на ВСЕ части вопроса — пропущенная часть = Task Response максимум Band 5–6.',
+       kz:'Сұрақтың БАРЛЫҚ бөлігіне жауап бер — бір бөлігі жоқ болса = Task Response ең көбі Band 5–6.'});
+  host.appendChild(r);
+});
+
+S(M.m0, {en:'Exercise 0.1 — Sort 12 tasks',ru:'Упражнение 0.1 — Разложи 12 заданий',kz:'Жаттығу 0.1 — 12 тапсырманы сұрыпта'}, function(host){
+  sortEx(host, {
+    id:'ex0.1', no:'Exercise 0.1',
+    title:{en:'Sort the tasks into the right type',ru:'Разложи задания по типам',kz:'Тапсырмаларды түрлері бойынша сұрыпта'},
+    instr:{en:'12 exam tasks. Put each one into the correct box.',ru:'12 экзаменационных заданий. Положи каждое в нужную рамку.',kz:'12 емтихан тапсырмасы. Әрқайсысын дұрыс рамкаға сал.'},
+    boxes:[{key:'cs',label:TYPE_NAMES.cs},{key:'ps',label:TYPE_NAMES.ps},{key:'dq',label:TYPE_NAMES.dq},{key:'no',label:TYPE_NAMES.no}],
+    items:[
+      {k:'cs',t:'Many young people cannot find work after leaving university. What are the causes of this, and what can be done?'},
+      {k:'cs',t:'Fewer people read books today. What are the reasons for this, and what measures could encourage reading?'},
+      {k:'cs',t:'Traffic accidents involving young drivers are rising. What are the main reasons, and what can be done to reduce them?'},
+      {k:'ps',t:'Air pollution in large cities is increasing. What problems does this cause, and how can they be solved?'},
+      {k:'ps',t:'Many families now own two or more cars. What problems does this create, and what solutions can you suggest?'},
+      {k:'ps',t:'A growing number of people live alone. What problems does this cause for society, and how can these be tackled?'},
+      {k:'dq',t:'More people are working from home. Why is this happening? Is it a positive or negative development?'},
+      {k:'dq',t:'More students are choosing to study abroad. Why do they do this? What are the benefits for the students?'},
+      {k:'dq',t:'Many people move to another country to work. Why is this trend happening? How does it affect families?'},
+      {k:'no',t:'Some people think students should choose their own school subjects. To what extent do you agree or disagree?'},
+      {k:'no',t:'Some believe governments should fund the arts; others think money should go to health. Discuss both views and give your opinion.'},
+      {k:'no',t:'Advertising has a negative effect on children. To what extent do you agree?'}
+    ],
+    why:{en:'"Causes/reasons" → Body 1 explains WHY. "Problems/effects" → Body 1 explains the bad RESULTS. Two separate questions → Double Question. "Agree/disagree" and "Discuss both views" are different essay types.',
+         ru:'"Causes/reasons" → Body 1 объясняет ПОЧЕМУ. "Problems/effects" → Body 1 описывает плохие РЕЗУЛЬТАТЫ. Два разных вопроса → Double Question. "Agree/disagree" и "Discuss both views" — другие типы эссе.',
+         kz:'"Causes/reasons" → Body 1 НЕЛІКТЕН екенін түсіндіреді. "Problems/effects" → Body 1 жаман НӘТИЖЕЛЕРді сипаттайды. Екі бөлек сұрақ → Double Question. "Agree/disagree" және "Discuss both views" — басқа түрлер.'}
+  });
+});
+
+S(M.m0, {en:'Exercise 0.2 — Highlight the question words',ru:'Упражнение 0.2 — Выдели вопросительные слова',kz:'Жаттығу 0.2 — Сұрау сөздерін белгіле'}, function(host){
+  clickWordsEx(host, {
+    id:'ex0.2', no:'Exercise 0.2',
+    title:{en:'Click the words that tell you what to answer',ru:'Нажми на слова, которые говорят, ЧТО отвечать',kz:'НЕ жауап беру керегін көрсететін сөздерді бас'},
+    instr:{en:'Click every word that controls the content of your body paragraphs. Then press Check.',
+           ru:'Нажми на каждое слово, которое определяет содержание body-абзацев. Потом нажми "Проверить".',
+           kz:'Body абзацтарының мазмұнын анықтайтын әр сөзді бас. Сосын "Тексеру" бас.'},
+    items:[
+      {text:'Obesity among children is increasing in many countries. What are the *causes* of this, and what *solutions* can be offered?'},
+      {text:'More and more people are using single-use plastic products. What *problems* does this cause, and how can these problems be *solved*?'},
+      {text:'Nowadays, more and more people choose to work from home. *Why* is this happening? Is this a *positive* or *negative* development?'}
+    ],
+    why:{en:'These words set the job of each body paragraph. If you answer "problems" when the task asks for "causes", Task Response falls to Band 5–6.',
+         ru:'Эти слова задают задачу каждого body-абзаца. Если пишешь "проблемы", когда просят "причины", Task Response падает до Band 5–6.',
+         kz:'Бұл сөздер әр body абзацының міндетін белгілейді. "Себеп" сұралғанда "мәселе" жазсаң, Task Response Band 5–6-ға дейін төмендейді.'}
+  });
+});
+
+/* =========================================================================
+   MODULE 1 — Band 8
+   ========================================================================= */
+S(M.m1, {en:'The 4 criteria: Band 6 vs Band 8',ru:'4 критерия: Band 6 против Band 8',kz:'4 критерий: Band 6 мен Band 8'}, function(host){
+  var c = el('div','card');
+  c.innerHTML = '<div class="kicker">Module 1.1</div><h2>'+L({en:'What the examiner is looking for',ru:'Что ищет экзаменатор',kz:'Емтихан алушы нені іздейді'})+'</h2>'+
+    '<p class="small muted">'+L({en:'Tap each card to open it.',ru:'Нажми на карточку, чтобы открыть.',kz:'Ашу үшін карточканы бас.'})+'</p>';
+  host.appendChild(c);
+  var vs = function(a,b){ return '<div class="vs"><div class="b6"><b>Band 6:</b><br>'+esc(a)+'</div><div class="b8"><b>Band 8:</b><br>'+markLinkers(b)+'</div></div>'; };
+  accordion(c, [
+    {h:{en:'1. Task Response (TR)',ru:'1. Task Response (TR) — ответ на задание',kz:'1. Task Response (TR) — тапсырмаға жауап'},
+     b:L({en:'<p>Band 6: answers the task but one part is short or unclear; ideas are general.</p><p>Band 8: answers <b>every</b> part fully, with clear, developed and specific ideas.</p>',
+          ru:'<p>Band 6: отвечает на задание, но одна часть короткая или неясная; идеи общие.</p><p>Band 8: отвечает на <b>каждую</b> часть полностью, идеи развиты и конкретны.</p>',
+          kz:'<p>Band 6: тапсырмаға жауап береді, бірақ бір бөлігі қысқа не түсініксіз; идеялар жалпы.</p><p>Band 8: <b>әр</b> бөлікке толық жауап береді, идеялар дамытылған және нақты.</p>'}) +
+        vs('There are many problems of obesity.','One of the most serious problems this creates is the rising cost of hospital treatment for diet-related illness.')},
+    {h:{en:'2. Coherence & Cohesion (CC)',ru:'2. Coherence & Cohesion (CC) — логика и связность',kz:'2. Coherence & Cohesion (CC) — логика және байланыс'},
+     b:L({en:'<p>Band 6: linkers are used but sometimes repeated or mechanical; paragraphs are not always clear.</p><p>Band 8: one clear idea per paragraph, a topic sentence, and varied natural linking.</p>',
+          ru:'<p>Band 6: связки есть, но повторяются или звучат механически; абзацы не всегда ясны.</p><p>Band 8: одна ясная идея на абзац, topic sentence, разнообразные естественные связки.</p>',
+          kz:'<p>Band 6: байланыстырушылар бар, бірақ қайталанады; абзацтар әрқашан анық емес.</p><p>Band 8: әр абзацта бір анық идея, topic sentence, әртүрлі табиғи байланыстар.</p>'}) +
+        vs('And also, and then, and so the children are fat.','Consequently, their daily physical activity has fallen well below recommended levels.')},
+    {h:{en:'3. Lexical Resource (LR)',ru:'3. Lexical Resource (LR) — словарный запас',kz:'3. Lexical Resource (LR) — сөздік қор'},
+     b:L({en:'<p>Band 6: common words, some repetition, words copied from the task.</p><p>Band 8: precise topic collocations and confident paraphrase; almost no spelling errors.</p>',
+          ru:'<p>Band 6: простые слова, повторы, слова скопированы из задания.</p><p>Band 8: точные тематические коллокации и уверенный перефраз; почти нет орфографических ошибок.</p>',
+          kz:'<p>Band 6: қарапайым сөздер, қайталаулар, тапсырмадан көшірілген сөздер.</p><p>Band 8: нақты тақырыптық коллокациялар және сенімді перефраз; емле қатесі жоқтың қасы.</p>'}) +
+        vs('Bad food is very bad for children health.','Cheap processed food is heavily marketed to children and contributes directly to weight gain.')},
+    {h:{en:'4. Grammatical Range & Accuracy (GRA)',ru:'4. Grammatical Range & Accuracy (GRA) — грамматика',kz:'4. Grammatical Range & Accuracy (GRA) — грамматика'},
+     b:L({en:'<p>Band 6: mostly simple sentences; errors appear regularly but meaning is clear.</p><p>Band 8: a wide range of structures (conditionals, relative clauses, passive) with only rare small errors.</p>',
+          ru:'<p>Band 6: в основном простые предложения; ошибки регулярны, но смысл понятен.</p><p>Band 8: разнообразные конструкции (conditionals, relative clauses, passive), ошибки редки и мелкие.</p>',
+          kz:'<p>Band 6: негізінен қарапайым сөйлемдер; қателер жиі, бірақ мағынасы түсінікті.</p><p>Band 8: әртүрлі құрылымдар (conditionals, relative clauses, passive), қателер сирек әрі ұсақ.</p>'}) +
+        vs('If government will do something, obesity will be less.','If governments regulated the food industry more strictly, childhood obesity rates would fall significantly.')}
+  ]);
+});
+
+S(M.m1, {en:'Exercise 1.1 — Choose the Band 8 sentence',ru:'Упражнение 1.1 — Выбери предложение Band 8',kz:'Жаттығу 1.1 — Band 8 сөйлемін таңда'}, function(host){
+  mcqEx(host, {
+    id:'ex1.1', no:'Exercise 1.1',
+    title:{en:'Which sentence is Band 8?',ru:'Какое предложение на Band 8?',kz:'Қай сөйлем Band 8?'},
+    instr:{en:'Choose the stronger version. The explanation appears at once.',ru:'Выбери более сильный вариант. Объяснение появится сразу.',kz:'Күштірек нұсқаны таңда. Түсіндірме бірден шығады.'},
+    items:[
+      {options:[{t:'There is a lot of reasons why people are fat.',ok:false,why:'informal'},
+                {t:'There are several reasons why obesity rates are rising.',ok:true,why:'informal'}]},
+      {options:[{t:'In my opinion I think that it is a positive development.',ok:false,why:'redundant'},
+                {t:'In my opinion, this development is largely positive.',ok:true,why:'redundant'}]},
+      {options:[{t:'This essay will discuss about the causes and the solutions.',ok:false,why:'grammar'},
+                {t:'This essay will examine the main causes of this problem and propose several solutions.',ok:true,why:{en:'"discuss" takes no preposition: discuss something. Also "examine … and propose …" is more academic.',ru:'После "discuss" не нужен предлог: discuss something. И "examine … and propose …" звучит академичнее.',kz:'"discuss" септеулікті қажет етпейді: discuss something. Әрі "examine … and propose …" академиялық естіледі.'}}]},
+      {options:[{t:'Government should do something for solve this problem.',ok:false,why:'grammar'},
+                {t:'Governments should introduce stricter regulations to tackle this problem.',ok:true,why:{en:'"for + verb" is wrong — use "to + verb". "Introduce stricter regulations" is precise topic vocabulary.',ru:'"for + глагол" — ошибка, нужно "to + verb". "Introduce stricter regulations" — точная тематическая лексика.',kz:'"for + етістік" қате — "to + verb" керек. "Introduce stricter regulations" — нақты лексика.'}}]},
+      {options:[{t:'Kids eat a lot of junk food and they get fat.',ok:false,why:'informal'},
+                {t:'Children who regularly consume processed food are far more likely to gain weight.',ok:true,why:'informal'}]},
+      {options:[{t:'The technology is developing fast so people can work everywhere.',ok:false,why:'grammar'},
+                {t:'Rapid technological progress has made it possible for employees to work from almost anywhere.',ok:true,why:{en:'No article before uncountable "technology" in general meaning; "from almost anywhere" is more accurate than "everywhere".',ru:'Перед "technology" в общем значении артикль не нужен; "from almost anywhere" точнее, чем "everywhere".',kz:'Жалпы мағынадағы "technology" алдында артикль қажет емес; "from almost anywhere" дәлірек.'}}]}
+    ]
+  });
+});
+/* =========================================================================
+   MODULE 2 / 3 — interactive essay maps
+   ========================================================================= */
+function essayMap(host, blocks){
+  blocks.forEach(function(b,i){
+    var d = el('div','mapblock');
+    var btn = el('button','', '<span class="num">'+(i+1)+'</span><span>'+L(b.t)+'</span>');
+    var body = el('div','body',
+      '<div class="tmpl"><b>Template:</b><br>'+b.tmpl+'</div>' +
+      (b.ex? '<div class="small"><b>'+L({en:'From the model essay',ru:'Из образцового эссе',kz:'Үлгі эссесінен'})+':</b><br><span class="s r-'+(b.r||'topic')+'" style="display:inline-block;margin-top:4px">'+markLinkers(b.ex)+'</span></div>':'') +
+      (b.tip? '<div class="note small">'+L(b.tip)+'</div>':''));
+    btn.onclick = function(){ d.classList.toggle('open'); };
+    d.appendChild(btn); d.appendChild(body); host.appendChild(d);
+  });
+}
+
+var MAPS = {
+  cs:[
+    {t:{en:'INTRO 1 — State the main topic',ru:'ВСТУПЛЕНИЕ 1 — Назови тему',kz:'КІРІСПЕ 1 — Тақырыпты ата'}, r:'topic',
+     tmpl:'Nowadays, / In recent years, <i>topic</i> plays a significant role in… &nbsp;·&nbsp; <i>topic</i> is becoming increasingly common in… &nbsp;·&nbsp; <i>topic</i> has become a serious global issue.',
+     ex:'In recent years, childhood obesity has become a serious global issue.'},
+    {t:{en:'INTRO 2 — Paraphrase the question',ru:'ВСТУПЛЕНИЕ 2 — Перефразируй вопрос',kz:'КІРІСПЕ 2 — Сұрақты перефразда'}, r:'paraphrase',
+     tmpl:'<i>(your own words — never copy the task)</i>',
+     ex:'A growing number of young people in many countries now weigh far more than is healthy for their age.',
+     tip:{en:'Change the words AND the grammar, but never the meaning.',ru:'Меняй слова И грамматику, но не смысл.',kz:'Сөздерді ЖӘНЕ грамматиканы өзгерт, бірақ мағынаны емес.'}},
+    {t:{en:'INTRO 3 — Outline (not arguments)',ru:'ВСТУПЛЕНИЕ 3 — Outline (без аргументов)',kz:'КІРІСПЕ 3 — Outline (дәлелсіз)'}, r:'outline',
+     tmpl:'<b>Causes variant:</b> This essay will examine the main causes of this problem and propose several effective solutions.<br><b>Problems variant:</b> This essay will discuss the main problems this causes and suggest several ways to tackle them.',
+     ex:'This essay will examine the main causes of this problem and propose several effective solutions.'},
+    {t:{en:'BODY 1.1 — Main cause / problem',ru:'BODY 1.1 — Главная причина / проблема',kz:'BODY 1.1 — Негізгі себеп / мәселе'}, r:'cause',
+     tmpl:'One of the primary causes of this issue is…<br><i>(Problems variant)</i> One of the most serious problems this creates is…',
+     ex:'One of the primary causes of this issue is the widespread availability of cheap processed food.'},
+    {t:{en:'BODY 1.2 — Explanation',ru:'BODY 1.2 — Объяснение',kz:'BODY 1.2 — Түсіндірме'}, r:'explanation',
+     tmpl:'This is mainly because… &nbsp;·&nbsp; This is largely because… &nbsp;·&nbsp; This is because…',
+     ex:'This is mainly because fast-food chains and snack manufacturers target children with aggressive advertising and low prices.'},
+    {t:{en:'BODY 1.3 — Example',ru:'BODY 1.3 — Пример',kz:'BODY 1.3 — Мысал'}, r:'example',
+     tmpl:'For example, … &nbsp;·&nbsp; For instance, …',
+     ex:'For example, many schools are surrounded by outlets selling sugary drinks and fried food for less than the price of a healthy meal.'},
+    {t:{en:'BODY 1.4 — Result',ru:'BODY 1.4 — Результат',kz:'BODY 1.4 — Нәтиже'}, r:'result',
+     tmpl:'As a result, / Therefore, / Hence, / Thus, / Consequently, … &nbsp;·&nbsp; This results in…',
+     ex:'As a result, children consume far more calories than they burn.'},
+    {t:{en:'BODY 1.5–1.7 — Second cause / problem (+ explanation + result)',ru:'BODY 1.5–1.7 — Вторая причина / проблема (+ объяснение + результат)',kz:'BODY 1.5–1.7 — Екінші себеп / мәселе (+ түсіндірме + нәтиже)'}, r:'cause',
+     tmpl:'Furthermore, / Moreover, / In addition, / Additionally, … → This is mainly because… → Consequently, …',
+     ex:'Furthermore, young people today lead increasingly sedentary lifestyles.'},
+    {t:{en:'BODY 2.1 — Opening sentence',ru:'BODY 2.1 — Вступительное предложение',kz:'BODY 2.1 — Бастапқы сөйлем'}, r:'solutionOpen',
+     tmpl:'To address this issue, several measures could be implemented.',
+     ex:'To address this issue, several measures could be implemented.'},
+    {t:{en:'BODY 2.2 — First solution',ru:'BODY 2.2 — Первое решение',kz:'BODY 2.2 — Бірінші шешім'}, r:'solution',
+     tmpl:'Firstly, the government / individuals / schools should…',
+     ex:'Firstly, governments should restrict the marketing of unhealthy food to children and introduce taxes on sugary products.',
+     tip:{en:'This solution must answer the FIRST cause/problem from Body 1.',ru:'Это решение должно отвечать ПЕРВОЙ причине/проблеме из Body 1.',kz:'Бұл шешім Body 1-дегі БІРІНШІ себепке/мәселеге жауап беруі керек.'}},
+    {t:{en:'BODY 2.3–2.4 — Explanation + example + result',ru:'BODY 2.3–2.4 — Объяснение + пример + результат',kz:'BODY 2.3–2.4 — Түсіндірме + мысал + нәтиже'}, r:'explanation',
+     tmpl:'This would… → For instance, … → As a result, / Therefore, / Consequently, …',
+     ex:'This would make nutritious options more affordable and competitive.'},
+    {t:{en:'BODY 2.5–2.7 — Second solution (+ example + result)',ru:'BODY 2.5–2.7 — Второе решение (+ пример + результат)',kz:'BODY 2.5–2.7 — Екінші шешім (+ мысал + нәтиже)'}, r:'solution',
+     tmpl:'Secondly, / Furthermore, / In addition, … → For example, … → Therefore, …',
+     ex:'Secondly, schools should make daily physical education compulsory and offer a wider range of sports clubs.'},
+    {t:{en:'CONCLUSION 1 — Summarise',ru:'ВЫВОД 1 — Обобщи',kz:'ҚОРЫТЫНДЫ 1 — Жинақта'}, r:'conclusion',
+     tmpl:'In conclusion, … <i>(problem + solutions in one sentence, no new ideas)</i>',
+     ex:'In conclusion, childhood obesity is largely caused by the easy availability of unhealthy food and a lack of physical activity.'},
+    {t:{en:'CONCLUSION 2 — Positive final statement',ru:'ВЫВОД 2 — Позитивное завершение',kz:'ҚОРЫТЫНДЫ 2 — Оң аяқтау'}, r:'conclusion',
+     tmpl:'If…, … will… &nbsp;·&nbsp; With these measures, …',
+     ex:'However, if governments regulate the food industry and schools promote regular exercise, the next generation will have a far better chance of growing up healthy.'}
+  ],
+  dq:[
+    {t:{en:'INTRO 1 — Topic sentence',ru:'ВСТУПЛЕНИЕ 1 — Тема',kz:'КІРІСПЕ 1 — Тақырып'}, r:'topic',
+     tmpl:'Nowadays, <i>topic</i> is becoming increasingly common in…',
+     ex:'Nowadays, remote work is becoming increasingly common in many parts of the world.'},
+    {t:{en:'INTRO 2 — Paraphrase',ru:'ВСТУПЛЕНИЕ 2 — Перефраз',kz:'КІРІСПЕ 2 — Перефраз'}, r:'paraphrase',
+     tmpl:'<i>(your own words)</i> A rising number of… now…',
+     ex:'A rising number of employees now carry out their jobs from home instead of commuting to an office.'},
+    {t:{en:'INTRO 3 — Outline answering BOTH questions',ru:'ВСТУПЛЕНИЕ 3 — Outline с ответом на ОБА вопроса',kz:'КІРІСПЕ 3 — ЕКІ сұраққа жауап беретін outline'}, r:'outline',
+     tmpl:'This essay will explain why this trend is happening and argue that it is a largely positive development.',
+     ex:'This essay will explain why this trend is happening and argue that it is a largely positive development.',
+     tip:{en:'Your answer to Q2 (the opinion) must already be visible here.',ru:'Твой ответ на Q2 (мнение) должен быть виден уже здесь.',kz:'Q2-ге жауабың (пікірің) осы жерде көрініп тұруы керек.'}},
+    {t:{en:'BODY 1 — Answer QUESTION 1 (first idea)',ru:'BODY 1 — Ответ на ВОПРОС 1 (первая идея)',kz:'BODY 1 — 1-СҰРАҚҚА жауап (бірінші идея)'}, r:'cause',
+     tmpl:'One of the main reasons for this is… → This is mainly because… → For example, … → As a result, …',
+     ex:'One of the main reasons for this shift is rapid technological progress.'},
+    {t:{en:'BODY 1 — Second idea',ru:'BODY 1 — Вторая идея',kz:'BODY 1 — Екінші идея'}, r:'cause',
+     tmpl:'Furthermore, … → This is largely because… → Consequently, …',
+     ex:'Furthermore, employers increasingly recognise the financial benefits of remote work.'},
+    {t:{en:'BODY 2 — Answer QUESTION 2: clear position',ru:'BODY 2 — Ответ на ВОПРОС 2: чёткая позиция',kz:'BODY 2 — 2-СҰРАҚҚА жауап: нақты ұстаным'}, r:'position',
+     tmpl:'In my opinion, this development is mostly positive. &nbsp;·&nbsp; The most effective way to… is…',
+     ex:'In my opinion, this development is mostly positive.'},
+    {t:{en:'BODY 2 — Reason + example + result',ru:'BODY 2 — Причина + пример + результат',kz:'BODY 2 — Себеп + мысал + нәтиже'}, r:'explanation',
+     tmpl:'Firstly, … → This is because… → For instance, … → As a result, …',
+     ex:'Firstly, working from home gives employees a better work-life balance.'},
+    {t:{en:'BODY 2 — Concession',ru:'BODY 2 — Уступка',kz:'BODY 2 — Мойындау'}, r:'concession',
+     tmpl:'Admittedly, … However, …',
+     ex:'Admittedly, some people may feel isolated without daily contact with colleagues.',
+     tip:{en:'A concession shows balance — but you must return to your own position straight after it.',ru:'Уступка показывает баланс — но сразу после неё вернись к своей позиции.',kz:'Мойындау тепе-теңдік көрсетеді — бірақ бірден өз ұстанымыңа орал.'}},
+    {t:{en:'BODY 2 — Final result',ru:'BODY 2 — Финальный результат',kz:'BODY 2 — Соңғы нәтиже'}, r:'result',
+     tmpl:'Therefore, the advantages clearly outweigh the drawbacks.',
+     ex:'Therefore, the advantages clearly outweigh the drawbacks.'},
+    {t:{en:'CONCLUSION — answer Q1 + Q2 again',ru:'ВЫВОД — снова ответь на Q1 + Q2',kz:'ҚОРЫТЫНДЫ — Q1 + Q2-ге қайта жауап'}, r:'conclusion',
+     tmpl:'In conclusion, <i>+ answer to Q1 in one clause</i> + Overall, I believe <i>+ answer to Q2 (same opinion as the intro)</i>.',
+     ex:'In conclusion, remote work is growing mainly because of advances in technology and the savings it offers employers.'}
+  ]
+};
+MAPS.ps = MAPS.cs;
+
+S(M.m2, {en:'Structure map: Problem–Solution',ru:'Карта структуры: Проблема–Решение',kz:'Құрылым картасы: Мәселе–Шешім'}, function(host){
+  var c = el('div','card');
+  c.innerHTML = '<div class="kicker">Module 2.1</div><h2>'+L({en:'One structure, two variants',ru:'Одна структура, два варианта',kz:'Бір құрылым, екі нұсқа'})+'</h2>'+
+    '<p>'+L({en:'The examiner can ask for <b>causes</b> OR for <b>problems / effects</b>. Only Body 1 changes — the intro, Body 2 and the conclusion keep the same shape.',
+             ru:'Экзаменатор может спросить <b>причины</b> ИЛИ <b>проблемы / последствия</b>. Меняется только Body 1 — вступление, Body 2 и вывод остаются такими же.',
+             kz:'Емтихан алушы <b>себептерді</b> НЕМЕСЕ <b>мәселелерді / салдарды</b> сұрауы мүмкін. Тек Body 1 өзгереді — кіріспе, Body 2 және қорытынды сол күйі қалады.'})+'</p>'+
+    '<table class="t"><tr><th>Paragraph</th><th>Causes variant</th><th>Problems variant</th></tr>'+
+    '<tr><td>Intro</td><td>…examine the main <b>causes</b> and propose solutions</td><td>…discuss the main <b>problems</b> and suggest ways to tackle them</td></tr>'+
+    '<tr><td>Body 1</td><td>One of the primary <b>causes</b> of this issue is…</td><td>One of the most serious <b>problems</b> this creates is…</td></tr>'+
+    '<tr><td>Body 2</td><td colspan="2" style="text-align:center">Solutions — identical structure</td></tr>'+
+    '<tr><td>Conclusion</td><td colspan="2" style="text-align:center">Summary + positive final sentence</td></tr></table>'+
+    '<p class="small muted" style="margin-top:10px">'+L({en:'Tap any block below to open the template and a real sentence from the model essay.',ru:'Нажми на любой блок ниже, чтобы открыть шаблон и настоящее предложение из эссе.',kz:'Шаблон мен эсседегі нақты сөйлемді ашу үшін кез келген блокты бас.'})+'</p>';
+  host.appendChild(c);
+  var mapHost = el('div','card'); host.appendChild(mapHost);
+  essayMap(mapHost, MAPS.cs);
+  var r = el('div','rule');
+  r.innerHTML = '<b>'+L({en:'Remember',ru:'Запомни',kz:'Есте сақта'})+':</b> '+
+    L({en:'Templates are a skeleton, not a copy-paste. Band 8 needs varied linkers and precise topic vocabulary on top of the skeleton.',
+       ru:'Шаблоны — это скелет, а не текст для копирования. Для Band 8 нужны разные связки и точная тематическая лексика поверх скелета.',
+       kz:'Шаблондар — қаңқа, көшіретін мәтін емес. Band 8 үшін қаңқаның үстіне әртүрлі байланыстырушылар мен нақты лексика керек.'});
+  host.appendChild(r);
+});
+
+S(M.m2, {en:'Causes ≠ Problems + matching solutions',ru:'Причины ≠ Проблемы + подбор решений',kz:'Себептер ≠ Мәселелер + шешімдерді сәйкестендіру'}, function(host){
+  var c = el('div','card');
+  c.innerHTML = '<div class="kicker">Module 2.2</div><h2>'+L({en:'Causes are not problems',ru:'Причины — это не проблемы',kz:'Себептер — мәселе емес'})+'</h2>'+
+    '<p>'+L({en:'<b>Cause</b> = why the situation appears. <b>Problem / effect</b> = the damage the situation does. "People eat fast food" is a <b>cause</b> of obesity; "a higher risk of diabetes" is a <b>problem</b> it causes.',
+             ru:'<b>Причина</b> = почему возникает ситуация. <b>Проблема / следствие</b> = какой вред она наносит. "Люди едят фастфуд" — это <b>причина</b> ожирения; "выше риск диабета" — это <b>проблема</b>.',
+             kz:'<b>Себеп</b> = жағдай неліктен пайда болады. <b>Мәселе / салдар</b> = ол қандай зиян келтіреді. "Адамдар фастфуд жейді" — семіздіктің <b>себебі</b>; "диабет қаупі жоғары" — <b>мәселесі</b>.'})+'</p>';
+  host.appendChild(c);
+  sortEx(host, {
+    id:'ex2.1', no:'Exercise 2.1',
+    title:{en:'Cause or problem? (topic: childhood obesity)',ru:'Причина или проблема? (тема: детское ожирение)',kz:'Себеп пе, мәселе ме? (тақырып: балалардағы семіздік)'},
+    boxes:[{key:'c',label:{en:'CAUSE (why it happens)',ru:'ПРИЧИНА (почему)',kz:'СЕБЕП (неліктен)'}},
+           {key:'p',label:{en:'PROBLEM / EFFECT (what it causes)',ru:'ПРОБЛЕМА / СЛЕДСТВИЕ (что вызывает)',kz:'МӘСЕЛЕ / САЛДАР (не тудырады)'}}],
+    items:[
+      {k:'c',t:'Cheap fast food is sold near every school.'},
+      {k:'c',t:'Children spend their free time on screens instead of playing outside.'},
+      {k:'c',t:'Busy parents have little time to cook fresh meals.'},
+      {k:'c',t:'Physical education lessons have been reduced to once a week.'},
+      {k:'p',t:'Heart disease now appears at a much younger age.'},
+      {k:'p',t:'Hospitals spend far more money on diet-related treatment.'},
+      {k:'p',t:'Overweight children are more often bullied and lose confidence.'},
+      {k:'p',t:'Many teenagers cannot take part in ordinary sports lessons.'}
+    ],
+    why:'cause'
+  });
+  matchEx(host, {
+    id:'ex2.2', no:'Exercise 2.2',
+    title:{en:'Match each solution to the cause it answers',ru:'Соедини решение с причиной, на которую оно отвечает',kz:'Әр шешімді жауап беретін себеппен сәйкестендір'},
+    instr:{en:'In Band 8 essays every solution answers one cause from Body 1.',ru:'В эссе на Band 8 каждое решение отвечает конкретной причине из Body 1.',kz:'Band 8 эсседе әр шешім Body 1-дегі нақты себепке жауап береді.'},
+    pairs:[
+      {l:'Cheap processed food is aggressively advertised to children.', r:'Governments should ban junk-food advertising during children’s programmes.'},
+      {l:'Children spend most of their free time on screens.', r:'Schools should make daily physical education compulsory.'},
+      {l:'Parents do not know how to plan a balanced diet.', r:'Clinics should offer free nutrition classes for families.'},
+      {l:'Sugary drinks are cheaper than water in many shops.', r:'A tax on sugary drinks should make healthy options cheaper.'},
+      {l:'There are few safe places for children to play outdoors.', r:'Local authorities should build parks and secure playgrounds.'},
+      {l:'School canteens sell fried food every day.', r:'Canteens should be required to follow official nutrition standards.'}
+    ],
+    why:'match'
+  });
+});
+
+S(M.m3, {en:'Structure map: Double Question',ru:'Карта структуры: Двойной вопрос',kz:'Құрылым картасы: Қос сұрақ'}, function(host){
+  var c = el('div','card');
+  c.innerHTML = '<div class="kicker">Module 3.1</div><h2>'+L({en:'Two questions, two body paragraphs',ru:'Два вопроса — два body-абзаца',kz:'Екі сұрақ — екі body абзац'})+'</h2>'+
+    '<p>'+L({en:'Body 1 answers Question 1 only. Body 2 answers Question 2 only. <b>Never mix the two questions in one paragraph.</b>',
+             ru:'Body 1 отвечает только на Вопрос 1. Body 2 — только на Вопрос 2. <b>Никогда не смешивай вопросы в одном абзаце.</b>',
+             kz:'Body 1 тек 1-сұраққа жауап береді. Body 2 тек 2-сұраққа. <b>Екі сұрақты бір абзацта араластырма.</b>'})+'</p>'+
+    '<div class="tasktext">'+esc(TRACKS.dq.task)+'</div>';
+  host.appendChild(c);
+  var mapHost = el('div','card'); host.appendChild(mapHost);
+  essayMap(mapHost, MAPS.dq);
+  var r = el('div','rule');
+  r.innerHTML = '<b>'+L({en:'Consistency rule',ru:'Правило единой позиции',kz:'Бірыңғай ұстаным ережесі'})+':</b> '+
+    L({en:'Your opinion must be the SAME in the introduction, in Body 2 and in the conclusion. A changed opinion damages Task Response and Coherence.',
+       ru:'Твоё мнение должно быть ОДИНАКОВЫМ во вступлении, в Body 2 и в выводе. Смена мнения портит Task Response и Coherence.',
+       kz:'Пікірің кіріспеде, Body 2-де және қорытындыда БІРДЕЙ болуы керек. Пікірдің өзгеруі Task Response пен Coherence-ті бұзады.'});
+  host.appendChild(r);
+});
+
+S(M.m3, {en:'Four types of Question 2',ru:'Четыре типа второго вопроса',kz:'Екінші сұрақтың төрт түрі'}, function(host){
+  var c = el('div','card');
+  c.innerHTML = '<div class="kicker">Module 3.2</div><h2>'+L({en:'Every Q2 needs a DIRECT answer',ru:'На каждый Q2 нужен ПРЯМОЙ ответ',kz:'Әр Q2-ге ТІКЕЛЕЙ жауап керек'})+'</h2>'+
+    '<table class="t"><tr><th>'+L({en:'Question 2 asks…',ru:'Вопрос 2 спрашивает…',kz:'2-сұрақ сұрайды…'})+'</th><th>'+L({en:'Opening sentence of Body 2',ru:'Первое предложение Body 2',kz:'Body 2-нің бірінші сөйлемі'})+'</th></tr>'+
+    '<tr><td>Is this a positive or negative development?</td><td><b>In my opinion, this development is mostly positive, despite some drawbacks.</b></td></tr>'+
+    '<tr><td>What can be done about it?</td><td><b>The most effective way to address this situation is to…</b></td></tr>'+
+    '<tr><td>How does it affect families / society?</td><td><b>This trend affects families in two significant ways.</b></td></tr>'+
+    '<tr><td>Do the advantages outweigh the disadvantages?</td><td><b>I believe the benefits of this trend clearly outweigh its drawbacks.</b></td></tr></table>';
+  host.appendChild(c);
+  matchEx(host,{
+    id:'ex3.1', no:'Exercise 3.1',
+    title:{en:'Match Question 2 with the right opening sentence',ru:'Соедини Q2 с правильным первым предложением',kz:'Q2-ні дұрыс бастапқы сөйлеммен сәйкестендір'},
+    pairs:[
+      {l:'Is this a positive or a negative development?', r:'In my opinion, this development is mostly positive, despite some drawbacks.'},
+      {l:'What can be done to reduce this problem?', r:'The most effective way to address this situation is to invest in public transport.'},
+      {l:'How does this affect family life?', r:'This trend affects families in two significant ways.'},
+      {l:'Do the advantages outweigh the disadvantages?', r:'I believe the benefits of this trend clearly outweigh its drawbacks.'}
+    ],
+    why:'bothQ'
+  });
+  var r = el('div','rule');
+  r.innerHTML = '<b>'+L({en:'Never do this',ru:'Так делать нельзя',kz:'Бұлай істеуге болмайды'})+':</b> '+
+    L({en:'Do not answer Q2 with "There are advantages and disadvantages." That is not a position — Task Response drops to Band 5–6.',
+       ru:'Не отвечай на Q2 фразой "Есть плюсы и минусы". Это не позиция — Task Response падает до Band 5–6.',
+       kz:'Q2-ге "Артықшылығы да, кемшілігі де бар" деп жауап берме. Бұл ұстаным емес — Task Response Band 5–6-ға түседі.'});
+  host.appendChild(r);
+});
+/* =========================================================================
+   MODULE 4 — model essay analysis
+   ========================================================================= */
+function colourCodeEx(host, tr){
+  var sents = essaySentences(tr);
+  var roles = []; sents.forEach(function(s){ if(roles.indexOf(s.r)<0) roles.push(s.r); });
+  var f = exFrame(host, {
+    id:'ex4.1_'+tr, no:'Exercise 4.1',
+    title:{en:'Colour-code the essay',ru:'Раскрась эссе по ролям',kz:'Эссені рөлдері бойынша боя'},
+    instr:{en:'Choose the role of every sentence, then press Check — the correct colours appear.',
+           ru:'Выбери роль каждого предложения, затем нажми "Проверить" — появятся правильные цвета.',
+           kz:'Әр сөйлемнің рөлін таңда, сосын "Тексеру" бас — дұрыс түстер шығады.'}
+  });
+  var opts = roles.map(function(r){ return '<option value="'+r+'">'+esc(L(ROLE_LABEL[r]))+'</option>'; }).join('');
+  var html = '';
+  var n = 0;
+  TRACKS[tr].paras.forEach(function(p,pi){
+    html += '<div class="card tight"><div class="small muted">'+['Introduction','Body 1','Body 2','Conclusion'][pi]+'</div>';
+    p.forEach(function(s){
+      html += '<div style="display:flex;gap:10px;align-items:flex-start;margin:8px 0" data-row="'+n+'" data-role="'+s.r+'">'+
+        '<select class="gap" data-row="'+n+'" style="min-width:150px"><option value="">— ? —</option>'+opts+'</select>'+
+        '<span class="s sent" style="flex:1">'+markLinkers(s.t)+'</span></div>';
+      n++;
+    });
+    html += '</div>';
+  });
+  f.body.innerHTML = html;
+  f.body.insertBefore(el('div','', legendHtml()), f.body.firstChild);
+  function paint(showAll){
+    var c=0;
+    qsa(f.body,'select.gap').forEach(function(sel){
+      var row = sel.parentNode, want = row.dataset.role, span = qs(row,'.sent');
+      if(showAll) sel.value = want;
+      sel.classList.remove('good','bad');
+      if(sel.value===want){ sel.classList.add('good'); span.className='s sent r-'+want; row.classList.add('cc'); c++; }
+      else { sel.classList.add('bad'); span.className='s sent'; }
+    });
+    return c;
+  }
+  f.btn(U('check'),'',function(){ var c=paint(false); f.result(c, sents.length, ''); });
+  f.btn(U('again'),'ghost',function(){
+    qsa(f.body,'select.gap').forEach(function(s){ s.value=''; s.classList.remove('good','bad'); });
+    qsa(f.body,'.sent').forEach(function(s){ s.className='s sent'; });
+    f.clear();
+  });
+  f.btn(U('show'),'ghost',function(){ paint(true); f.say('info', L({en:'This is the full plan of a Band 8 essay.',ru:'Это полный план эссе на Band 8.',kz:'Бұл Band 8 эссесінің толық жоспары.'})); });
+}
+
+function linkerHuntEx(host, tr){
+  var f = exFrame(host, {
+    id:'ex4.2_'+tr, no:'Exercise 4.2',
+    title:{en:'Find the linking words',ru:'Найди слова-связки',kz:'Байланыстырушы сөздерді тап'},
+    instr:{en:'Click every linking word or phrase in the essay.',ru:'Нажми на каждое слово-связку в эссе.',kz:'Эсседегі әр байланыстырушы сөзді бас.'}
+  });
+  var total = 0;
+  var wrap = el('div','card tight essay');
+  TRACKS[tr].paras.forEach(function(p){
+    var text = p.map(function(s){return s.t;}).join(' ');
+    var para = el('p'); para.style.lineHeight='2.2';
+    var idx = 0, m;
+    LINKER_RE.lastIndex = 0;
+    var parts = [];
+    while((m = LINKER_RE.exec(text))!==null){
+      if(m.index>idx) parts.push({t:text.slice(idx,m.index), k:false});
+      parts.push({t:m[0], k:true}); total++;
+      idx = m.index + m[0].length;
+    }
+    if(idx<text.length) parts.push({t:text.slice(idx), k:false});
+    parts.forEach(function(pt){
+      if(pt.k){
+        var s = el('span','w', esc(pt.t)); s.dataset.k='1';
+        s.onclick=function(){ s.classList.toggle('sel'); upd(); };
+        para.appendChild(s);
+      } else {
+        pt.t.split(/(\s+)/).forEach(function(tok){
+          if(/^\s+$/.test(tok)){ para.appendChild(document.createTextNode(tok)); return; }
+          if(!tok) return;
+          var s = el('span','w', esc(tok)); s.dataset.k='0';
+          s.onclick=function(){ s.classList.toggle('sel'); upd(); };
+          para.appendChild(s);
+        });
+      }
+    });
+    wrap.appendChild(para);
+  });
+  var counter = el('div','score');
+  f.body.appendChild(counter); f.body.appendChild(wrap);
+  function upd(){
+    var found = qsa(wrap,'.w.sel[data-k="1"]').length;
+    counter.textContent = U('found')+' '+found+' '+U('of')+' '+total;
+  }
+  upd();
+  f.btn(U('check'),'',function(){
+    var c=0;
+    qsa(wrap,'.w').forEach(function(s){
+      s.classList.remove('good','bad','miss');
+      if(s.dataset.k==='1' && s.classList.contains('sel')){ s.classList.add('good'); c++; }
+      else if(s.dataset.k==='1'){ s.classList.add('miss'); }
+      else if(s.classList.contains('sel')){ s.classList.add('bad'); }
+    });
+    f.result(c, total, L({en:'Band 8 uses a wide range of linkers — and never starts three sentences in a row with the same one.',
+                          ru:'Band 8 использует разные связки — и никогда не начинает три предложения подряд одинаково.',
+                          kz:'Band 8 әртүрлі байланыстырушыларды қолданады — үш сөйлемді қатарынан бірдей бастамайды.'}));
+  });
+  f.btn(U('again'),'ghost',function(){ qsa(wrap,'.w').forEach(function(s){ s.className='w'; }); upd(); f.clear(); });
+  f.btn(U('show'),'ghost',function(){
+    qsa(wrap,'.w').forEach(function(s){ s.className='w'+(s.dataset.k==='1'?' good sel':''); }); upd();
+  });
+}
+
+var PARAPHRASE = {
+  cs:[{l:'Obesity among children', r:'childhood obesity'},
+      {l:'is increasing', r:'a growing number of young people'},
+      {l:'children', r:'young people'},
+      {l:'the causes of this', r:'the main causes of this problem'},
+      {l:'what solutions can be offered', r:'propose several effective solutions'}],
+  ps:[{l:'single-use plastic products', r:'bottles, bags and packaging used for a few minutes'},
+      {l:'more and more people are using', r:'vast quantities are produced'},
+      {l:'plastic products', r:'disposable plastic'},
+      {l:'what problems does this cause', r:'discuss the main problems this causes'},
+      {l:'how can these problems be solved', r:'suggest several ways to tackle them'}],
+  dq:[{l:'more and more people', r:'a rising number of employees'},
+      {l:'work from home', r:'remote work'},
+      {l:'choose to work from home', r:'carry out their jobs from home'},
+      {l:'Why is this happening?', r:'explain why this trend is happening'},
+      {l:'positive or negative development', r:'a largely positive development'}]
+};
+
+var VOCAB = {
+  cs:{words:[
+      {w:'childhood obesity', m:{en:'being seriously overweight in childhood',ru:'детское ожирение',kz:'балалардағы семіздік'}},
+      {w:'processed food', m:{en:'food made in a factory, not fresh',ru:'переработанная (фабричная) еда',kz:'өңделген (зауыттық) тамақ'}},
+      {w:'aggressive advertising', m:{en:'very strong, pushy marketing',ru:'агрессивная реклама',kz:'агрессивті жарнама'}},
+      {w:'a sedentary lifestyle', m:{en:'a way of living with very little movement',ru:'сидячий образ жизни',kz:'отырықшы өмір салты'}},
+      {w:'physical activity', m:{en:'sport and movement during the day',ru:'физическая активность',kz:'дене белсенділігі'}},
+      {w:'sugary drinks', m:{en:'drinks containing a lot of sugar',ru:'сладкие напитки',kz:'тәтті сусындар'}},
+      {w:'nutritious options', m:{en:'healthy food choices',ru:'полезные варианты еды',kz:'пайдалы тағам түрлері'}},
+      {w:'compulsory physical education', m:{en:'PE lessons that every pupil must attend',ru:'обязательная физкультура',kz:'міндетті дене шынықтыру'}},
+      {w:'to burn calories', m:{en:'to use energy through movement',ru:'сжигать калории',kz:'калория жағу'}},
+      {w:'to be exposed to', m:{en:'to meet or be affected by something',ru:'подвергаться воздействию чего-либо',kz:'бір нәрсенің ықпалына ұшырау'}}
+    ],
+    gaps:[{s:'Many teenagers now lead a ___ and walk fewer than 3,000 steps a day.', a:'sedentary lifestyle'},
+          {s:'A tax on ___ has already reduced sugar consumption in several countries.', a:'sugary drinks'},
+          {s:'School canteens should offer ___ at the same price as fried food.', a:'nutritious options'},
+          {s:'Children who watch television for hours are ___ hundreds of food advertisements.', a:'exposed to'},
+          {s:'Making ___ compulsory would guarantee at least some daily exercise.', a:'physical education'},
+          {s:'Cheap ___ is high in salt, sugar and fat.', a:'processed food'}]},
+  ps:{words:[
+      {w:'single-use plastic', m:{en:'plastic thrown away after one use',ru:'одноразовый пластик',kz:'бір реттік пластик'}},
+      {w:'municipal waste systems', m:{en:'the city services that collect rubbish',ru:'городские системы вывоза мусора',kz:'қалалық қалдық жүйелері'}},
+      {w:'to decompose', m:{en:'to break down naturally',ru:'разлагаться естественным путём',kz:'табиғи жолмен ыдырау'}},
+      {w:'the food chain', m:{en:'the order in which living things eat each other',ru:'пищевая цепь',kz:'қоректік тізбек'}},
+      {w:'landfill sites', m:{en:'places where rubbish is buried',ru:'свалки / полигоны',kz:'қоқыс полигондары'}},
+      {w:'marine species', m:{en:'animals and plants that live in the sea',ru:'морские виды',kz:'теңіз түрлері'}},
+      {w:'a deposit scheme', m:{en:'you pay extra and get money back for returning a bottle',ru:'система залога за тару',kz:'ыдысты қайтарғанда ақша қайтару жүйесі'}},
+      {w:'reusable alternatives', m:{en:'items you can use many times',ru:'многоразовые альтернативы',kz:'көп рет қолданылатын баламалар'}},
+      {w:'to generate waste', m:{en:'to produce rubbish',ru:'производить отходы',kz:'қалдық шығару'}},
+      {w:'stricter regulation', m:{en:'tougher rules made by a government',ru:'более строгое регулирование',kz:'қатаң реттеу'}}
+    ],
+    gaps:[{s:'Plastic bags take centuries to ___ in the soil.', a:'decompose'},
+          {s:'Tiny particles of plastic now enter ___ and reach our plates.', a:'the food chain'},
+          {s:'A ___ on returned bottles encourages ordinary shoppers to recycle.', a:'deposit scheme'},
+          {s:'Growing ___ swallow farmland around large cities.', a:'landfill sites'},
+          {s:'Companies that ___ should pay for its collection.', a:'generate waste'},
+          {s:'Shoppers need cheap ___ such as cloth bags and glass jars.', a:'reusable alternatives'}]},
+  dq:{words:[
+      {w:'remote work', m:{en:'working away from the office',ru:'удалённая работа',kz:'қашықтан жұмыс'}},
+      {w:'to commute', m:{en:'to travel to work every day',ru:'ездить на работу и обратно',kz:'жұмысқа күнде қатынау'}},
+      {w:'video-conferencing platforms', m:{en:'programs for online meetings',ru:'платформы для видеовстреч',kz:'бейнеконференция платформалары'}},
+      {w:'work-life balance', m:{en:'a healthy division between job and private life',ru:'баланс работы и личной жизни',kz:'жұмыс пен өмір тепе-теңдігі'}},
+      {w:'technological progress', m:{en:'the development of new technology',ru:'технологический прогресс',kz:'технологиялық прогресс'}},
+      {w:'to reduce spending', m:{en:'to spend less money',ru:'сокращать расходы',kz:'шығынды азайту'}},
+      {w:'social isolation', m:{en:'having little contact with other people',ru:'социальная изоляция',kz:'әлеуметтік оқшаулану'}},
+      {w:'quality of life', m:{en:'how good and comfortable your life is',ru:'качество жизни',kz:'өмір сапасы'}},
+      {w:'to outweigh the drawbacks', m:{en:'to be more important than the disadvantages',ru:'перевешивать недостатки',kz:'кемшіліктерден басым болу'}},
+      {w:'physical presence', m:{en:'actually being in a place',ru:'физическое присутствие',kz:'нақты қатысу'}}
+    ],
+    gaps:[{s:'Employees who no longer ___ save up to two hours every day.', a:'commute'},
+          {s:'Modern ___ allow teams in different cities to meet instantly.', a:'video-conferencing platforms'},
+          {s:'Flexible hours give parents a much better ___.', a:'work-life balance'},
+          {s:'Companies ___ on rent, electricity and office equipment.', a:'reduce spending'},
+          {s:'Regular team meetings help to prevent ___ among home workers.', a:'social isolation'},
+          {s:'For most employees the benefits clearly ___ of working alone.', a:'outweigh the drawbacks'}]}
+};
+
+S(M.m4, {en:'4.1 Colour-code the model essay',ru:'4.1 Раскрась образцовое эссе',kz:'4.1 Үлгі эссені боя'}, function(host){
+  trackTabs(host, function(area, tr){
+    var c = el('div','card');
+    c.innerHTML = '<div class="kicker">Module 4.1 · '+esc(L(TRACKS[tr].name))+'</div><div class="tasktext">'+esc(TRACKS[tr].task)+'</div>';
+    area.appendChild(c);
+    colourCodeEx(area, tr);
+  });
+});
+S(M.m4, {en:'4.2 Find the linkers',ru:'4.2 Найди связки',kz:'4.2 Байланыстырушыларды тап'}, function(host){
+  trackTabs(host, function(area, tr){ linkerHuntEx(area, tr); });
+});
+S(M.m4, {en:'4.3 Paraphrase detective',ru:'4.3 Детектив перефраза',kz:'4.3 Перефраз детективі'}, function(host){
+  trackTabs(host, function(area, tr){
+    var c = el('div','card');
+    c.innerHTML = '<div class="kicker">Module 4.3</div><div class="tasktext">'+esc(TRACKS[tr].task)+'</div>';
+    area.appendChild(c);
+    matchEx(area, {
+      id:'ex4.3_'+tr, no:'Exercise 4.3',
+      title:{en:'Match the task words with their paraphrase in the introduction',ru:'Соедини слова задания с перефразом во вступлении',kz:'Тапсырма сөздерін кіріспедегі перефразбен сәйкестендір'},
+      pairs:PARAPHRASE[tr], why:'repeat'
+    });
+  });
+});
+S(M.m4, {en:'4.4 Band 8 vocabulary',ru:'4.4 Лексика Band 8',kz:'4.4 Band 8 лексикасы'}, function(host){
+  trackTabs(host, function(area, tr){
+    matchEx(area, {
+      id:'ex4.4a_'+tr, no:'Exercise 4.4a',
+      title:{en:'10 collocations from the essay — match the meaning',ru:'10 коллокаций из эссе — подбери значение',kz:'Эсседен 10 коллокация — мағынасын тап'},
+      pairs:VOCAB[tr].words.map(function(x){ return {l:x.w, r:x.m}; }),
+      why:{en:'Topic collocations (not "difficult words") are what raises Lexical Resource to Band 8.',
+           ru:'Именно тематические коллокации (а не "сложные слова") поднимают Lexical Resource до Band 8.',
+           kz:'Lexical Resource-ті Band 8-ге көтеретін — тақырыптық коллокациялар, "қиын сөздер" емес.'}
+    });
+    gapTypeEx(area, {
+      id:'ex4.4b_'+tr, no:'Exercise 4.4b',
+      title:{en:'Now use them in new sentences',ru:'Теперь используй их в новых предложениях',kz:'Енді оларды жаңа сөйлемдерде қолдан'},
+      instr:{en:'Type the missing collocation. Spelling matters.',ru:'Впиши пропущенную коллокацию. Орфография важна.',kz:'Жетіспейтін коллокацияны жаз. Емле маңызды.'},
+      items:VOCAB[tr].gaps,
+      bank:shuffle(VOCAB[tr].gaps.map(function(g){return g.a;})),
+      why:{en:'Reusing a collocation in a new sentence is the fastest way to remember it.',
+           ru:'Использовать коллокацию в новом предложении — самый быстрый способ её запомнить.',
+           kz:'Коллокацияны жаңа сөйлемде қолдану — оны есте сақтаудың ең жылдам жолы.'}
+    });
+  });
+});
+/* =========================================================================
+   MODULE 5 — guided sentence-by-sentence builder
+   ========================================================================= */
+function autoChunk(sentence){
+  var w = sentence.split(/\s+/), out=[], cur=[];
+  for(var i=0;i<w.length;i++){
+    cur.push(w[i]);
+    var endsComma = /,$/.test(w[i]);
+    if(cur.length>=3 && (endsComma || cur.length>=4)){ out.push(cur.join(' ')); cur=[]; }
+  }
+  if(cur.length){ if(cur.length===1 && out.length){ out[out.length-1]+=' '+cur[0]; } else out.push(cur.join(' ')); }
+  return out;
+}
+
+var BUILD = {
+  cs:{ task:'In many cities, traffic congestion is getting worse. What are the causes of this, and what can be done to solve it?',
+    steps:[
+    {r:'topic', tmpl:'In recent years, <i>topic</i> has become a serious problem in…',
+     hint:{en:'Name the topic. Do not answer the question yet.',ru:'Назови тему. Пока не отвечай на вопрос.',kz:'Тақырыпты ата. Әзірге сұраққа жауап берме.'},
+     m:'In recent years, traffic congestion has become a serious problem in many large cities.',
+     b5:'Today the traffic is very bad problem in the cities.', w5:'grammar',
+     b6:'Nowadays there is a lot of traffic in cities and this is a problem.', w6:'informal'},
+    {r:'paraphrase', tmpl:'An increasing number of… now…',
+     hint:{en:'Say the same idea with different words and different grammar.',ru:'Скажи ту же мысль другими словами и другой грамматикой.',kz:'Сол ойды басқа сөзбен, басқа грамматикамен айт.'},
+     m:'An increasing number of urban drivers now spend hours every week in slow-moving queues.',
+     b5:'In many cities traffic congestion is getting worse.', w5:'repeat',
+     b6:'More and more drivers are stuck in traffic jams a lot of time.', w6:'informal'},
+    {r:'outline', tmpl:'This essay will examine the main causes of this problem and propose several effective solutions.',
+     hint:{en:'Announce both parts: causes AND solutions. No arguments here.',ru:'Объяви обе части: причины И решения. Аргументов здесь нет.',kz:'Екі бөлікті де жария ет: себептер ЖӘНЕ шешімдер. Дәлел жоқ.'},
+     m:'This essay will examine the main causes of this problem and propose several effective solutions.',
+     b5:'This essay will discuss about causes and solutions.', w5:'grammar',
+     b6:'I will write about the causes of traffic.', w6:'bothQ'},
+    {r:'cause', tmpl:'One of the primary causes of this issue is…',
+     hint:{en:'Give the first CAUSE — why congestion appears.',ru:'Назови первую ПРИЧИНУ — почему возникают пробки.',kz:'Бірінші СЕБЕПТІ ата — кептеліс неге пайда болады.'},
+     m:'One of the primary causes of this issue is the rapid growth of private car ownership.',
+     b5:'The first cause is many cars.', w5:'vague',
+     b6:'One cause is that people are buying more and more cars every year.', w6:'vague'},
+    {r:'explanation', tmpl:'This is mainly because…',
+     hint:{en:'Explain WHY that cause exists.',ru:'Объясни, ПОЧЕМУ эта причина существует.',kz:'Бұл себеп НЕЛІКТЕН бар екенін түсіндір.'},
+     m:'This is mainly because rising incomes allow far more families to afford a second vehicle.',
+     b5:'Because people have money now.', w5:'grammar',
+     b6:'This is because people get more salary so they buy cars.', w6:'informal'},
+    {r:'example', tmpl:'For example, / For instance, …',
+     hint:{en:'One concrete, believable example — no statistics you invented.',ru:'Один конкретный правдоподобный пример — без выдуманной статистики.',kz:'Бір нақты, сенімді мысал — ойдан шығарылған статистикасыз.'},
+     m:'For example, in many suburbs a single household now owns one car for each working adult.',
+     b5:'For example 90 percent of people have 3 cars.', w5:'vague',
+     b6:'For example, some families have two cars.', w6:'vague'},
+    {r:'result', tmpl:'As a result, / Consequently, …',
+     hint:{en:'What follows from that cause?',ru:'Что из этой причины следует?',kz:'Осы себептен не шығады?'},
+     m:'As a result, roads designed for a much smaller population are permanently overloaded.',
+     b5:'So the roads are full.', w5:'informal',
+     b6:'As a result, there are a lot of cars on the roads.', w6:'vague'},
+    {r:'cause', tmpl:'Furthermore, / Moreover, / In addition, …',
+     hint:{en:'Second cause — a different idea, not a repetition.',ru:'Вторая причина — другая идея, не повтор.',kz:'Екінші себеп — басқа идея, қайталау емес.'},
+     m:'Furthermore, public transport in many cities remains slow and unreliable.',
+     b5:'Also the buses are bad.', w5:'informal',
+     b6:'In addition, there is another cause which is public transport.', w6:'vague'},
+    {r:'result', tmpl:'Consequently, / Therefore, …',
+     hint:{en:'The result of the second cause.',ru:'Результат второй причины.',kz:'Екінші себептің нәтижесі.'},
+     m:'Consequently, even commuters who dislike driving choose their own cars every morning.',
+     b5:'So people dont use bus.', w5:'grammar',
+     b6:'Therefore people prefer to drive their car because bus is not good.', w6:'grammar'},
+    {r:'solution', tmpl:'To address this issue, several measures could be implemented. Firstly, … should…',
+     hint:{en:'Solution 1 must answer CAUSE 1 (too many private cars).',ru:'Решение 1 должно отвечать ПРИЧИНЕ 1 (слишком много машин).',kz:'1-шешім 1-СЕБЕПКЕ жауап беруі керек (көлік көп).'},
+     m:'To address this issue, several measures could be implemented. Firstly, city authorities should introduce congestion charges in the busiest districts.',
+     b5:'The government must do something with the cars.', w5:'vague',
+     b6:'Firstly, the government should reduce the number of cars.', w6:'match'},
+    {r:'solution', tmpl:'Secondly, / Furthermore, … For example, … As a result, …',
+     hint:{en:'Solution 2 must answer CAUSE 2 (weak public transport).',ru:'Решение 2 должно отвечать ПРИЧИНЕ 2 (слабый общественный транспорт).',kz:'2-шешім 2-СЕБЕПКЕ жауап беруі керек (әлсіз қоғамдық көлік).'},
+     m:'Secondly, governments should invest heavily in metro lines and dedicated bus lanes, which would make public transport genuinely faster than driving.',
+     b5:'Secondly, they must build more roads for the cars.', w5:'match',
+     b6:'Secondly, public transport should be better for the people.', w6:'vague'},
+    {r:'conclusion', tmpl:'In conclusion, … With these measures, …',
+     hint:{en:'Summarise causes + solutions. Add no new idea.',ru:'Обобщи причины и решения. Никаких новых идей.',kz:'Себептер мен шешімдерді жинақта. Жаңа идея қоспа.'},
+     m:'In conclusion, congestion is caused mainly by rising car ownership and inadequate public transport, but with congestion charges and serious investment in metro networks, cities can keep their streets moving.',
+     b5:'In conclusion, traffic is bad and government must solve it. Also air pollution is a big problem.', w5:{en:'A conclusion must not introduce a new idea (air pollution appears for the first time).',ru:'В выводе нельзя вводить новую идею (загрязнение воздуха появилось впервые).',kz:'Қорытындыда жаңа идея енгізуге болмайды (ауа ластануы алғаш рет пайда болды).'},
+     b6:'In conclusion, there are many causes and many solutions of this problem.', w6:'vague'}
+  ]},
+  ps:{ task:'More and more people in large cities live alone. What problems does this cause, and how can they be solved?',
+    steps:[
+    {r:'topic', tmpl:'In recent years, <i>topic</i> has become increasingly common in…',
+     hint:{en:'Name the topic in formal words.',ru:'Назови тему формальными словами.',kz:'Тақырыпты ресми сөзбен ата.'},
+     m:'In recent years, living alone has become increasingly common in large cities.',
+     b5:'Now a lot of people in the city live alone.', w5:'informal',
+     b6:'These days many people live alone in big cities, which is common.', w6:'vague'},
+    {r:'paraphrase', tmpl:'A rising number of… now…',
+     hint:{en:'Paraphrase the task — change words and grammar.',ru:'Перефразируй задание — поменяй слова и грамматику.',kz:'Тапсырманы перефразда — сөз бен грамматиканы өзгерт.'},
+     m:'A rising number of adults now occupy a flat without a partner, relatives or housemates.',
+     b5:'More and more people in large cities live alone.', w5:'repeat',
+     b6:'A lot of people are living without family in their flat.', w6:'informal'},
+    {r:'outline', tmpl:'This essay will discuss the main problems this causes and suggest several ways to tackle them.',
+     hint:{en:'Problems variant — not "causes".',ru:'Вариант с проблемами — не "causes".',kz:'Мәселелер нұсқасы — "causes" емес.'},
+     m:'This essay will discuss the main problems this causes and suggest several ways to tackle them.',
+     b5:'This essay will discuss about the problems and the solutions.', w5:'grammar',
+     b6:'This essay will examine the main causes of this trend.', w6:'problem'},
+    {r:'problem', tmpl:'One of the most serious problems this creates is…',
+     hint:{en:'A PROBLEM is a bad result, not a reason.',ru:'ПРОБЛЕМА — это плохой результат, а не причина.',kz:'МӘСЕЛЕ — жаман нәтиже, себеп емес.'},
+     m:'One of the most serious problems this creates is widespread loneliness.',
+     b5:'The first problem is people want to be free.', w5:'problem',
+     b6:'One problem is that living alone is not very good for people.', w6:'vague'},
+    {r:'explanation', tmpl:'This is mainly because…',
+     hint:{en:'Explain the mechanism behind the problem.',ru:'Объясни механизм проблемы.',kz:'Мәселенің механизмін түсіндір.'},
+     m:'This is mainly because people who live alone may go for days without a genuine conversation.',
+     b5:'Because they are alone and sad.', w5:'vague',
+     b6:'This is because they dont speak with anybody at home.', w6:'grammar'},
+    {r:'example', tmpl:'For example, / For instance, …',
+     hint:{en:'A concrete example of the problem.',ru:'Конкретный пример проблемы.',kz:'Мәселенің нақты мысалы.'},
+     m:'For example, elderly residents of high-rise buildings often see nobody between medical appointments.',
+     b5:'For example my grandmother is alone.', w5:'informal',
+     b6:'For example, old people can be lonely sometimes.', w6:'vague'},
+    {r:'result', tmpl:'As a result, / Consequently, …',
+     hint:{en:'The consequence of that problem.',ru:'Следствие этой проблемы.',kz:'Осы мәселенің салдары.'},
+     m:'As a result, rates of depression and anxiety are noticeably higher among single-person households.',
+     b5:'So they become ill in the head.', w5:'informal',
+     b6:'As a result, these people can have some problems with health.', w6:'vague'},
+    {r:'problem', tmpl:'Furthermore, / Moreover, …',
+     hint:{en:'A second, different problem.',ru:'Вторая, другая проблема.',kz:'Екінші, басқа мәселе.'},
+     m:'Furthermore, single-person households place heavy pressure on the urban housing market.',
+     b5:'Also there is problem with the houses.', w5:'grammar',
+     b6:'Moreover, living alone is expensive for the person.', w6:'vague'},
+    {r:'result', tmpl:'Consequently, / Therefore, …',
+     hint:{en:'Who suffers, and how?',ru:'Кто страдает и как?',kz:'Кім, қалай зардап шегеді?'},
+     m:'Consequently, rents rise sharply and young families are pushed towards the edge of the city.',
+     b5:'So the flats are expensive now.', w5:'informal',
+     b6:'Therefore the price of the flat is going up in the city.', w6:'grammar'},
+    {r:'solution', tmpl:'To address this issue, several measures could be implemented. Firstly, … should…',
+     hint:{en:'Solution 1 answers PROBLEM 1 (loneliness).',ru:'Решение 1 отвечает ПРОБЛЕМЕ 1 (одиночество).',kz:'1-шешім 1-МӘСЕЛЕГЕ жауап береді (жалғыздық).'},
+     m:'To address this issue, several measures could be implemented. Firstly, local authorities should fund community centres and regular neighbourhood events.',
+     b5:'Firstly, people must find some friends.', w5:'vague',
+     b6:'Firstly, the government should build more flats for single people.', w6:'match'},
+    {r:'solution', tmpl:'Secondly, / In addition, …',
+     hint:{en:'Solution 2 answers PROBLEM 2 (housing pressure).',ru:'Решение 2 отвечает ПРОБЛЕМЕ 2 (давление на жильё).',kz:'2-шешім 2-МӘСЕЛЕГЕ жауап береді (тұрғын үй қысымы).'},
+     m:'Secondly, developers should be encouraged to build co-living blocks with shared kitchens and gardens, which use space far more efficiently.',
+     b5:'Secondly, people should live with their parents.', w5:'vague',
+     b6:'Secondly, the city should make the rent cheaper for everybody.', w6:'vague'},
+    {r:'conclusion', tmpl:'In conclusion, … With these measures, …',
+     hint:{en:'Problems + solutions in one or two sentences.',ru:'Проблемы + решения в одном-двух предложениях.',kz:'Мәселелер + шешімдер бір-екі сөйлемде.'},
+     m:'In conclusion, living alone increases loneliness and strains the housing supply, but community programmes and shared forms of housing could significantly reduce both problems.',
+     b5:'In conclusion, living alone is bad and government must help. Also people should marry earlier.', w5:{en:'New idea in the conclusion (marriage) — never add new content there.',ru:'Новая идея в выводе (брак) — туда нельзя добавлять новое содержание.',kz:'Қорытындыда жаңа идея (неке) — онда жаңа мазмұн қосуға болмайды.'},
+     b6:'In conclusion, there are problems and there are solutions for this situation.', w6:'vague'}
+  ]},
+  dq:{ task:'In many countries, people are having fewer children than in the past. Why is this happening? Do you think this is a positive or a negative development?',
+    steps:[
+    {r:'topic', tmpl:'Nowadays, <i>topic</i> is becoming increasingly common in…',
+     hint:{en:'Name the trend.',ru:'Назови тенденцию.',kz:'Үрдісті ата.'},
+     m:'Nowadays, birth rates are falling steadily in many developed countries.',
+     b5:'Now people dont want a lot of children.', w5:'grammar',
+     b6:'These days, families in many countries have less children than before.', w6:'grammar'},
+    {r:'paraphrase', tmpl:'<i>(your own words)</i>',
+     hint:{en:'Say it again with new words.',ru:'Скажи то же самое новыми словами.',kz:'Сол ойды жаңа сөзбен айт.'},
+     m:'Couples today raise noticeably smaller families than their parents and grandparents did.',
+     b5:'People are having fewer children than in the past.', w5:'repeat',
+     b6:'Families now are smaller than the families before.', w6:'vague'},
+    {r:'outline', tmpl:'This essay will explain why… and argue that…',
+     hint:{en:'Answer BOTH questions briefly — your opinion is already visible.',ru:'Кратко ответь на ОБА вопроса — твоё мнение уже видно.',kz:'ЕКІ сұраққа да қысқаша жауап бер — пікірің көрініп тұр.'},
+     m:'This essay will explain why this is happening and argue that the trend is largely negative.',
+     b5:'This essay will discuss about this question.', w5:'bothQ',
+     b6:'This essay will explain the reasons for this trend.', w6:'bothQ'},
+    {r:'cause', tmpl:'One of the main reasons for this is…',
+     hint:{en:'Body 1 answers Question 1 only.',ru:'Body 1 отвечает только на Вопрос 1.',kz:'Body 1 тек 1-сұраққа жауап береді.'},
+     m:'One of the main reasons for this change is the rising cost of raising a child.',
+     b5:'The main reason is money.', w5:'vague',
+     b6:'One reason is that children are expensive for the parents.', w6:'vague'},
+    {r:'explanation', tmpl:'This is mainly because…',
+     hint:{en:'Explain the reason.',ru:'Объясни причину.',kz:'Себепті түсіндір.'},
+     m:'This is mainly because housing, childcare and education now consume a large share of a family income.',
+     b5:'Because everything is very expensive today.', w5:'vague',
+     b6:'This is because parents must pay for the school and the flat.', w6:'vague'},
+    {r:'example', tmpl:'For example, / For instance, …',
+     hint:{en:'A realistic example.',ru:'Реалистичный пример.',kz:'Шынайы мысал.'},
+     m:'For example, a young couple in a capital city may spend almost half of their combined salary on rent alone.',
+     b5:'For example in my country everything cost a lot.', w5:'informal',
+     b6:'For example, rent is very expensive in big cities.', w6:'vague'},
+    {r:'result', tmpl:'As a result, …',
+     hint:{en:'The consequence of that reason.',ru:'Следствие этой причины.',kz:'Осы себептің салдары.'},
+     m:'As a result, many couples postpone parenthood until their late thirties.',
+     b5:'So they have children very late or never.', w5:'informal',
+     b6:'As a result, people decide to have children later in the life.', w6:'grammar'},
+    {r:'cause', tmpl:'Furthermore, / Moreover, …',
+     hint:{en:'Second reason for Question 1.',ru:'Вторая причина для Вопроса 1.',kz:'1-сұраққа екінші себеп.'},
+     m:'Furthermore, women today enjoy far wider career opportunities than previous generations.',
+     b5:'Also women are working now.', w5:'informal',
+     b6:'In addition, women can work and study now, which is another reason.', w6:'vague'},
+    {r:'result', tmpl:'Consequently, …',
+     hint:{en:'Result of the second reason.',ru:'Результат второй причины.',kz:'Екінші себептің нәтижесі.'},
+     m:'Consequently, many prefer to establish a profession before starting a family.',
+     b5:'So they think about the work first.', w5:'informal',
+     b6:'Therefore women want to build the career first of all.', w6:'grammar'},
+    {r:'position', tmpl:'In my opinion, this development is… / I believe that…',
+     hint:{en:'Body 2 answers Question 2. State the SAME opinion as in the introduction.',ru:'Body 2 отвечает на Вопрос 2. Мнение ТАКОЕ ЖЕ, как во вступлении.',kz:'Body 2 2-сұраққа жауап береді. Пікір кіріспедегімен БІРДЕЙ.'},
+     m:'In my opinion, this development is largely negative for society.',
+     b5:'There are advantages and disadvantages of this situation.', w5:'bothQ',
+     b6:'I think it can be positive and also negative for the country.', w6:'bothQ'},
+    {r:'concession', tmpl:'Admittedly, … However, …',
+     hint:{en:'Admit the other side, then return to your position.',ru:'Признай другую сторону и вернись к своей позиции.',kz:'Қарсы жағын мойында, сосын өз ұстанымыңа орал.'},
+     m:'Admittedly, smaller families place less pressure on housing and natural resources. However, a shrinking workforce cannot support a rapidly growing number of pensioners.',
+     b5:'Some people say it is good but I dont think so.', w5:'informal',
+     b6:'Admittedly, it is good for the planet. However it is bad.', w6:'vague'},
+    {r:'conclusion', tmpl:'In conclusion, <i>answer Q1</i>. Overall, I believe <i>answer Q2</i>.',
+     hint:{en:'Both answers again, same opinion, no new ideas.',ru:'Снова оба ответа, то же мнение, без новых идей.',kz:'Қайтадан екі жауап, сол пікір, жаңа идеясыз.'},
+     m:'In conclusion, people are having fewer children mainly because of financial pressure and expanding career opportunities, and I believe this trend will create serious economic difficulties in the future.',
+     b5:'In conclusion, it is a difficult question and every person decides himself.', w5:'bothQ',
+     b6:'In conclusion, there are two reasons and I think it is negative and positive.', w6:'bothQ'}
+  ]}
+};
+
+function builderScreen(host, tr){
+  var data = BUILD[tr];
+  if(!state.builder[tr]) state.builder[tr] = {};
+  var idx = 0;
+  var head = el('div','card');
+  head.innerHTML = '<div class="kicker">Module 5 · '+esc(L(TRACKS[tr].name))+'</div>'+
+    '<h3>'+L({en:'Guided builder — a new task',ru:'Конструктор — новое задание',kz:'Құрастырушы — жаңа тапсырма'})+'</h3>'+
+    '<div class="tasktext">'+esc(data.task)+'</div>';
+  host.appendChild(head);
+  var box = el('div'); host.appendChild(box);
+
+  function draw(){
+    var st = data.steps[idx];
+    box.innerHTML = '';
+    var c = el('div','card');
+    c.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">'+
+      '<b>'+L({en:'Sentence',ru:'Предложение',kz:'Сөйлем'})+' '+(idx+1)+' / '+data.steps.length+'</b>'+
+      '<span class="score">'+L(ROLE_LABEL[st.r])+'</span></div>'+
+      '<div class="tmpl">'+st.tmpl+'</div>'+
+      '<p class="small muted">💡 '+L(st.hint)+'</p>';
+    box.appendChild(c);
+
+    var modes = el('div','tabs');
+    var area = el('div');
+    c.appendChild(modes); c.appendChild(area);
+    var MODES = [
+      {k:'choose', n:{en:'1 · Choose',ru:'1 · Выбери',kz:'1 · Таңда'}},
+      {k:'order',  n:{en:'2 · Order',ru:'2 · Собери',kz:'2 · Құрастыр'}},
+      {k:'write',  n:{en:'3 · Write your own',ru:'3 · Напиши сам',kz:'3 · Өзің жаз'}}
+    ];
+    function setMode(k){
+      qsa(modes,'.tab').forEach(function(b){ b.classList.toggle('on', b.dataset.k===k); });
+      area.innerHTML='';
+      if(k==='choose') modeChoose(area, st);
+      if(k==='order')  modeOrder(area, st);
+      if(k==='write')  modeWrite(area, st);
+    }
+    MODES.forEach(function(m){
+      var b = el('button','tab', L(m.n)); b.dataset.k=m.k;
+      b.onclick=function(){ setMode(m.k); };
+      modes.appendChild(b);
+    });
+    setMode('choose');
+
+    var nav = el('div','btnrow');
+    var prev = el('button','btn ghost','← '+L({en:'Previous',ru:'Назад',kz:'Артқа'}));
+    prev.disabled = idx===0; prev.onclick=function(){ idx--; draw(); };
+    var next = el('button','btn', L({en:'Next sentence →',ru:'Следующее →',kz:'Келесі →'}));
+    next.disabled = idx===data.steps.length-1; next.onclick=function(){ idx++; draw(); };
+    nav.appendChild(prev); nav.appendChild(next);
+    box.appendChild(nav);
+  }
+
+  function modeChoose(area, st){
+    var opts = shuffle([{t:st.m, ok:true}, {t:st.b5, ok:false, why:st.w5}, {t:st.b6, ok:false, why:st.w6}]);
+    var pool = el('div','pool'); area.appendChild(pool);
+    var fb = el('div','fb'); area.appendChild(fb);
+    opts.forEach(function(o){
+      var b = el('button','chip', esc(o.t));
+      b.onclick = function(){
+        b.classList.add(o.ok?'good':'bad');
+        fb.className='fb show '+(o.ok?'good':'bad');
+        fb.innerHTML = o.ok
+          ? '<b>Band 8 ✓</b> — '+L({en:'clear structure, precise vocabulary, correct linker.',ru:'ясная структура, точная лексика, правильная связка.',kz:'анық құрылым, нақты лексика, дұрыс байланыстырушы.'})
+          : '✗ '+why(o.why);
+        record('ex5.choose_'+tr, o.ok?1:0, 1);
+      };
+      pool.appendChild(b);
+    });
+  }
+
+  function modeOrder(area, st){
+    var chunks = autoChunk(st.m);
+    var line = el('div','card tight'); line.style.minHeight='56px';
+    var pool = el('div','pool'); pool.style.marginTop='10px';
+    var answer = [];
+    function redrawLine(){
+      line.innerHTML = answer.length ? '' : '<span class="muted small">'+L({en:'Tap the chunks in the right order…',ru:'Нажимай на кусочки в правильном порядке…',kz:'Бөліктерді дұрыс ретпен бас…'})+'</span>';
+      answer.forEach(function(ci,pos){
+        var s = el('button','chip', esc(chunks[ci]));
+        s.style.display='inline-flex'; s.style.width='auto'; s.style.margin='0 6px 6px 0';
+        s.onclick = function(){ answer.splice(pos,1); redraw(); };
+        line.appendChild(s);
+      });
+    }
+    function redraw(){
+      redrawLine();
+      qsa(pool,'.chip').forEach(function(b,i){ b.classList.toggle('used', answer.indexOf(i)>=0); });
+    }
+    shuffle(chunks.map(function(c,i){return i;})).forEach(function(i){
+      var b = el('button','chip', esc(chunks[i]));
+      b.dataset.i = i;
+      b.onclick = function(){ if(answer.indexOf(i)<0){ answer.push(i); redraw(); } };
+      pool.appendChild(b);
+    });
+    /* keep pool order stable but data index correct */
+    qsa(pool,'.chip').forEach(function(b){ b.onclick = (function(ix){ return function(){ if(answer.indexOf(ix)<0){ answer.push(ix); redraw(); } }; })(+b.dataset.i); });
+    area.appendChild(line); area.appendChild(pool);
+    var fb = el('div','fb'); area.appendChild(fb);
+    var row = el('div','btnrow'); area.appendChild(row);
+    var check = el('button','btn', U('check'));
+    check.onclick = function(){
+      var ok = answer.length===chunks.length && answer.every(function(v,i){ return v===i; });
+      fb.className='fb show '+(ok?'good':'bad');
+      fb.innerHTML = ok ? '<b>'+U('correct')+'</b>' : (U('notyet')+'<br><span class="small">'+L({en:'Tip: the linking word always comes first.',ru:'Подсказка: связка всегда идёт первой.',kz:'Кеңес: байланыстырушы әрқашан бірінші тұрады.'})+'</span>');
+      record('ex5.order_'+tr, ok?1:0, 1);
+    };
+    var reset = el('button','btn ghost', U('reset'));
+    reset.onclick = function(){ answer=[]; redraw(); fb.className='fb'; };
+    var showb = el('button','btn ghost', U('show'));
+    showb.onclick = function(){ answer = chunks.map(function(c,i){return i;}); redraw(); fb.className='fb show info'; fb.innerHTML = markLinkers(st.m); };
+    row.appendChild(check); row.appendChild(reset); row.appendChild(showb);
+    redraw();
+  }
+
+  function modeWrite(area, st){
+    var ta = el('textarea'); ta.rows=3;
+    ta.placeholder = L({en:'Write your own version of this sentence…',ru:'Напиши свою версию этого предложения…',kz:'Осы сөйлемнің өз нұсқаңды жаз…'});
+    ta.value = state.builder[tr][idx] || '';
+    area.appendChild(ta);
+    var cnt = el('div','counter'); area.appendChild(cnt);
+    attachCounter(ta, cnt);
+    ta.addEventListener('input', function(){ state.builder[tr][idx] = ta.value; save(); });
+    var list = el('div');
+    [{en:'I used the template',ru:'Я использовал(а) шаблон',kz:'Шаблонды қолдандым'},
+     {en:'I used topic vocabulary',ru:'Я использовал(а) тематическую лексику',kz:'Тақырыптық лексиканы қолдандым'},
+     {en:'My linking word is correct',ru:'Моя связка выбрана верно',kz:'Байланыстырушым дұрыс'}].forEach(function(x){
+      var l = el('label','chk','<input type="checkbox"><span>'+L(x)+'</span>');
+      list.appendChild(l);
+    });
+    area.appendChild(list);
+    var cmp = el('div','fb'); area.appendChild(cmp);
+    var row = el('div','btnrow'); area.appendChild(row);
+    var b = el('button','btn', L({en:'Compare with the model',ru:'Сравнить с образцом',kz:'Үлгімен салыстыру'}));
+    b.onclick = function(){
+      cmp.className='fb show info';
+      cmp.innerHTML = '<div class="cmp"><div><b>'+U('yourAnswer')+'</b><div class="card tight">'+(esc(ta.value)||'<span class="muted">—</span>')+'</div></div>'+
+        '<div><b>'+U('model')+'</b><div class="card tight">'+markLinkers(st.m)+'</div></div></div>';
+      record('ex5.write_'+tr, 1, 1);
+    };
+    row.appendChild(b);
+  }
+  draw();
+}
+
+S(M.m5, {en:'5.1 Guided builder (new task)',ru:'5.1 Конструктор (новое задание)',kz:'5.1 Құрастырушы (жаңа тапсырма)'}, function(host){
+  trackTabs(host, function(area, tr){ builderScreen(area, tr); });
+});
+/* ---------- 5.2 … 5.7 extra exercises ---------- */
+S(M.m5, {en:'5.2 Gap-fill: linking words',ru:'5.2 Пропуски: слова-связки',kz:'5.2 Бос орын: байланыстырушылар'}, function(host){
+  gapDropEx(host, {
+    id:'ex5.2', no:'Exercise 5.2',
+    title:{en:'Choose the correct linker for each gap (10)',ru:'Выбери правильную связку для каждого пропуска (10)',kz:'Әр бос орынға дұрыс байланыстырушыны таңда (10)'},
+    instr:{en:'Read the whole paragraph first, then choose. The logic decides the answer.',ru:'Сначала прочитай весь абзац, потом выбирай. Ответ определяет логика.',kz:'Алдымен абзацты толық оқы, сосын таңда. Жауапты логика анықтайды.'},
+    text:'{{0}}, air pollution has become a serious issue in many capital cities. The main cause is the enormous number of private vehicles on the roads. {{1}} public transport is slow, unreliable and overcrowded in most districts. {{2}}, millions of commuters drive to work alone every morning. {{3}}, a single congested junction can produce more emissions in one hour than a small village produces in a day. {{4}}, the air that children breathe on their way to school is dangerously polluted. {{5}}, several measures could be implemented. {{6}}, governments should invest in clean public transport. {{7}}, cities could introduce low-emission zones in the centre. {{8}}, such zones have already cut pollution in several European capitals. {{9}}, cleaner air is achievable if the authorities act decisively.',
+    gaps:[
+      {a:'In recent years', options:['In recent years','For example','As a result','However']},
+      {a:'This is mainly because', options:['This is mainly because','Therefore','In conclusion','Admittedly']},
+      {a:'Consequently', options:['Consequently','For instance','Admittedly','In conclusion']},
+      {a:'For example', options:['For example','Nevertheless','Firstly','In conclusion']},
+      {a:'As a result', options:['As a result','Nowadays','Admittedly','Secondly']},
+      {a:'To address this issue', options:['To address this issue','In my opinion','For instance','Nowadays']},
+      {a:'Firstly', options:['Firstly','However','For example','In conclusion']},
+      {a:'Secondly', options:['Secondly','Nowadays','Admittedly','This is because']},
+      {a:'For instance', options:['For instance','Therefore','Admittedly','Nowadays']},
+      {a:'In conclusion', options:['In conclusion','Furthermore','For example','This is because']}
+    ],
+    why:'linker'
+  });
+});
+
+S(M.m5, {en:'5.3 Fix the mistakes',ru:'5.3 Исправь ошибки',kz:'5.3 Қателерді түзе'}, function(host){
+  rewriteEx(host, {
+    id:'ex5.3', no:'Exercise 5.3',
+    title:{en:'8 typical B1–B2 mistakes — rewrite each sentence',ru:'8 типичных ошибок B1–B2 — перепиши каждое предложение',kz:'B1–B2 деңгейінің 8 типтік қатесі — әр сөйлемді қайта жаз'},
+    instr:{en:'Write your corrected version, then open the model answer.',ru:'Напиши свой исправленный вариант, затем открой образец.',kz:'Түзетілген нұсқаңды жаз, сосын үлгіні аш.'},
+    items:[
+      {bad:'This essay will discuss about the causes of this problem.', good:'This essay will discuss the causes of this problem.',
+       why:{en:'"discuss" never takes "about".',ru:'После "discuss" не ставится "about".',kz:'"discuss" сөзінен кейін "about" қойылмайды.'}},
+      {bad:'There is many reasons for this trend.', good:'There are several reasons for this trend.', why:'grammar'},
+      {bad:'The government should to reduce the number of cars.', good:'The government should reduce the number of cars.',
+       why:{en:'After a modal verb (should / must / can) use the bare infinitive, without "to".',ru:'После модального глагола (should / must / can) — инфинитив без "to".',kz:'Модаль етістіктен кейін (should / must / can) "to"-сыз инфинитив.'}},
+      {bad:'A lot of kids gets fat because they eat junk food.', good:'Many children gain weight because they regularly consume processed food.', why:'informal'},
+      {bad:'Pollution is increase every year in the big cities.', good:'Pollution is increasing every year in large cities.',
+       why:{en:'Wrong word form: "is increase" → "is increasing". No "the" with a general plural.',ru:'Неверная форма: "is increase" → "is increasing". Артикль "the" с общим множественным не нужен.',kz:'Қате форма: "is increase" → "is increasing". Жалпы көпше түрде "the" қажет емес.'}},
+      {bad:'People who lives alone often feel lonely, it is a serious problem.', good:'People who live alone often feel lonely, which is a serious problem.',
+       why:{en:'Subject–verb agreement (people who live) and a run-on sentence: join with "which", not a comma.',ru:'Согласование (people who live) и слитное предложение: соединяй через "which", а не запятой.',kz:'Келісім (people who live) және run-on сөйлем: үтір емес, "which" арқылы байланыстыр.'}},
+      {bad:'Nowadays technology is developing very fast and people can work from the home.', good:'Nowadays technology is developing rapidly, and many people can work from home.',
+       why:{en:'"from home" has no article; "rapidly" is more formal than "very fast".',ru:'"from home" — без артикля; "rapidly" формальнее, чем "very fast".',kz:'"from home" — артикльсіз; "rapidly" "very fast"-қа қарағанда ресми.'}},
+      {bad:'In conclusion I think that goverment must solve this problem and also pollution is bad.', good:'In conclusion, governments must address this problem through stricter regulation.',
+       why:{en:'Spelling ("government"), missing comma after "In conclusion", and a new idea must never appear in the conclusion.',ru:'Орфография ("government"), нужна запятая после "In conclusion", и новая идея в выводе недопустима.',kz:'Емле ("government"), "In conclusion" соңынан үтір керек, әрі қорытындыда жаңа идея болмауы тиіс.'}}
+    ]
+  });
+});
+
+S(M.m5, {en:'5.4 Upgrade to Band 7–8',ru:'5.4 Апгрейд до Band 7–8',kz:'5.4 Band 7–8 деңгейіне көтеру'}, function(host){
+  rewriteEx(host, {
+    id:'ex5.4', no:'Exercise 5.4',
+    title:{en:'Rewrite each Band 5 sentence at Band 7–8',ru:'Перепиши каждое предложение Band 5 на уровень Band 7–8',kz:'Әр Band 5 сөйлемін Band 7–8 деңгейінде қайта жаз'},
+    instr:{en:'Add precise vocabulary, a linker and a more complex structure.',ru:'Добавь точную лексику, связку и более сложную структуру.',kz:'Нақты лексика, байланыстырушы және күрделірек құрылым қос.'},
+    items:[
+      {bad:'Many people are fat because of bad food.', good:'A growing number of people are becoming overweight, largely because cheap processed food is available everywhere.', why:'vague'},
+      {bad:'Traffic is bad and people lose time.', good:'Severe congestion forces commuters to waste several hours a week in slow-moving queues.', why:'vague'},
+      {bad:'Government must help the poor people.', good:'Governments should provide targeted financial support to low-income families.', why:'informal'},
+      {bad:'Plastic is bad for the sea animals.', good:'Discarded plastic kills marine species and contaminates the food chain on which people depend.', why:'vague'},
+      {bad:'Working at home is good because you dont travel.', good:'Working from home improves employees’ well-being because it removes a daily commute of one or two hours.', why:'informal'}
+    ]
+  });
+});
+
+S(M.m5, {en:'5.5 Cause → result chains',ru:'5.5 Цепочки причина → результат',kz:'5.5 Себеп → нәтиже тізбегі'}, function(host){
+  matchEx(host, {
+    id:'ex5.5', no:'Exercise 5.5',
+    title:{en:'Match each cause with its logical result',ru:'Соедини причину с её логическим результатом',kz:'Әр себепті логикалық нәтижесімен сәйкестендір'},
+    pairs:[
+      {l:'Fast food is cheaper than fresh vegetables.', r:'As a result, low-income families eat far fewer healthy meals.'},
+      {l:'Public transport is slow and unreliable.', r:'Consequently, commuters prefer to travel by private car.'},
+      {l:'Plastic packaging does not decompose.', r:'Therefore, tiny particles accumulate in the ocean for centuries.'},
+      {l:'Employers save money on office rent.', r:'Consequently, many companies encourage staff to work remotely.'},
+      {l:'Childcare and housing have become far more expensive.', r:'As a result, couples postpone having children.'},
+      {l:'People who live alone rarely talk to anyone at home.', r:'Therefore, rates of depression are higher in single-person households.'}
+    ],
+    why:{en:'A Band 8 body paragraph always closes an idea with its result — that is what "development" means.',
+         ru:'В Band 8 абзац всегда завершает идею результатом — это и есть "развитие идеи" (development).',
+         kz:'Band 8 абзацы идеяны әрқашан нәтижемен аяқтайды — "development" дегеніміз осы.'}
+  });
+});
+
+S(M.m5, {en:'5.6 Problem ↔ solution',ru:'5.6 Проблема ↔ решение',kz:'5.6 Мәселе ↔ шешім'}, function(host){
+  matchEx(host, {
+    id:'ex5.6', no:'Exercise 5.6',
+    title:{en:'Match each problem with a logical solution',ru:'Соедини каждую проблему с логичным решением',kz:'Әр мәселені логикалық шешіммен сәйкестендір'},
+    pairs:[
+      {l:'City air is polluted by old private cars.', r:'Introduce low-emission zones and subsidise electric buses.'},
+      {l:'Single-use bottles fill up landfill sites.', r:'Pay shoppers a small refund for every bottle they return.'},
+      {l:'Elderly people who live alone feel isolated.', r:'Fund community centres and volunteer visiting programmes.'},
+      {l:'Children spend their free time on screens.', r:'Make daily physical education compulsory in every school.'},
+      {l:'Remote workers lose contact with colleagues.', r:'Hold regular online meetings and occasional office days.'},
+      {l:'Young families cannot afford city rents.', r:'Require developers to include affordable flats in new blocks.'}
+    ],
+    why:'match'
+  });
+});
+
+S(M.m5, {en:'5.7 Paraphrase the question',ru:'5.7 Перефразируй вопрос',kz:'5.7 Сұрақты перефразда'}, function(host){
+  mcqEx(host, {
+    id:'ex5.7', no:'Exercise 5.7',
+    title:{en:'Choose the best paraphrase (5 tasks)',ru:'Выбери лучший перефраз (5 заданий)',kz:'Ең жақсы перефразды таңда (5 тапсырма)'},
+    instr:{en:'Watch out: one option copies the task, another one changes the meaning.',ru:'Внимание: один вариант копирует задание, другой меняет смысл.',kz:'Абайла: бір нұсқа тапсырманы көшіреді, екіншісі мағынаны өзгертеді.'},
+    items:[
+      {q:'Obesity among children is increasing in many countries.',
+       options:[{t:'The number of overweight children is rising in many parts of the world.',ok:true},
+                {t:'Obesity among children is increasing in a lot of countries.',ok:false,why:'repeat'},
+                {t:'All children in the world are now overweight.',ok:false,why:{en:'The meaning has changed — "increasing" does not mean "all".',ru:'Смысл изменён — "increasing" не значит "все".',kz:'Мағына өзгерді — "increasing" "барлығы" дегенді білдірмейді.'}}]},
+      {q:'More and more people choose to work from home.',
+       options:[{t:'A rising number of employees now carry out their jobs remotely.',ok:true},
+                {t:'More and more people prefer to work from their home.',ok:false,why:'repeat'},
+                {t:'Companies force their employees to stay at home.',ok:false,why:{en:'"Choose" is not "are forced" — the meaning is different.',ru:'"Choose" — это не "заставляют": смысл другой.',kz:'"Choose" — "мәжбүрлейді" емес: мағынасы басқа.'}}]},
+      {q:'Many people in large cities live alone.',
+       options:[{t:'A significant proportion of urban residents share their home with nobody.',ok:true},
+                {t:'Many people in big cities live alone nowadays.',ok:false,why:'repeat'},
+                {t:'Most people in the world live without a family.',ok:false,why:{en:'"Many … in large cities" became "most … in the world" — too strong.',ru:'"Many … in large cities" стало "most … in the world" — слишком сильно.',kz:'"Many … in large cities" "most … in the world"-қа айналды — тым күшті.'}}]},
+      {q:'Single-use plastic products are used everywhere.',
+       options:[{t:'Disposable plastic items have become part of everyday life across the world.',ok:true},
+                {t:'Single-use plastic products are used in every place.',ok:false,why:'repeat'},
+                {t:'Plastic products should be banned immediately.',ok:false,why:{en:'This is your opinion, not a paraphrase of the situation.',ru:'Это твоё мнение, а не перефраз ситуации.',kz:'Бұл — сенің пікірің, жағдайдың перефразы емес.'}}]},
+      {q:'People are having fewer children than in the past.',
+       options:[{t:'Families today are noticeably smaller than those of previous generations.',ok:true},
+                {t:'People now have fewer children than they had in the past.',ok:false,why:'repeat'},
+                {t:'People have stopped having children completely.',ok:false,why:{en:'"Fewer" is not "none" — never exaggerate the task.',ru:'"Fewer" — это не "совсем нет": не преувеличивай задание.',kz:'"Fewer" — "мүлде жоқ" емес: тапсырманы асырма.'}}]}
+    ]
+  });
+});
+
+S(M.m5, {en:'5.8 Your essay so far',ru:'5.8 Твоё эссе целиком',kz:'5.8 Сенің эссең толығымен'}, function(host){
+  trackTabs(host, function(area, tr){
+    var steps = BUILD[tr].steps, mine = state.builder[tr] || {};
+    var bounds = [0,3,9,11];   /* intro | body1 | body2 | conclusion */
+    function assemble(useModel){
+      var paras = [[],[],[],[]];
+      steps.forEach(function(st,i){
+        var p = i<3?0 : (i<9?1 : (i<11?2:3));
+        var txt = useModel ? st.m : (mine[i]||'').trim();
+        if(txt) paras[p].push(txt);
+      });
+      return paras.filter(function(p){return p.length;}).map(function(p){return p.join(' ');}).join('\n\n');
+    }
+    var c = el('div','card');
+    c.innerHTML = '<div class="kicker">Module 5.8</div><h3>'+L({en:'Your sentences, assembled',ru:'Твои предложения, собранные вместе',kz:'Сенің сөйлемдерің біріктірілді'})+'</h3>'+
+      '<div class="tasktext">'+esc(BUILD[tr].task)+'</div>';
+    var ta = el('textarea'); ta.rows=14; ta.value = assemble(false);
+    c.appendChild(ta);
+    var cnt = el('div','counter'); c.appendChild(cnt);
+    var upd = attachCounter(ta, cnt, 250, 290);
+    ta.addEventListener('input', function(){ state.essays['build_'+tr] = ta.value; save(); });
+    state.essays['build_'+tr] = ta.value;
+    var row = el('div','btnrow'); c.appendChild(row);
+    var cp = el('button','btn', U('copy'));
+    cp.onclick = function(){
+      try{ navigator.clipboard.writeText(ta.value); }catch(e){
+        ta.select(); try{ document.execCommand('copy'); }catch(e2){}
+      }
+      cp.textContent = U('copied'); setTimeout(function(){ cp.textContent=U('copy'); }, 1500);
+    };
+    var rb = el('button','btn ghost', L({en:'Rebuild from my sentences',ru:'Собрать заново из моих предложений',kz:'Сөйлемдерімнен қайта жинау'}));
+    rb.onclick = function(){ mine = state.builder[tr]||{}; ta.value = assemble(false); upd(); };
+    var mb = el('button','btn ghost', L({en:'Show the model version',ru:'Показать образцовую версию',kz:'Үлгі нұсқасын көрсету'}));
+    mb.onclick = function(){ ta.value = assemble(true); upd(); };
+    row.appendChild(cp); row.appendChild(rb); row.appendChild(mb);
+    area.appendChild(c);
+    var n = el('div','note small');
+    n.innerHTML = L({en:'This draft is a skeleton (about 200 words). In the exam, add one example and one result to each body paragraph to reach 260–290 words.',
+                     ru:'Этот черновик — скелет (около 200 слов). На экзамене добавь по одному примеру и результату в каждый body-абзац, чтобы выйти на 260–290 слов.',
+                     kz:'Бұл жоба — қаңқа (шамамен 200 сөз). Емтиханда әр body абзацқа бір мысал мен бір нәтиже қосып, 260–290 сөзге жет.'});
+    area.appendChild(n);
+  });
+});
+/* =========================================================================
+   MODULE 6 — write the whole essay
+   ========================================================================= */
+var STOP = ['this','that','with','from','they','their','them','have','has','had','been','were','was','are','is',
+            'and','but','the','for','not','who','which','more','most','than','also','such','into','some','many',
+            'because','would','could','should','will','can','a','an','of','to','in','on','at','it','its','as','by'];
+function contentWords(s){
+  return norm(s).split(' ').filter(function(w){ return w.length>3 && STOP.indexOf(w)<0; });
+}
+function splitSentences(t){
+  var m = String(t||'').replace(/\s+/g,' ').match(/[^.!?]+[.!?]*/g) || [];
+  return m.map(function(s){return s.trim();}).filter(function(s){return s.length>3;});
+}
+function bestOverlap(modelSent, studentSents){
+  var a = contentWords(modelSent); if(!a.length) return 0;
+  var best = 0;
+  studentSents.forEach(function(ss){
+    var b = contentWords(ss), hit = 0;
+    a.forEach(function(w){ if(b.indexOf(w)>=0) hit++; });
+    var r = hit / a.length;
+    if(r>best) best = r;
+  });
+  return best;
+}
+
+function makeTimer(host, minutes, label){
+  var left = minutes*60, iv = null;
+  var box = el('div','card tight');
+  box.style.display='flex'; box.style.alignItems='center'; box.style.gap='12px'; box.style.flexWrap='wrap';
+  var t = el('span','timer'); var btn = el('button','btn soft', '▶ '+L({en:'Start',ru:'Старт',kz:'Бастау'}));
+  var rs = el('button','btn ghost', U('reset'));
+  box.innerHTML = '<b>'+L(label)+'</b>';
+  box.appendChild(t); box.appendChild(btn); box.appendChild(rs);
+  function show(){
+    var m = Math.floor(left/60), s = left%60;
+    t.textContent = m+':'+(s<10?'0':'')+s;
+    t.classList.toggle('low', left<=300);
+  }
+  btn.onclick = function(){
+    if(iv){ clearInterval(iv); iv=null; btn.textContent='▶ '+L({en:'Resume',ru:'Продолжить',kz:'Жалғастыру'}); return; }
+    btn.textContent='⏸ '+L({en:'Pause',ru:'Пауза',kz:'Кідірту'});
+    iv = setInterval(function(){ left--; show(); if(left<=0){ clearInterval(iv); iv=null; btn.textContent='⏱'; } }, 1000);
+  };
+  rs.onclick = function(){ if(iv){clearInterval(iv);iv=null;} left=minutes*60; show(); btn.textContent='▶ '+L({en:'Start',ru:'Старт',kz:'Бастау'}); };
+  show(); host.appendChild(box);
+  return { stop:function(){ if(iv) clearInterval(iv); } };
+}
+var TIMERS = [];
+function stopTimers(){ TIMERS.forEach(function(t){ t.stop(); }); TIMERS = []; }
+
+var BAND_NOTES = {
+  cs:[{en:'TR: both parts (causes + solutions) are answered, and each solution matches a cause from Body 1.',
+       ru:'TR: обе части (причины + решения) раскрыты, и каждое решение отвечает причине из Body 1.',
+       kz:'TR: екі бөлік те (себептер + шешімдер) ашылған, әр шешім Body 1-дегі себепке сай.'},
+      {en:'CC: four clear paragraphs; every idea follows the chain idea → explanation → example → result.',
+       ru:'CC: четыре ясных абзаца; каждая идея идёт по цепочке идея → объяснение → пример → результат.',
+       kz:'CC: төрт анық абзац; әр идея идея → түсіндірме → мысал → нәтиже тізбегімен жүреді.'},
+      {en:'LR: precise topic collocations (processed food, sedentary lifestyles, a levy on sugary drinks).',
+       ru:'LR: точные тематические коллокации (processed food, sedentary lifestyles, a levy on sugary drinks).',
+       kz:'LR: нақты тақырыптық коллокациялар (processed food, sedentary lifestyles, a levy on sugary drinks).'},
+      {en:'GRA: relative clauses, passive forms and a conditional in the conclusion, with no errors.',
+       ru:'GRA: относительные придаточные, пассив и условное предложение в выводе — без ошибок.',
+       kz:'GRA: relative clause, passive және қорытындыда шартты сөйлем — қатесіз.'}],
+  ps:[{en:'TR: problems and solutions are both fully developed, and the solutions answer those exact problems.',
+       ru:'TR: проблемы и решения раскрыты полностью, и решения отвечают именно этим проблемам.',
+       kz:'TR: мәселелер мен шешімдер толық ашылған, шешімдер дәл сол мәселелерге жауап береді.'},
+      {en:'CC: Body 1 = two problems, Body 2 = two solutions in the same order.',
+       ru:'CC: Body 1 = две проблемы, Body 2 = два решения в том же порядке.',
+       kz:'CC: Body 1 = екі мәселе, Body 2 = сол ретпен екі шешім.'},
+      {en:'LR: environmental collocations (decompose, the food chain, landfill sites, deposit schemes).',
+       ru:'LR: экологические коллокации (decompose, the food chain, landfill sites, deposit schemes).',
+       kz:'LR: экологиялық коллокациялар (decompose, the food chain, landfill sites, deposit schemes).'},
+      {en:'GRA: a mix of passive, relative and conditional structures with almost no errors.',
+       ru:'GRA: смесь пассива, относительных и условных конструкций почти без ошибок.',
+       kz:'GRA: passive, relative және шартты құрылымдардың қоспасы, қате жоқтың қасы.'}],
+  dq:[{en:'TR: Question 1 is answered in Body 1, Question 2 in Body 2, and the opinion never changes.',
+       ru:'TR: Вопрос 1 раскрыт в Body 1, Вопрос 2 — в Body 2, и мнение не меняется.',
+       kz:'TR: 1-сұрақ Body 1-де, 2-сұрақ Body 2-де ашылған, пікір өзгермейді.'},
+      {en:'CC: the concession (Admittedly… However…) keeps the argument balanced without losing the position.',
+       ru:'CC: уступка (Admittedly… However…) сохраняет баланс, не теряя позиции.',
+       kz:'CC: мойындау (Admittedly… However…) ұстанымды жоғалтпай тепе-теңдік сақтайды.'},
+      {en:'LR: workplace collocations (work-life balance, video-conferencing platforms, social isolation).',
+       ru:'LR: рабочие коллокации (work-life balance, video-conferencing platforms, social isolation).',
+       kz:'LR: жұмысқа қатысты коллокациялар (work-life balance, video-conferencing platforms, social isolation).'},
+      {en:'GRA: "provided that", relative clauses and modal verbs used accurately.',
+       ru:'GRA: "provided that", относительные придаточные и модальные глаголы использованы точно.',
+       kz:'GRA: "provided that", relative clause және модаль етістіктер дәл қолданылған.'}]
+};
+
+S(M.m6, {en:'6.1 Study the model essay',ru:'6.1 Изучи образцовое эссе',kz:'6.1 Үлгі эссені оқы'}, function(host){
+  trackTabs(host, function(area, tr){
+    var coloured = true;
+    var c = el('div','card');
+    c.innerHTML = '<div class="kicker">Module 6.1 · '+esc(L(TRACKS[tr].name))+'</div><div class="tasktext">'+esc(TRACKS[tr].task)+'</div>';
+    var row = el('div','btnrow');
+    var toggle = el('button','btn soft', U('colourOn'));
+    var body = el('div');
+    function draw(){ body.innerHTML = legendHtml() + renderEssay(tr, coloured); if(!coloured) body.innerHTML = renderEssay(tr,false); }
+    toggle.onclick = function(){ coloured = !coloured; toggle.textContent = coloured?U('colourOn'):U('colourOff'); draw(); };
+    row.appendChild(toggle);
+    c.appendChild(row);
+    c.appendChild(body);
+    var meta = el('div','counter');
+    meta.innerHTML = '<span><b>'+essayWords(tr)+'</b> '+U('words')+'</span><span>'+U('linkersUsed')+': <b>'+countLinkers(essayText(tr))+'</b></span><span>'+U('paragraphs')+': <b>4</b></span>';
+    c.appendChild(meta);
+    draw();
+    area.appendChild(c);
+    var b = el('div','card');
+    b.innerHTML = '<h3>'+L({en:'Why this is Band 8',ru:'Почему это Band 8',kz:'Неліктен бұл Band 8'})+'</h3><ul class="tick">'+
+      BAND_NOTES[tr].map(function(x){ return '<li>'+L(x)+'</li>'; }).join('')+'</ul>';
+    area.appendChild(b);
+  });
+});
+
+S(M.m6, {en:'6.2 Rewrite from memory',ru:'6.2 Перепиши по памяти',kz:'6.2 Жадтан қайта жаз'}, function(host){
+  trackTabs(host, function(area, tr){
+    var lvl = 2;
+    var c = el('div','card');
+    c.innerHTML = '<div class="kicker">Module 6.2</div><h3>'+L({en:'Memory challenge',ru:'Испытание памяти',kz:'Жад сынағы'})+'</h3>'+
+      '<p class="small muted">'+L({en:'The essay is hidden. Rewrite it in full. Choose how much support you want.',ru:'Эссе скрыто. Перепиши его целиком. Выбери уровень поддержки.',kz:'Эссе жасырылған. Оны толық қайта жаз. Қолдау деңгейін таңда.'})+'</p>'+
+      '<div class="tasktext">'+esc(TRACKS[tr].task)+'</div>';
+    var tabs = el('div','tabs');
+    var support = el('div');
+    [{k:1,n:{en:'Level 1 — skeleton',ru:'Уровень 1 — скелет',kz:'1-деңгей — қаңқа'}},
+     {k:2,n:{en:'Level 2 — paragraph plan',ru:'Уровень 2 — план абзацев',kz:'2-деңгей — абзац жоспары'}},
+     {k:3,n:{en:'Level 3 — exam mode',ru:'Уровень 3 — режим экзамена',kz:'3-деңгей — емтихан режимі'}}].forEach(function(o){
+      var b = el('button','tab', L(o.n)); b.dataset.k=o.k;
+      b.onclick = function(){ lvl=o.k; qsa(tabs,'.tab').forEach(function(x){x.classList.toggle('on', +x.dataset.k===lvl);}); drawSupport(); };
+      tabs.appendChild(b);
+    });
+    function drawSupport(){
+      support.innerHTML='';
+      stopTimers();
+      if(lvl===1){
+        var html = '<div class="card tight"><div class="small muted">'+L({en:'Templates + the first two words of every sentence',ru:'Шаблоны + первые два слова каждого предложения',kz:'Шаблондар + әр сөйлемнің алғашқы екі сөзі'})+'</div>';
+        TRACKS[tr].paras.forEach(function(p,pi){
+          html += '<p><b>'+['Introduction','Body 1','Body 2','Conclusion'][pi]+':</b><br>' + p.map(function(s){
+            return '<span class="small">'+esc(L(ROLE_LABEL[s.r]))+' → <b>'+esc(s.t.split(' ').slice(0,2).join(' '))+'…</b></span>';
+          }).join('<br>') + '</p>';
+        });
+        support.innerHTML = html + '</div>';
+      } else if(lvl===2){
+        var plan = {
+          cs:['Intro: topic + paraphrase + outline (causes & solutions)','Body 1: cause 1 (cheap processed food) → explanation → example → result; cause 2 (sedentary lifestyle) → explanation → result','Body 2: opener + solution 1 (regulate advertising and tax sugar) → example → result; solution 2 (compulsory PE and sports clubs) → example → result','Conclusion: summary of causes + solutions, positive final sentence'],
+          ps:['Intro: topic + paraphrase + outline (problems & solutions)','Body 1: problem 1 (ocean pollution) → explanation → example → result; problem 2 (pressure on waste systems) → explanation → result','Body 2: opener + solution 1 (bans and producer responsibility) → example → result; solution 2 (deposit schemes and labelling) → example → result','Conclusion: summary of problems + solutions, positive final sentence'],
+          dq:['Intro: topic + paraphrase + outline answering both questions','Body 1 (Q1 why): reason 1 (technology) → explanation → example → result; reason 2 (employer savings) → explanation → result','Body 2 (Q2 opinion): position → reason (work-life balance) → example → result; concession → answer to it → final result','Conclusion: answer Q1 in one clause + answer Q2 in one clause']
+        }[tr];
+        support.innerHTML = '<div class="card tight"><ol class="small">'+plan.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ol></div>';
+      } else {
+        TIMERS.push(makeTimer(support, 40, {en:'Exam timer — 40 minutes',ru:'Экзаменационный таймер — 40 минут',kz:'Емтихан таймері — 40 минут'}));
+      }
+    }
+    c.appendChild(tabs); c.appendChild(support);
+    qsa(tabs,'.tab')[1].classList.add('on'); drawSupport();
+    var ta = el('textarea'); ta.rows=16;
+    ta.placeholder = L({en:'Write the whole essay here (4 paragraphs)…',ru:'Напиши здесь всё эссе (4 абзаца)…',kz:'Мұнда эссені толық жаз (4 абзац)…'});
+    ta.value = state.essays['rw_'+tr] || '';
+    c.appendChild(ta);
+    var cnt = el('div','counter'); c.appendChild(cnt);
+    attachCounter(ta, cnt, 250, 290);
+    ta.addEventListener('input', function(){ state.essays['rw_'+tr]=ta.value; save(); });
+    var row = el('div','btnrow'); c.appendChild(row);
+    var sv = el('button','btn', L({en:'Save and compare →',ru:'Сохранить и сравнить →',kz:'Сақтап салыстыру →'}));
+    sv.onclick = function(){ state.essays['rw_'+tr]=ta.value; save(); markDoneAndNext(); };
+    row.appendChild(sv);
+    area.appendChild(c);
+  });
+});
+
+S(M.m6, {en:'6.3 Compare with the model',ru:'6.3 Сравни с образцом',kz:'6.3 Үлгімен салыстыр'}, function(host){
+  trackTabs(host, function(area, tr){
+    var mine = state.essays['rw_'+tr] || '';
+    var c = el('div','card');
+    c.innerHTML = '<div class="kicker">Module 6.3</div><h3>'+L({en:'Sentence-by-sentence comparison',ru:'Сравнение по предложениям',kz:'Сөйлем-сөйлем салыстыру'})+'</h3>';
+    var ta = el('textarea'); ta.rows=8; ta.value = mine;
+    ta.placeholder = L({en:'Paste or write your essay here…',ru:'Вставь или напиши сюда своё эссе…',kz:'Эссеңді осында жаз немесе қой…'});
+    c.appendChild(ta);
+    var cnt = el('div','counter'); c.appendChild(cnt);
+    attachCounter(ta, cnt, 250, 290);
+    var row = el('div','btnrow'); c.appendChild(row);
+    var out = el('div');
+    var go = el('button','btn', L({en:'Compare',ru:'Сравнить',kz:'Салыстыру'}));
+    go.onclick = function(){
+      state.essays['rw_'+tr] = ta.value; save();
+      var studentSents = splitSentences(ta.value);
+      var model = essaySentences(tr);
+      var g=0,y=0,r=0;
+      var rows = model.map(function(ms){
+        var o = bestOverlap(ms.t, studentSents);
+        var cls = o>=0.5?'sim-g':(o>=0.25?'sim-y':'sim-r');
+        if(o>=0.5) g++; else if(o>=0.25) y++; else r++;
+        return '<div class="'+cls+'"><span class="small muted">'+esc(L(ROLE_LABEL[ms.r]))+'</span><br>'+markLinkers(ms.t)+'</div>';
+      }).join('');
+      var paras = ta.value.trim().split(/\n\s*\n/).filter(function(p){return p.trim();}).length;
+      out.innerHTML =
+        '<div class="stats">'+
+          '<div class="stat"><b>'+countWords(ta.value)+'</b><span>'+U('words')+' ('+U('target')+')</span></div>'+
+          '<div class="stat"><b>'+countLinkers(ta.value)+'</b><span>'+U('linkersUsed')+'</span></div>'+
+          '<div class="stat"><b>'+paras+'</b><span>'+U('paragraphs')+' (4)</span></div>'+
+          '<div class="stat"><b>'+g+'/'+model.length+'</b><span>'+L({en:'key ideas present',ru:'ключевых идей есть',kz:'негізгі идея бар'})+'</span></div>'+
+        '</div>'+
+        '<div class="cmp"><div><h4>'+L({en:'Model essay — idea by idea',ru:'Образцовое эссе — по идеям',kz:'Үлгі эссе — идея бойынша'})+'</h4>'+rows+
+        '<p class="small muted">🟩 '+L({en:'idea present',ru:'идея есть',kz:'идея бар'})+' · 🟨 '+L({en:'partly',ru:'частично',kz:'ішінара'})+' · 🟥 '+L({en:'missing',ru:'пропущена',kz:'жоқ'})+'</p></div>'+
+        '<div><h4>'+L({en:'Your essay',ru:'Твоё эссе',kz:'Сенің эссең'})+'</h4><div class="card tight">'+(ta.value.trim()? markLinkers(ta.value).replace(/\n/g,'<br>') : '<span class="muted">—</span>')+'</div></div></div>';
+      record('ex6.3_'+tr, g, model.length);
+    };
+    row.appendChild(go);
+    c.appendChild(out);
+    area.appendChild(c);
+    if(mine.trim()) go.onclick();
+  });
+});
+
+S(M.m6, {en:'6.4 Self-check',ru:'6.4 Самопроверка',kz:'6.4 Өзін-өзі тексеру'}, function(host){
+  trackTabs(host, function(area, tr){
+    var items = [
+      {en:'My essay has 4 paragraphs.',ru:'В моём эссе 4 абзаца.',kz:'Эссемде 4 абзац бар.'},
+      {en:'I answered ALL parts of the question.',ru:'Я ответил(а) на ВСЕ части вопроса.',kz:'Сұрақтың БАРЛЫҚ бөлігіне жауап бердім.'},
+      {en:'My essay has 250+ words.',ru:'В моём эссе 250+ слов.',kz:'Эссемде 250+ сөз бар.'},
+      {en:'(Double Question) My position is the same in the intro, Body 2 and the conclusion.',ru:'(Двойной вопрос) Моя позиция одинакова во вступлении, Body 2 и выводе.',kz:'(Қос сұрақ) Ұстанымым кіріспеде, Body 2-де және қорытындыда бірдей.'},
+      {en:'(Problem–Solution) Each solution answers a cause/problem from Body 1.',ru:'(Проблема–Решение) Каждое решение отвечает причине/проблеме из Body 1.',kz:'(Мәселе–Шешім) Әр шешім Body 1-дегі себепке/мәселеге жауап береді.'},
+      {en:'I copied no phrases from the task.',ru:'Я не копировал(а) фразы из задания.',kz:'Тапсырмадан бірде-бір тіркес көшірмедім.'},
+      {en:'I used at least 6 different linking words.',ru:'Я использовал(а) минимум 6 разных связок.',kz:'Кемінде 6 түрлі байланыстырушы қолдандым.'},
+      {en:'My conclusion adds no new ideas.',ru:'В моём выводе нет новых идей.',kz:'Қорытындымда жаңа идея жоқ.'}
+    ];
+    var c = el('div','card');
+    c.innerHTML = '<div class="kicker">Module 6.4</div><h3>'+L({en:'Tick everything before you finish',ru:'Отметь всё перед завершением',kz:'Аяқтамас бұрын бәрін белгіле'})+'</h3>';
+    var mine = state.essays['rw_'+tr]||'';
+    var auto = el('div','note small');
+    auto.innerHTML = L({en:'Automatic check of your Module 6.2 text',ru:'Автопроверка твоего текста из 6.2',kz:'6.2-дегі мәтініңнің авто-тексерісі'})+': '+
+      countWords(mine)+' '+U('words')+' · '+countLinkers(mine)+' '+U('linkersUsed')+' · '+
+      (mine.trim()? mine.trim().split(/\n\s*\n/).length : 0)+' '+U('paragraphs');
+    c.appendChild(auto);
+    items.forEach(function(x){ c.appendChild(el('label','chk','<input type="checkbox"><span>'+L(x)+'</span>')); });
+    var fb = el('div','fb'); var row = el('div','btnrow');
+    var b = el('button','btn', U('finish'));
+    b.onclick = function(){
+      var all = qsa(c,'input[type=checkbox]'), n = all.filter(function(i){return i.checked;}).length;
+      fb.className = 'fb show '+(n===all.length?'good':'bad');
+      fb.innerHTML = n===all.length
+        ? L({en:'Excellent — this essay is ready to be handed in.',ru:'Отлично — это эссе можно сдавать.',kz:'Тамаша — бұл эссені тапсыруға болады.'})
+        : L({en:'Not yet: ',ru:'Пока нет: ',kz:'Әлі емес: '}) + (all.length-n) + L({en:' points are unticked. Fix them in your text first.',ru:' пунктов не отмечено. Сначала исправь их в тексте.',kz:' тармақ белгіленбеген. Алдымен мәтінде түзе.'});
+      record('ex6.4_'+tr, n, all.length);
+    };
+    row.appendChild(b); c.appendChild(row); c.appendChild(fb);
+    area.appendChild(c);
+  });
+});
+
+/* ---- AI check placeholder -------------------------------------------- */
+// TODO: AI check endpoint
+function checkEssayWithAI(text, taskId){
+  /* TODO: replace this stub with a real request, e.g.
+     return fetch('/api/check', {method:'POST', body: JSON.stringify({text:text, taskId:taskId})}).then(r=>r.json()); */
+  var w = countWords(text), lk = countLinkers(text), paras = (text.trim()? text.trim().split(/\n\s*\n/).length : 0);
+  return Promise.resolve({
+    TR: w>=250 ? 7 : 5, CC: paras>=4 ? 7 : 5, LR: lk>=6 ? 7 : 6, GRA: 6,
+    overall: 6.5,
+    comments: [
+      'STUB FEEDBACK — no AI endpoint is connected yet.',
+      'Words: '+w+' (target 250–290). Paragraphs: '+paras+' (target 4). Different linkers: '+lk+' (target 6+).',
+      'Connect checkEssayWithAI(text, taskId) to your backend to receive real band feedback.'
+    ]
+  });
+}
+
+var EXAM_TASKS = {
+  cs:'An increasing number of young people are leaving rural areas to live in big cities. What are the causes of this trend, and what measures could reduce it?',
+  ps:'Many students spend several hours every day on social media. What problems does this cause, and how can these problems be solved?',
+  dq:'More people are choosing to study online rather than attend a university in person. Why is this happening? Is this a positive or a negative trend?'
+};
+
+S(M.m6, {en:'6.5 Write your own (exam mode)',ru:'6.5 Пиши сам (режим экзамена)',kz:'6.5 Өзің жаз (емтихан режимі)'}, function(host){
+  trackTabs(host, function(area, tr){
+    var c = el('div','card');
+    c.innerHTML = '<div class="kicker">Module 6.5 · '+esc(L(TRACKS[tr].name))+'</div><h3>'+L({en:'A new, unseen task',ru:'Новое, незнакомое задание',kz:'Жаңа, көрмеген тапсырма'})+'</h3>'+
+      '<div class="tasktext">'+esc(EXAM_TASKS[tr])+'</div>';
+    area.appendChild(c);
+    TIMERS.push(makeTimer(c, 40, {en:'Exam timer — 40 minutes',ru:'Экзаменационный таймер — 40 минут',kz:'Емтихан таймері — 40 минут'}));
+    var ta = el('textarea'); ta.rows=16;
+    ta.placeholder = L({en:'Write your essay (250–290 words, 4 paragraphs)…',ru:'Напиши эссе (250–290 слов, 4 абзаца)…',kz:'Эссе жаз (250–290 сөз, 4 абзац)…'});
+    ta.value = state.essays['exam_'+tr] || '';
+    c.appendChild(ta);
+    var cnt = el('div','counter'); c.appendChild(cnt);
+    attachCounter(ta, cnt, 250, 290);
+    ta.addEventListener('input', function(){ state.essays['exam_'+tr]=ta.value; save(); });
+    var fb = el('div','fb'); var row = el('div','btnrow');
+    var b = el('button','btn', L({en:'Check my essay',ru:'Проверить моё эссе',kz:'Эссемді тексеру'}));
+    b.onclick = function(){
+      state.essays['exam_'+tr]=ta.value; save();
+      b.disabled = true;
+      checkEssayWithAI(ta.value, 'exam_'+tr).then(function(res){
+        b.disabled = false;
+        fb.className='fb show info';
+        fb.innerHTML = '<b>'+L({en:'Automatic feedback (stub)',ru:'Автоматический отзыв (заглушка)',kz:'Автоматты кері байланыс (уақытша)'})+'</b>'+
+          '<div class="stats"><div class="stat"><b>'+res.TR+'</b><span>TR</span></div><div class="stat"><b>'+res.CC+'</b><span>CC</span></div>'+
+          '<div class="stat"><b>'+res.LR+'</b><span>LR</span></div><div class="stat"><b>'+res.GRA+'</b><span>GRA</span></div>'+
+          '<div class="stat"><b>'+res.overall+'</b><span>overall</span></div></div>'+
+          '<ul class="small">'+res.comments.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>';
+        record('ex6.5_'+tr, countWords(ta.value)>=250?1:0, 1);
+      });
+    };
+    row.appendChild(b); c.appendChild(row); c.appendChild(fb);
+  });
+});
+/* =========================================================================
+   FINAL SCREEN
+   ========================================================================= */
+S(M.m7, {en:'Your results',ru:'Твои результаты',kz:'Нәтижелерің'}, function(host){
+  var ids = Object.keys(state.ex), c=0, t=0;
+  ids.forEach(function(k){ c += state.ex[k].c; t += state.ex[k].t; });
+  var acc = t? Math.round(100*c/t) : 0;
+  var essays = Object.keys(state.essays).filter(function(k){ return countWords(state.essays[k])>=40; });
+  var card = el('div','card');
+  card.innerHTML = '<div class="kicker">'+L(M.m7)+'</div><h2>'+L({en:'Course summary',ru:'Итоги курса',kz:'Курс қорытындысы'})+'</h2>'+
+    '<div class="stats">'+
+      '<div class="stat"><b>'+ids.length+'</b><span>'+L({en:'exercises attempted',ru:'упражнений выполнено',kz:'жаттығу орындалды'})+'</span></div>'+
+      '<div class="stat"><b>'+acc+'%</b><span>'+L({en:'accuracy',ru:'точность',kz:'дәлдік'})+'</span></div>'+
+      '<div class="stat"><b>'+essays.length+'</b><span>'+L({en:'essays written',ru:'эссе написано',kz:'эссе жазылды'})+'</span></div>'+
+      '<div class="stat"><b>'+Object.keys(state.done).length+'/'+SCREENS.length+'</b><span>'+L({en:'screens completed',ru:'экранов пройдено',kz:'экран өтілді'})+'</span></div>'+
+    '</div>';
+  host.appendChild(card);
+
+  var list = el('div','card');
+  list.innerHTML = '<h3>'+L({en:'Your texts',ru:'Твои тексты',kz:'Мәтіндерің'})+'</h3>';
+  if(!essays.length){
+    list.innerHTML += '<p class="muted small">'+L({en:'No essays saved yet — go back to Module 6.',ru:'Пока нет сохранённых эссе — вернись к Модулю 6.',kz:'Әзірге сақталған эссе жоқ — 6-модульге орал.'})+'</p>';
+  } else {
+    essays.forEach(function(k){
+      list.innerHTML += '<div class="card tight"><div class="small muted">'+esc(k)+' — '+countWords(state.essays[k])+' '+U('words')+'</div>'+
+        '<div class="small">'+esc(state.essays[k].slice(0,240))+(state.essays[k].length>240?'…':'')+'</div></div>';
+    });
+  }
+  host.appendChild(list);
+
+  var row = el('div','btnrow');
+  var dl = el('button','btn', L({en:'Download my essays (.txt)',ru:'Скачать мои эссе (.txt)',kz:'Эсселерімді жүктеу (.txt)'}));
+  dl.onclick = function(){
+    var txt = 'IELTS Writing Task 2 — my essays\n================================\n\n';
+    Object.keys(state.essays).forEach(function(k){
+      if(!state.essays[k] || !state.essays[k].trim()) return;
+      txt += '--- '+k+' ('+countWords(state.essays[k])+' words) ---\n'+state.essays[k]+'\n\n';
+    });
+    var blob = new Blob([txt], {type:'text/plain;charset=utf-8'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = 'my-ielts-essays.txt';
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  };
+  var again = el('button','btn ghost', L({en:'Start again',ru:'Начать заново',kz:'Қайта бастау'}));
+  again.onclick = function(){
+    if(!confirm(L({en:'Erase all progress and answers?',ru:'Стереть весь прогресс и ответы?',kz:'Барлық прогресс пен жауаптар өшірілсін бе?'}))) return;
+    state.done={}; state.ex={}; state.essays={}; state.builder={}; state.screen=0;
+    save(); goto(0);
+  };
+  row.appendChild(dl); row.appendChild(again);
+  host.appendChild(row);
+});
+
+/* =========================================================================
+   7. APP SHELL — navigation, progress, language
+   ========================================================================= */
+function renderSidebar(){
+  var side = document.getElementById('side');
+  side.innerHTML = '';
+  var cl = el('button','','<span>'+L({en:'Contents',ru:'Содержание',kz:'Мазмұны'})+'</span><span>✕</span>');
+  cl.id = 'sideClose'; cl.onclick = closeMenu;
+  side.appendChild(cl);
+  var lastMod = null, block = null;
+  SCREENS.forEach(function(sc, i){
+    if(sc.mod !== lastMod){
+      block = el('div','modblock','<div class="modtitle">'+L(sc.mod)+'</div>');
+      side.appendChild(block); lastMod = sc.mod;
+    }
+    var b = el('button','steplink'+(i===state.screen?' on':'')+(state.done[sc.id]?' done':''),
+      '<span class="dot">'+(state.done[sc.id]?'✓':'')+'</span><span>'+L(sc.title)+'</span>');
+    b.onclick = function(){ goto(i); };
+    block.appendChild(b);
+  });
+}
+function renderProgress(){
+  var n = Object.keys(state.done).length, pct = Math.round(100*n/SCREENS.length);
+  document.getElementById('progFill').style.width = pct+'%';
+  document.getElementById('progText').textContent = pct+'% '+L({en:'of the course',ru:'курса пройдено',kz:'курс өтілді'});
+  document.getElementById('stepText').textContent = (state.screen+1)+' / '+SCREENS.length;
+  var ids = Object.keys(state.ex), c=0, t=0;
+  ids.forEach(function(k){ c+=state.ex[k].c; t+=state.ex[k].t; });
+  document.getElementById('footInfo').textContent = L(SCREENS[state.screen].title) + (t? ('  ·  '+U('score')+' '+c+'/'+t) : '');
+}
+function renderScreen(){
+  stopTimers();
+  var host = document.getElementById('content');
+  host.innerHTML = '';
+  var sc = SCREENS[state.screen];
+  try{ sc.render(host); }
+  catch(e){
+    host.innerHTML = '<div class="card"><b>Render error:</b> '+esc(e.message)+'</div>';
+    if(window.console) console.error(e);
+  }
+  document.getElementById('prevBtn').disabled = state.screen===0;
+  var nb = document.getElementById('nextBtn');
+  nb.textContent = state.screen===SCREENS.length-1 ? U('finish') : U('next');
+  renderSidebar(); renderProgress();
+  window.scrollTo(0,0);
+  closeMenu();
+}
+function goto(i){
+  if(i<0 || i>=SCREENS.length) return;
+  state.screen = i; save(); renderScreen();
+}
+function markDoneAndNext(){
+  state.done[SCREENS[state.screen].id] = true;
+  save();
+  if(state.screen < SCREENS.length-1) goto(state.screen+1);
+  else { renderScreen(); }
+}
+function closeMenu(){
+  document.getElementById('side').classList.remove('open');
+  document.getElementById('scrim').classList.remove('on');
+}
+document.getElementById('nextBtn').onclick = markDoneAndNext;
+document.getElementById('prevBtn').onclick = function(){ goto(state.screen-1); };
+document.getElementById('menuBtn').onclick = function(){
+  document.getElementById('side').classList.toggle('open');
+  document.getElementById('scrim').classList.toggle('on');
+};
+document.getElementById('scrim').onclick = closeMenu;
+document.getElementById('langs').onclick = function(e){
+  var b = e.target.closest ? e.target.closest('button') : null;
+  if(!b || !b.dataset.lang) return;
+  state.lang = b.dataset.lang; save();
+  qsa(document.getElementById('langs'),'button').forEach(function(x){ x.classList.toggle('on', x.dataset.lang===state.lang); });
+  renderScreen();
+};
+document.addEventListener('keydown', function(e){
+  if(e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+  if(e.key==='ArrowRight') markDoneAndNext();
+  if(e.key==='ArrowLeft') goto(state.screen-1);
+});
+
+/* boot */
+load();
+if(state.screen>=SCREENS.length) state.screen = 0;
+qsa(document.getElementById('langs'),'button').forEach(function(x){ x.classList.toggle('on', x.dataset.lang===state.lang); });
+renderScreen();
+</script>
+</body>
+</html>
