@@ -1908,6 +1908,26 @@ var SET_A2 = [
   }
 ];
 
+/* ---------------------------------------------------------------------
+   Pilot: round a2_home_001 is wired to real photographs.
+   The base frame was generated first; both distractors are edits of that
+   same frame, so exactly one attribute differs — fur colour on one, the
+   cat's position on the other. Everything else in the shot is identical.
+   The photos live on a CDN, so they need a connection; offline the round
+   falls back to its generated scene automatically.
+   --------------------------------------------------------------------- */
+(function () {
+  var CDN = "https://d8j0ntlcm91z4.cloudfront.net/user_38tBPW14WMCa49wBFaIgJ29lsCh/";
+  var urls = [
+    CDN + "hf_20260917_213143_0cf2ab85-c1a0-4de4-8c48-3b588900d932.png",  /* grey cat under the table */
+    CDN + "hf_20260917_213211_75539fe4-5724-41b8-bfc2-a8f64cafca98.png",  /* same shot, ginger cat     */
+    CDN + "hf_20260917_213211_aeb0bf1e-695b-4707-8813-af4a48b8d2a9.png"   /* same shot, cat on the table */
+  ];
+  var round = SET_A2.filter(function (r) { return r.id === "a2_home_001"; })[0];
+  round.options.forEach(function (op, i) { if (urls[i]) op.img = urls[i]; });
+  ASSETS.image.push.apply(ASSETS.image, urls);
+})();
+
 /* ============================ B1 · home ============================ */
 var B1_BASE = {
   womanWindow: sc("living", [
