@@ -1,0 +1,3630 @@
+<!DOCTYPE html>
+<html lang="ru" data-lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Just To Study — Listen &amp; Choose: choose a picture by audio description.">
+<title>JTS · Listen &amp; Choose</title>
+<style>
+/* ============================================================
+   JTS design tokens. Everything themable lives here.
+   ============================================================ */
+:root{
+  /* brand */
+  --jts-violet:#874BF8;
+  --jts-violet-600:#6F31E8;
+  --jts-violet-100:#EFE7FF;
+  --jts-cyan:#0AAFFF;
+  --jts-cyan-100:#E1F4FF;
+  --jts-green:#00D441;
+  --jts-green-100:#E0FBEA;
+  --jts-orange:#FF631E;
+  --jts-orange-100:#FFEAE1;
+  --jts-gold:#FFAD00;
+  --jts-gold-100:#FFF4DC;
+
+  /* semantic surfaces (light) */
+  --bg:#F6F4FB;
+  --bg-2:#EDE9F8;
+  --surface:#FFFFFF;
+  --surface-2:#F8F6FD;
+  --surface-3:#F0ECFA;
+  --line:#E6E1F2;
+  --line-strong:#D6CFEA;
+
+  /* text */
+  --text:#1D1734;
+  --text-2:#5C5478;
+  --text-3:#8F88A6;
+  --on-accent:#FFFFFF;
+
+  /* state */
+  --ok:var(--jts-green);
+  --ok-soft:var(--jts-green-100);
+  --warn:var(--jts-gold);
+  --err:var(--jts-orange);
+  --err-soft:var(--jts-orange-100);
+
+  /* radii */
+  --r-xs:8px; --r-sm:12px; --r-md:18px; --r-lg:26px; --r-xl:34px; --r-pill:999px;
+
+  /* spacing scale (8pt) */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:20px; --s-6:24px;
+  --s-7:32px; --s-8:40px; --s-9:56px;
+
+  /* shadows — soft, brand-tinted */
+  --sh-1:0 2px 6px rgba(29,23,52,.06);
+  --sh-2:0 8px 22px rgba(89,58,168,.10);
+  --sh-3:0 18px 44px rgba(89,58,168,.16);
+  --sh-accent:0 10px 26px rgba(135,75,248,.32);
+  --ring:0 0 0 4px rgba(135,75,248,.22);
+
+  /* typography */
+  --font-head:"PT Root UI","SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --font-text:"SF Pro Display","PT Root UI",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+
+  /* motion */
+  --dur-1:150ms; --dur-2:200ms; --dur-3:250ms;
+  --ease:cubic-bezier(.22,.61,.36,1);
+
+  /* layout */
+  --content-max:1180px;
+  --tap:44px;
+}
+
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#131020;
+    --bg-2:#1A1630;
+    --surface:#1E1934;
+    --surface-2:#251F3F;
+    --surface-3:#2C2549;
+    --line:#332B52;
+    --line-strong:#463B6B;
+    --text:#F3F0FB;
+    --text-2:#B9B1D4;
+    --text-3:#867DA5;
+    --jts-violet-100:#2E2350;
+    --jts-cyan-100:#12304A;
+    --jts-green-100:#11311F;
+    --jts-orange-100:#3A1F14;
+    --jts-gold-100:#3A2D10;
+    --sh-1:0 2px 6px rgba(0,0,0,.34);
+    --sh-2:0 8px 22px rgba(0,0,0,.42);
+    --sh-3:0 18px 44px rgba(0,0,0,.52);
+    --sh-accent:0 10px 26px rgba(135,75,248,.42);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131020; --bg-2:#1A1630; --surface:#1E1934; --surface-2:#251F3F; --surface-3:#2C2549;
+  --line:#332B52; --line-strong:#463B6B; --text:#F3F0FB; --text-2:#B9B1D4; --text-3:#867DA5;
+  --jts-violet-100:#2E2350; --jts-cyan-100:#12304A; --jts-green-100:#11311F;
+  --jts-orange-100:#3A1F14; --jts-gold-100:#3A2D10;
+  --sh-1:0 2px 6px rgba(0,0,0,.34); --sh-2:0 8px 22px rgba(0,0,0,.42);
+  --sh-3:0 18px 44px rgba(0,0,0,.52); --sh-accent:0 10px 26px rgba(135,75,248,.42);
+}
+
+/* ============================================================ base */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font-text);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.45;
+  overflow-x:hidden;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+h1,h2,h3{font-family:var(--font-head);margin:0;line-height:1.2;letter-spacing:-.01em}
+button{font:inherit;color:inherit}
+img{display:block;max-width:100%}
+[hidden]{display:none !important}
+:focus-visible{outline:none;box-shadow:var(--ring);border-radius:var(--r-sm)}
+
+.wrap{width:100%;max-width:var(--content-max);margin:0 auto;padding:0 var(--s-4)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ============================================================ buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--s-2);
+  min-height:var(--tap);padding:0 var(--s-6);
+  border:0;border-radius:var(--r-pill);
+  background:var(--surface-3);color:var(--text);
+  font-weight:600;font-size:15px;cursor:pointer;
+  transition:transform var(--dur-1) var(--ease),opacity var(--dur-1) var(--ease);
+  text-align:center;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn[disabled]{opacity:.42;cursor:not-allowed;transform:none}
+.btn--primary{background:var(--jts-violet);color:var(--on-accent);box-shadow:var(--sh-accent)}
+.btn--ghost{background:transparent;box-shadow:inset 0 0 0 2px var(--line-strong);color:var(--text-2)}
+.btn--lg{min-height:56px;font-size:17px;padding:0 var(--s-8)}
+.btn--block{width:100%}
+.btn--icon{padding:0;width:var(--tap);min-width:var(--tap)}
+
+/* ============================================================ topbar */
+.topbar{
+  position:sticky;top:0;z-index:40;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.topbar__in{display:flex;align-items:center;gap:var(--s-3);min-height:60px}
+.logo{display:flex;align-items:center;gap:var(--s-2);font-family:var(--font-head);font-weight:800;font-size:17px;letter-spacing:-.02em;white-space:nowrap}
+.logo__bubble{
+  width:30px;height:30px;flex:0 0 30px;border-radius:12px 12px 12px 5px;
+  background:linear-gradient(135deg,var(--jts-violet),var(--jts-cyan));
+  box-shadow:var(--sh-accent);
+}
+.logo__sub{color:var(--text-3);font-weight:600;font-size:13px}
+.topbar__spacer{flex:1}
+
+.segmented{display:inline-flex;background:var(--surface-3);border-radius:var(--r-pill);padding:3px;gap:2px}
+.segmented button{
+  border:0;background:transparent;border-radius:var(--r-pill);
+  min-height:34px;min-width:40px;padding:0 var(--s-3);
+  font-size:13px;font-weight:700;color:var(--text-3);cursor:pointer;
+  transition:color var(--dur-1) var(--ease),background var(--dur-1) var(--ease);
+}
+.segmented button[aria-pressed="true"]{background:var(--surface);color:var(--jts-violet);box-shadow:var(--sh-1)}
+
+/* ============================================================ cards / panels */
+.card{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--sh-2);padding:var(--s-6)}
+.panel{background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--sh-2)}
+
+/* ============================================================ start screen */
+.screen{padding:var(--s-6) 0 var(--s-9)}
+.hero{text-align:center;padding:var(--s-6) 0 var(--s-7)}
+.hero h1{font-size:clamp(26px,6vw,42px);margin-bottom:var(--s-3)}
+.hero p{color:var(--text-2);max-width:56ch;margin:0 auto;font-size:clamp(14px,3.4vw,17px)}
+.hero__badge{
+  display:inline-flex;align-items:center;gap:var(--s-2);
+  background:var(--jts-violet-100);color:var(--jts-violet);
+  border-radius:var(--r-pill);padding:6px var(--s-4);font-weight:700;font-size:13px;margin-bottom:var(--s-4);
+}
+.section-title{font-size:14px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:var(--s-3)}
+.chips{display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.chip{
+  border:0;cursor:pointer;background:var(--surface);color:var(--text-2);
+  border-radius:var(--r-pill);min-height:var(--tap);padding:0 var(--s-5);
+  font-weight:700;font-size:14px;box-shadow:inset 0 0 0 2px var(--line);
+  transition:transform var(--dur-1) var(--ease),color var(--dur-1) var(--ease),box-shadow var(--dur-1) var(--ease);
+  display:inline-flex;align-items:center;gap:var(--s-2);
+}
+.chip:hover{transform:translateY(-1px)}
+.chip[aria-pressed="true"]{background:var(--jts-violet);color:var(--on-accent);box-shadow:var(--sh-accent)}
+.chip[disabled]{opacity:.4;cursor:not-allowed;transform:none}
+.chip__meta{font-weight:600;font-size:12px;opacity:.7}
+.start-grid{display:grid;gap:var(--s-5);margin-bottom:var(--s-6)}
+.start-actions{display:flex;flex-direction:column;gap:var(--s-3);align-items:stretch}
+.start-note{color:var(--text-3);font-size:13px;text-align:center}
+
+/* ============================================================ session layout */
+.session{display:grid;gap:var(--s-5)}
+.hud{display:flex;align-items:center;gap:var(--s-3);flex-wrap:wrap}
+.hud__counter{font-family:var(--font-head);font-weight:800;font-size:16px;white-space:nowrap}
+.hud__pill{
+  display:inline-flex;align-items:center;gap:6px;background:var(--surface-3);
+  border-radius:var(--r-pill);padding:5px var(--s-3);font-size:13px;font-weight:700;color:var(--text-2);
+  white-space:nowrap;
+}
+.hud__pill--streak{background:var(--jts-gold-100);color:var(--jts-gold)}
+.hud__pill--mode{background:var(--jts-cyan-100);color:var(--jts-cyan)}
+.progressbar{height:8px;border-radius:var(--r-pill);background:var(--surface-3);overflow:hidden;width:100%}
+.progressbar__fill{height:100%;background:linear-gradient(90deg,var(--jts-violet),var(--jts-cyan));border-radius:var(--r-pill);transform-origin:left center;transform:scaleX(0);transition:transform var(--dur-3) var(--ease)}
+
+/* ---- audio block ---- */
+.audio{
+  background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--sh-2);
+  padding:var(--s-4);display:grid;gap:var(--s-3);
+}
+.audio__row{display:flex;align-items:center;gap:var(--s-3)}
+.audio__replay{
+  width:60px;height:60px;min-width:60px;border-radius:var(--r-pill);border:0;cursor:pointer;
+  background:var(--jts-violet);color:var(--on-accent);box-shadow:var(--sh-accent);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform var(--dur-2) var(--ease);
+}
+.audio__replay:hover{transform:scale(1.05)}
+.audio__replay:active{transform:scale(.95)}
+.audio__replay[disabled]{opacity:.4;cursor:not-allowed;box-shadow:none}
+.audio__replay svg{width:26px;height:26px;fill:currentColor}
+.audio__mid{flex:1;min-width:0;display:grid;gap:6px}
+.audio__label{font-size:13px;font-weight:700;color:var(--text-2);display:flex;gap:var(--s-2);align-items:center;flex-wrap:wrap}
+.audio__left{color:var(--text-3);font-weight:600}
+.audio__track{
+  height:12px;border-radius:var(--r-pill);background:var(--surface-3);position:relative;cursor:pointer;
+  touch-action:none;
+}
+.audio__track::after{content:"";position:absolute;inset:-10px 0;}
+.audio__played{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:var(--r-pill);background:linear-gradient(90deg,var(--jts-violet),var(--jts-cyan))}
+.audio__track[aria-disabled="true"]{opacity:.5;cursor:default}
+.audio__wave{display:flex;gap:3px;align-items:flex-end;height:12px}
+.audio__wave i{width:3px;background:var(--jts-violet);border-radius:2px;height:30%;opacity:.5}
+.audio.is-playing .audio__wave i{animation:wv 900ms var(--ease) infinite}
+.audio__wave i:nth-child(2){animation-delay:120ms}
+.audio__wave i:nth-child(3){animation-delay:240ms}
+.audio__wave i:nth-child(4){animation-delay:360ms}
+@keyframes wv{0%,100%{height:30%}50%{height:100%}}
+.audio__speed{display:flex;gap:4px;background:var(--surface-3);border-radius:var(--r-pill);padding:3px}
+.audio__speed button{
+  border:0;background:transparent;border-radius:var(--r-pill);min-height:36px;padding:0 10px;
+  font-size:13px;font-weight:700;color:var(--text-3);cursor:pointer;
+}
+.audio__speed button[aria-pressed="true"]{background:var(--surface);color:var(--jts-violet);box-shadow:var(--sh-1)}
+.audio__status{font-size:12px;color:var(--text-3);min-height:16px}
+.audio__status.is-error{color:var(--err);font-weight:700}
+
+/* ---- task prompt ---- */
+.task{
+  display:flex;align-items:center;gap:var(--s-3);
+  background:var(--jts-violet-100);color:var(--jts-violet);
+  border-radius:var(--r-md) var(--r-md) var(--r-md) 6px;
+  padding:var(--s-3) var(--s-4);font-weight:700;font-size:14px;
+}
+
+/* ---- options grid ---- */
+.options{display:grid;gap:var(--s-4)}
+.options[data-count="1"]{grid-template-columns:1fr;max-width:620px;margin:0 auto;width:100%}
+.options[data-count="2"]{grid-template-columns:repeat(2,1fr)}
+.options[data-count="3"]{grid-template-columns:repeat(2,1fr)}
+.options[data-count="4"]{grid-template-columns:repeat(2,1fr)}
+.options[data-count="5"],.options[data-count="6"]{grid-template-columns:repeat(2,1fr)}
+
+.opt{
+  position:relative;border:0;padding:0;cursor:pointer;background:var(--surface);
+  border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-1);
+  transition:transform var(--dur-2) var(--ease),box-shadow var(--dur-2) var(--ease),opacity var(--dur-3) var(--ease);
+  display:block;width:100%;
+}
+.opt::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  box-shadow:inset 0 0 0 2px var(--line);
+  transition:box-shadow var(--dur-2) var(--ease);
+}
+.opt:hover{transform:translateY(-3px);box-shadow:var(--sh-3)}
+.opt__media{position:relative;aspect-ratio:4/3;background:var(--surface-2);overflow:hidden}
+.opt__media>img,.opt__media>svg{width:100%;height:100%;object-fit:cover;display:block}
+.opt__num{
+  position:absolute;top:10px;left:10px;z-index:2;
+  min-width:28px;height:28px;border-radius:10px;
+  background:color-mix(in srgb,var(--surface) 84%,transparent);
+  color:var(--text-2);font-weight:800;font-size:13px;
+  display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);
+}
+.opt__mark{
+  position:absolute;right:10px;bottom:10px;z-index:3;
+  width:34px;height:34px;border-radius:var(--r-pill);display:none;
+  align-items:center;justify-content:center;color:#fff;font-weight:800;
+  box-shadow:var(--sh-2);
+}
+.opt.is-correct::after{box-shadow:inset 0 0 0 4px var(--ok)}
+.opt.is-correct .opt__mark{display:flex;background:var(--ok)}
+.opt.is-wrong::after{box-shadow:inset 0 0 0 4px var(--err)}
+.opt.is-wrong .opt__mark{display:flex;background:var(--err)}
+.opt.is-out{opacity:.25;pointer-events:none;filter:grayscale(1)}
+.opt[disabled]{cursor:default}
+.opt[disabled]:hover{transform:none;box-shadow:var(--sh-1)}
+.opt.shake{animation:shake var(--dur-3) var(--ease)}
+@keyframes shake{
+  0%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}
+  60%{transform:translateX(-4px)}80%{transform:translateX(2px)}100%{transform:translateX(0)}
+}
+.opt.pop{animation:pop var(--dur-3) var(--ease)}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.04)}100%{transform:scale(1)}}
+
+/* true/false */
+.tf{display:flex;gap:var(--s-3);justify-content:center;flex-wrap:wrap}
+.tf .btn{flex:1 1 150px;max-width:260px}
+.tf__true{background:var(--jts-green-100);color:var(--ok)}
+.tf__false{background:var(--jts-orange-100);color:var(--err)}
+
+/* ---- pinpoint stage ---- */
+.pin{display:grid;gap:var(--s-3)}
+.pin__frame{
+  position:relative;border-radius:var(--r-lg);overflow:hidden;background:var(--surface-2);
+  box-shadow:var(--sh-2);touch-action:none;max-width:720px;width:100%;margin:0 auto;
+}
+.pin__inner{position:relative;aspect-ratio:4/3;transform-origin:0 0;will-change:transform}
+.pin__inner>img,.pin__inner>svg{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;user-select:none}
+.pin__dot{
+  position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:var(--r-pill);
+  pointer-events:none;box-shadow:0 0 0 4px color-mix(in srgb,var(--surface) 70%,transparent);
+}
+.pin__dot--miss{background:var(--err);animation:ping 700ms var(--ease) 2}
+.pin__dot--hit{background:var(--ok)}
+@keyframes ping{0%{transform:scale(.7);opacity:1}100%{transform:scale(1.8);opacity:.2}}
+.pin__reveal{
+  position:absolute;border-radius:var(--r-pill);pointer-events:none;
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--jts-gold) 70%,transparent),0 0 0 12px color-mix(in srgb,var(--jts-gold) 18%,transparent);
+  animation:breathe 1.6s var(--ease) infinite;
+}
+@keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
+.pin__bar{display:flex;align-items:center;gap:var(--s-3);flex-wrap:wrap;justify-content:center}
+.pin__count{font-weight:800;font-family:var(--font-head);font-size:16px;color:var(--jts-violet)}
+.pin__zoom{display:flex;gap:4px;background:var(--surface-3);border-radius:var(--r-pill);padding:3px}
+.pin__zoom button{border:0;background:transparent;width:36px;height:36px;border-radius:var(--r-pill);font-weight:800;color:var(--text-2);cursor:pointer}
+
+/* ---- sequence ---- */
+.seq{display:grid;gap:var(--s-4)}
+.seq__tray{
+  display:flex;gap:var(--s-3);flex-wrap:wrap;min-height:96px;padding:var(--s-3);
+  background:var(--surface-2);border-radius:var(--r-lg);border:2px dashed var(--line-strong);
+  align-items:center;justify-content:center;
+}
+.seq__slot{
+  position:relative;width:110px;border-radius:var(--r-md);overflow:hidden;background:var(--surface);
+  box-shadow:var(--sh-1);cursor:grab;
+}
+.seq__slot .seq__media{aspect-ratio:4/3}
+.seq__slot .seq__media>img,.seq__slot .seq__media>svg{width:100%;height:100%;object-fit:cover}
+.seq__slot .seq__idx{
+  position:absolute;top:6px;left:6px;width:22px;height:22px;border-radius:8px;
+  background:var(--jts-violet);color:#fff;font-size:12px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+}
+.seq__slot.dragging{opacity:.5}
+.seq__empty{color:var(--text-3);font-size:13px;font-weight:600}
+.seq .opt.is-used{opacity:.3;pointer-events:none}
+
+/* ---- feedback zone: fixed height, never shifts layout ---- */
+.feedback{
+  min-height:78px;display:flex;align-items:center;justify-content:center;gap:var(--s-3);
+  border-radius:var(--r-lg);padding:var(--s-3) var(--s-4);flex-wrap:wrap;
+  background:var(--surface-2);color:var(--text-3);font-weight:600;font-size:14px;text-align:center;
+  transition:background var(--dur-2) var(--ease),color var(--dur-2) var(--ease);
+}
+.feedback.is-ok{background:var(--ok-soft);color:var(--ok)}
+.feedback.is-err{background:var(--err-soft);color:var(--err)}
+.feedback__txt{flex:1 1 180px;min-width:0}
+.feedback .btn{flex:0 0 auto}
+
+/* ---- transcript ---- */
+.transcript{border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--sh-1);overflow:hidden}
+.transcript__head{
+  display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);
+  width:100%;border:0;background:transparent;cursor:pointer;
+  min-height:var(--tap);padding:var(--s-3) var(--s-4);font-weight:700;font-size:14px;text-align:left;
+}
+.transcript__head[disabled]{opacity:.45;cursor:not-allowed}
+.transcript__body{padding:0 var(--s-4) var(--s-4);display:grid;gap:var(--s-3)}
+.transcript__en{font-size:17px;font-weight:700;font-family:var(--font-head)}
+.transcript__tr{font-size:15px;color:var(--text-2)}
+.vocab{display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.vocab span{background:var(--jts-cyan-100);color:var(--jts-cyan);border-radius:var(--r-pill);padding:4px var(--s-3);font-size:13px;font-weight:700}
+.caret{transition:transform var(--dur-2) var(--ease)}
+.transcript.is-open .caret{transform:rotate(180deg)}
+
+/* ============================================================ result */
+.result-head{text-align:center;display:grid;gap:var(--s-3);margin-bottom:var(--s-6)}
+.score-ring{
+  width:150px;height:150px;margin:0 auto;border-radius:var(--r-pill);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:conic-gradient(var(--jts-violet) var(--p,0%),var(--surface-3) 0);
+  position:relative;
+}
+.score-ring::before{content:"";position:absolute;inset:12px;border-radius:inherit;background:var(--surface)}
+.score-ring b{position:relative;font-family:var(--font-head);font-size:34px;line-height:1}
+.score-ring small{position:relative;color:var(--text-3);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s-3);margin-bottom:var(--s-6)}
+.stat{background:var(--surface);border-radius:var(--r-md);box-shadow:var(--sh-1);padding:var(--s-4);text-align:center}
+.stat b{display:block;font-family:var(--font-head);font-size:22px}
+.stat span{font-size:12px;color:var(--text-3);font-weight:700}
+.wordlist{display:grid;gap:var(--s-2);margin-bottom:var(--s-6)}
+.wordrow{
+  display:flex;gap:var(--s-3);align-items:baseline;justify-content:space-between;flex-wrap:wrap;
+  background:var(--surface);border-radius:var(--r-md);box-shadow:var(--sh-1);padding:var(--s-3) var(--s-4);
+}
+.wordrow b{font-family:var(--font-head);font-size:15px}
+.wordrow span{color:var(--text-2);font-size:14px;text-align:right}
+.result-actions{display:grid;gap:var(--s-3)}
+
+/* ============================================================ misc */
+.toast{
+  position:fixed;left:50%;bottom:calc(var(--s-6) + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);
+  background:var(--text);color:var(--bg);padding:var(--s-3) var(--s-5);border-radius:var(--r-pill);
+  font-weight:700;font-size:14px;box-shadow:var(--sh-3);opacity:0;pointer-events:none;
+  transition:opacity var(--dur-2) var(--ease),transform var(--dur-2) var(--ease);z-index:90;max-width:90vw;text-align:center;
+}
+.toast.is-on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ============================================================ responsive */
+/* Mobile first is the default above. Tablet: */
+@media (min-width:768px){
+  .wrap{padding:0 var(--s-6)}
+  .screen{padding:var(--s-7) 0 var(--s-9)}
+  .start-grid{grid-template-columns:1fr}
+  .start-actions{flex-direction:row;justify-content:center}
+  .start-actions .btn{min-width:220px}
+  .options[data-count="3"]{grid-template-columns:repeat(3,1fr)}
+  .options[data-count="5"],.options[data-count="6"]{grid-template-columns:repeat(3,1fr)}
+  .stats{grid-template-columns:repeat(4,1fr)}
+  .result-actions{grid-template-columns:repeat(2,1fr);max-width:620px;margin:0 auto}
+  .audio{padding:var(--s-5)}
+  .seq__slot{width:132px}
+}
+/* Laptop: side-by-side audio + options */
+@media (min-width:1280px){
+  .session{grid-template-columns:360px minmax(0,1fr);align-items:start;gap:var(--s-6)}
+  .session__aside{position:sticky;top:76px;display:grid;gap:var(--s-4)}
+  .session__main{display:grid;gap:var(--s-4);min-width:0}
+  .hero h1{font-size:44px}
+  .seq__slot{width:150px}
+}
+/* Mobile: sticky audio on top of the scroll area */
+@media (max-width:767px){
+  .session__aside{position:sticky;top:60px;z-index:20;background:var(--bg);padding-bottom:var(--s-2);display:grid;gap:var(--s-3)}
+  .audio{padding:var(--s-3);border-radius:var(--r-md)}
+  .audio__replay{width:52px;height:52px;min-width:52px}
+  .audio__speed button{padding:0 8px;min-height:34px}
+  .logo__sub{display:none}
+  .logo{min-width:0}
+  .logo>span:nth-child(2){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .topbar__in{gap:var(--s-2)}
+  .segmented button{min-width:32px;padding:0 8px}
+  .opt__num{top:8px;left:8px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:1ms !important;animation-iteration-count:1 !important;transition-duration:1ms !important}
+}
+
+/* ---- large view overlay (swipe between options) ---- */
+.viewer{
+  position:fixed;inset:0;z-index:80;background:rgba(20,15,40,.82);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:var(--s-4);padding:var(--s-6) var(--s-4);
+}
+.viewer__media{
+  width:min(92vw,720px);aspect-ratio:4/3;border-radius:var(--r-lg);overflow:hidden;
+  background:var(--surface);box-shadow:var(--sh-3);
+}
+.viewer__media>img,.viewer__media>svg{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.viewer__dots{display:flex;gap:6px}
+.viewer__dots i{width:8px;height:8px;border-radius:var(--r-pill);background:rgba(255,255,255,.4)}
+.viewer__dots i.on{background:#fff}
+.viewer__bar{display:flex;gap:var(--s-3);align-items:center;flex-wrap:wrap;justify-content:center}
+.viewer__bar .btn--ghost{background:var(--surface);box-shadow:none;color:var(--text);font-size:22px;line-height:1}
+.viewer__close{
+  position:absolute;top:calc(var(--s-4) + env(safe-area-inset-top));right:var(--s-4);
+  width:var(--tap);height:var(--tap);border-radius:var(--r-pill);border:0;cursor:pointer;
+  background:var(--surface);color:var(--text);font-size:17px;box-shadow:var(--sh-2);
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar__in">
+    <div class="logo">
+      <span class="logo__bubble" aria-hidden="true"></span>
+      <span>Just&nbsp;To&nbsp;Study</span>
+      <span class="logo__sub" data-i18n="app.section">· Listen &amp; Choose</span>
+    </div>
+    <div class="topbar__spacer"></div>
+    <button class="btn btn--icon btn--ghost" id="btnTheme" type="button" title="Theme" aria-label="Theme">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+    <div class="segmented" id="langSwitch" role="group" aria-label="Interface language">
+      <button type="button" data-lang="kz">KZ</button>
+      <button type="button" data-lang="ru">RU</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============================ START ============================ -->
+<section class="screen wrap" id="screenStart">
+  <div class="hero">
+    <span class="hero__badge" data-i18n="start.badge">Listening</span>
+    <h1 data-i18n="start.title">Listen &amp; Choose</h1>
+    <p data-i18n="start.subtitle">Listen to the description and choose the picture.</p>
+  </div>
+
+  <div class="start-grid">
+    <div class="card">
+      <div class="section-title" data-i18n="start.level">Level</div>
+      <div class="chips" id="levelChips"></div>
+    </div>
+    <div class="card">
+      <div class="section-title" data-i18n="start.topic">Topic</div>
+      <div class="chips" id="topicChips"></div>
+    </div>
+  </div>
+
+  <div class="start-actions">
+    <button class="btn btn--primary btn--lg" id="btnStart" type="button" data-i18n="start.cta">Start</button>
+    <button class="btn btn--ghost btn--lg" id="btnResetProgress" type="button" data-i18n="start.reset">Reset progress</button>
+  </div>
+  <p class="start-note" data-i18n="start.note" style="margin-top:16px"></p>
+</section>
+
+<!-- ============================ SESSION ============================ -->
+<section class="screen wrap" id="screenSession" hidden>
+  <div class="session">
+
+    <div class="session__aside">
+      <div class="hud">
+        <span class="hud__counter" id="hudCounter">1 / 12</span>
+        <span class="hud__pill hud__pill--mode" id="hudMode">Classic</span>
+        <span class="hud__pill hud__pill--streak" id="hudStreak" hidden>🔥 0</span>
+        <span class="hud__pill" id="hudScore">0</span>
+      </div>
+      <div class="progressbar"><div class="progressbar__fill" id="hudBar"></div></div>
+
+      <div class="audio" id="audioBox">
+        <div class="audio__row">
+          <button class="audio__replay" id="btnReplay" type="button" aria-label="Replay">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L8 6l4 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg>
+          </button>
+          <div class="audio__mid">
+            <div class="audio__label">
+              <span class="audio__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+              <span data-i18n="audio.listen">Listen</span>
+              <span class="audio__left" id="audioLeft"></span>
+            </div>
+            <div class="audio__track" id="audioTrack" role="slider" aria-label="Playback position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+              <div class="audio__played" id="audioPlayed"></div>
+            </div>
+          </div>
+        </div>
+        <div class="audio__row" style="justify-content:space-between">
+          <div class="audio__speed" id="speedSwitch" role="group" aria-label="Speed">
+            <button type="button" data-rate="0.5">0.5×</button>
+            <button type="button" data-rate="0.75">0.75×</button>
+            <button type="button" data-rate="1">1×</button>
+            <button type="button" data-rate="1.25">1.25×</button>
+          </div>
+          <button class="btn btn--ghost" id="btnQuit" type="button" data-i18n="session.quit">Exit</button>
+        </div>
+        <div class="audio__status" id="audioStatus"></div>
+      </div>
+
+      <div class="task" id="taskPrompt">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex:0 0 18px"><path d="M12 2a10 10 0 0 0-8 16l-1 4 4-1a10 10 0 1 0 5-19z"/></svg>
+        <span id="taskPromptText"></span>
+      </div>
+    </div>
+
+    <div class="session__main">
+      <div id="stageHost"></div>
+      <div class="feedback" id="feedback"><span class="feedback__txt" id="feedbackText"></span></div>
+      <div class="transcript" id="transcript">
+        <button class="transcript__head" id="btnTranscript" type="button" disabled aria-expanded="false">
+          <span data-i18n="session.transcript">Show transcript</span>
+          <svg class="caret" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+        </button>
+        <div class="transcript__body" id="transcriptBody" hidden></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================ RESULT ============================ -->
+<section class="screen wrap" id="screenResult" hidden>
+  <div class="result-head">
+    <div class="score-ring" id="scoreRing"><b id="scoreValue">0</b><small data-i18n="result.points">points</small></div>
+    <h1 id="resultTitle" data-i18n="result.title">Set complete</h1>
+    <p id="resultSub" style="color:var(--text-2);margin:0"></p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b id="statCorrect">0</b><span data-i18n="result.correct">Correct</span></div>
+    <div class="stat"><b id="statReplays">0</b><span data-i18n="result.replays">Replays used</span></div>
+    <div class="stat"><b id="statSpeed">1.0×</b><span data-i18n="result.avgSpeed">Average speed</span></div>
+    <div class="stat"><b id="statStreak">0</b><span data-i18n="result.bestStreak">Best streak</span></div>
+  </div>
+
+  <div class="section-title" data-i18n="result.vocab">Words from this set</div>
+  <div class="wordlist" id="wordList"></div>
+
+  <div class="result-actions">
+    <button class="btn btn--primary btn--lg" id="btnNextSet" type="button" data-i18n="result.nextSet">Next set</button>
+    <button class="btn btn--ghost btn--lg" id="btnRepeatMistakes" type="button" data-i18n="result.repeatMistakes">Repeat mistakes</button>
+    <button class="btn btn--ghost btn--lg" id="btnHome" type="button" data-i18n="result.home" style="grid-column:1/-1">Back to start</button>
+  </div>
+</section>
+
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+/* =====================================================================
+   JTS · Listen & Choose
+   Single-file offline trainer. No build step, no external JS libraries.
+   Sections: I18N -> ART -> CONTENT -> Store -> Audio -> Adaptive -> Modes -> App
+   ===================================================================== */
+"use strict";
+
+/* ---------------------------------------------------------------------
+   1. I18N — every interface string lives here, nothing is hardcoded
+      in the markup. Audio itself is always English.
+   --------------------------------------------------------------------- */
+var I18N = {
+  kz: {
+    "app.section": "· Тыңда және таңда",
+    "start.badge": "Тыңдалым",
+    "start.title": "Тыңда және таңда",
+    "start.subtitle": "Ағылшын сипаттамасын тыңдап, соған сәйкес суретті таңда. Мәтін жауаптан кейін ғана көрінеді.",
+    "start.level": "Деңгей",
+    "start.topic": "Тақырып",
+    "start.cta": "Бастау",
+    "start.reset": "Прогресті тазалау",
+    "start.note": "Дыбыс тек ағылшынша. Интерфейс тілі жауапқа әсер етпейді.",
+    "start.soon": "жақында",
+    "session.quit": "Шығу",
+    "session.transcript": "Мәтінді көрсету",
+    "session.transcriptHide": "Мәтінді жасыру",
+    "session.next": "Келесі",
+    "session.finish": "Аяқтау",
+    "session.check": "Тексеру",
+    "session.undo": "Болдырмау",
+    "session.locked": "Мәтін жауаптан кейін ашылады",
+    "audio.listen": "Тыңда",
+    "audio.loading": "Жүктелуде…",
+    "audio.error": "Дыбыс жүктелмеді — синтезделген дауыс қосылды",
+    "audio.tts": "Синтезделген дауыс (аудио файл жоқ)",
+    "audio.left": "қалды: {n}",
+    "audio.noLeft": "Тыңдау лимиті бітті",
+    "audio.ready": "Дайын",
+    "mode.classic": "Классика",
+    "mode.pinpoint": "Нүктені тап",
+    "mode.multipin": "Бірнеше нүкте",
+    "mode.elimination": "Шығарып тастау",
+    "mode.difference": "Айырмашылық",
+    "mode.truefalse": "Дұрыс / Бұрыс",
+    "mode.sequence": "Реттілік",
+    "mode.oddoneout": "Артық сурет",
+    "task.classic": "Тыңда да, сәйкес суретті таңда",
+    "task.pinpoint": "Суретті таңда, содан кейін аталған затты бас",
+    "task.multipin": "Тыңда да, аталған заттардың бәрін бас",
+    "task.elimination": "Тыңда: артық нұсқалар өздері өшеді. Ерте жауап — көп ұпай",
+    "task.difference": "Екі сурет ұқсас. Айырмашылық тек дыбыста",
+    "task.truefalse": "Сипаттама суретке сәйкес пе?",
+    "task.sequence": "Әңгімені тыңдап, суреттерді ретімен қой",
+    "task.oddoneout": "Қай сурет сипаттамаға сәйкес КЕЛМЕЙДІ?",
+    "fb.idle": "Тыңда да, таңда",
+    "fb.correct": "Дұрыс!",
+    "fb.wrong": "Дәл емес. Тағы тыңдап көр",
+    "fb.pin": "Енді суреттен тап: {p}",
+    "fb.pinMiss": "Дәл емес. Тағы тыңда",
+    "fb.pinMissHint": "Аймақ белгіленді",
+    "fb.pinHit": "Дөп!",
+    "fb.multi": "Табылды: {n} / {t}",
+    "fb.multiDone": "Барлығы табылды!",
+    "fb.seq": "Суреттерді ретімен бас",
+    "fb.seqWrong": "Реті дұрыс емес. Тағы тыңда",
+    "fb.eliminated": "Бір нұсқа өшті",
+    "tf.true": "Дұрыс",
+    "tf.false": "Бұрыс",
+    "viewer.choose": "Осыны таңдау",
+    "viewer.hint": "Үлкейту үшін ұзақ бас",
+    "transcript.translation": "Аударма",
+    "transcript.vocab": "Сөздер",
+    "result.title": "Жинақ аяқталды",
+    "result.points": "ұпай",
+    "result.correct": "Дұрыс",
+    "result.replays": "Қайта тыңдау",
+    "result.avgSpeed": "Орташа жылдамдық",
+    "result.bestStreak": "Ең ұзын серия",
+    "result.vocab": "Осы жинақтың сөздері",
+    "result.nextSet": "Келесі жинақ",
+    "result.repeatMistakes": "Қателерді қайталау",
+    "result.home": "Басына оралу",
+    "result.sub": "{c} / {t} дұрыс жауап",
+    "toast.reset": "Прогресс тазаланды",
+    "toast.noMistakes": "Қате жоқ — жарайсың!",
+    "toast.noContent": "Бұл тақырып әзірге дайын емес",
+    "toast.speed": "Жылдамдық: {n}×"
+  },
+  ru: {
+    "app.section": "· Слушай и выбирай",
+    "start.badge": "Аудирование",
+    "start.title": "Слушай и выбирай",
+    "start.subtitle": "Послушай описание на английском и выбери подходящую картинку. Текст появляется только после ответа.",
+    "start.level": "Уровень",
+    "start.topic": "Тема",
+    "start.cta": "Начать",
+    "start.reset": "Сбросить прогресс",
+    "start.note": "Аудио всегда только на английском. Язык интерфейса не влияет на задание.",
+    "start.soon": "скоро",
+    "session.quit": "Выйти",
+    "session.transcript": "Показать транскрипт",
+    "session.transcriptHide": "Скрыть транскрипт",
+    "session.next": "Далее",
+    "session.finish": "Завершить",
+    "session.check": "Проверить",
+    "session.undo": "Отменить",
+    "session.locked": "Транскрипт откроется после ответа",
+    "audio.listen": "Слушай",
+    "audio.loading": "Загрузка…",
+    "audio.error": "Аудио не загрузилось — включён синтезированный голос",
+    "audio.tts": "Синтезированный голос (аудиофайла нет)",
+    "audio.left": "осталось: {n}",
+    "audio.noLeft": "Прослушивания закончились",
+    "audio.ready": "Готово",
+    "mode.classic": "Классика",
+    "mode.pinpoint": "Точка",
+    "mode.multipin": "Мульти-точка",
+    "mode.elimination": "Отсеивание",
+    "mode.difference": "Найди отличие",
+    "mode.truefalse": "Верно / Неверно",
+    "mode.sequence": "Порядок",
+    "mode.oddoneout": "Лишняя",
+    "task.classic": "Послушай и выбери подходящую картинку",
+    "task.pinpoint": "Выбери картинку, затем нажми на названный объект",
+    "task.multipin": "Послушай и отметь все названные объекты",
+    "task.elimination": "Слушай: лишние варианты гаснут сами. Ранний ответ — больше очков",
+    "task.difference": "Две похожие картинки. Отличие слышно только в аудио",
+    "task.truefalse": "Описание совпадает с картинкой?",
+    "task.sequence": "Послушай историю и расставь картинки по порядку",
+    "task.oddoneout": "Какая картинка НЕ подходит под описание?",
+    "fb.idle": "Слушай и выбирай",
+    "fb.correct": "Верно!",
+    "fb.wrong": "Не то. Послушай ещё раз",
+    "fb.pin": "Теперь найди на картинке: {p}",
+    "fb.pinMiss": "Мимо. Послушай ещё раз",
+    "fb.pinMissHint": "Зона подсвечена",
+    "fb.pinHit": "В точку!",
+    "fb.multi": "Найдено: {n} / {t}",
+    "fb.multiDone": "Все объекты найдены!",
+    "fb.seq": "Нажимай картинки по порядку",
+    "fb.seqWrong": "Порядок неверный. Послушай ещё раз",
+    "fb.eliminated": "Вариант отпал",
+    "tf.true": "Верно",
+    "tf.false": "Неверно",
+    "viewer.choose": "Выбрать эту",
+    "viewer.hint": "Долгое нажатие — крупный просмотр",
+    "transcript.translation": "Перевод",
+    "transcript.vocab": "Слова",
+    "result.title": "Сет пройден",
+    "result.points": "очков",
+    "result.correct": "Верно",
+    "result.replays": "Прослушиваний",
+    "result.avgSpeed": "Средняя скорость",
+    "result.bestStreak": "Лучшая серия",
+    "result.vocab": "Слова из этого сета",
+    "result.nextSet": "Следующий сет",
+    "result.repeatMistakes": "Повторить ошибки",
+    "result.home": "На главную",
+    "result.sub": "{c} из {t} верных ответов",
+    "toast.reset": "Прогресс сброшен",
+    "toast.noMistakes": "Ошибок нет — отлично!",
+    "toast.noContent": "Эта тема пока не наполнена",
+    "toast.speed": "Скорость: {n}×"
+  },
+  en: {
+    "app.section": "· Listen & Choose",
+    "start.badge": "Listening",
+    "start.title": "Listen & Choose",
+    "start.subtitle": "Listen to the English description and pick the matching picture. The text appears only after you answer.",
+    "start.level": "Level",
+    "start.topic": "Topic",
+    "start.cta": "Start",
+    "start.reset": "Reset progress",
+    "start.note": "Audio is always English only. The interface language never changes the task.",
+    "start.soon": "soon",
+    "session.quit": "Exit",
+    "session.transcript": "Show transcript",
+    "session.transcriptHide": "Hide transcript",
+    "session.next": "Next",
+    "session.finish": "Finish",
+    "session.check": "Check",
+    "session.undo": "Undo",
+    "session.locked": "Transcript unlocks after you answer",
+    "audio.listen": "Listen",
+    "audio.loading": "Loading…",
+    "audio.error": "Audio failed to load — synthesised voice is on",
+    "audio.tts": "Synthesised voice (no audio file)",
+    "audio.left": "{n} left",
+    "audio.noLeft": "No replays left",
+    "audio.ready": "Ready",
+    "mode.classic": "Classic",
+    "mode.pinpoint": "Pinpoint",
+    "mode.multipin": "Multi-pin",
+    "mode.elimination": "Elimination",
+    "mode.difference": "Spot the difference",
+    "mode.truefalse": "True / False",
+    "mode.sequence": "Sequence",
+    "mode.oddoneout": "Odd one out",
+    "task.classic": "Listen and choose the matching picture",
+    "task.pinpoint": "Choose the picture, then tap the object you hear",
+    "task.multipin": "Listen and tap every object you hear",
+    "task.elimination": "Listen: wrong options fade out. Answer early for more points",
+    "task.difference": "Two similar pictures. The difference is only in the audio",
+    "task.truefalse": "Does the description match the picture?",
+    "task.sequence": "Listen to the story and put the pictures in order",
+    "task.oddoneout": "Which picture does NOT match the description?",
+    "fb.idle": "Listen and choose",
+    "fb.correct": "Correct!",
+    "fb.wrong": "Not this one. Listen again",
+    "fb.pin": "Now find it in the picture: {p}",
+    "fb.pinMiss": "Missed. Listen again",
+    "fb.pinMissHint": "The area is highlighted",
+    "fb.pinHit": "Spot on!",
+    "fb.multi": "Found: {n} / {t}",
+    "fb.multiDone": "All of them found!",
+    "fb.seq": "Tap the pictures in order",
+    "fb.seqWrong": "Wrong order. Listen again",
+    "fb.eliminated": "One option is out",
+    "tf.true": "True",
+    "tf.false": "False",
+    "viewer.choose": "Choose this one",
+    "viewer.hint": "Press and hold for the large view",
+    "transcript.translation": "Translation",
+    "transcript.vocab": "Words",
+    "result.title": "Set complete",
+    "result.points": "points",
+    "result.correct": "Correct",
+    "result.replays": "Replays used",
+    "result.avgSpeed": "Average speed",
+    "result.bestStreak": "Best streak",
+    "result.vocab": "Words from this set",
+    "result.nextSet": "Next set",
+    "result.repeatMistakes": "Repeat mistakes",
+    "result.home": "Back to start",
+    "result.sub": "{c} of {t} correct",
+    "toast.reset": "Progress cleared",
+    "toast.noMistakes": "No mistakes — well done!",
+    "toast.noContent": "This topic is not filled yet",
+    "toast.speed": "Speed: {n}×"
+  }
+};
+
+var TOPIC_NAMES = {
+  home:   { kz: "Үй",       ru: "Дом",      en: "Home" },
+  food:   { kz: "Тағам",    ru: "Еда",      en: "Food" },
+  city:   { kz: "Қала",     ru: "Город",    en: "City" },
+  people: { kz: "Адамдар",  ru: "Люди",     en: "People" },
+  nature: { kz: "Табиғат",  ru: "Природа",  en: "Nature" },
+  school: { kz: "Мектеп",   ru: "Школа",    en: "School" },
+  work:   { kz: "Жұмыс",    ru: "Работа",   en: "Work" }
+};
+
+var LEVEL_HINTS = {
+  A0: { kz: "1–3 сөз",            ru: "1–3 слова",        en: "1–3 words" },
+  A1: { kz: "қарапайым сөйлем",   ru: "простая фраза",    en: "simple sentence" },
+  A2: { kz: "1–2 сөйлем",         ru: "1–2 предложения",  en: "1–2 sentences" },
+  B1: { kz: "2–3 сөйлем",         ru: "2–3 предложения",  en: "2–3 sentences" },
+  B2: { kz: "нюанс шешеді",       ru: "решает нюанс",     en: "nuance decides" },
+  C1: { kz: "жылдам сөйлеу",      ru: "беглая речь",      en: "fluent speech" }
+};
+
+var LANGS = ["kz", "ru", "en"];
+
+function t(key, vars) {
+  var dict = I18N[App.lang] || I18N.ru;
+  var s = dict[key];
+  if (s === undefined) s = (I18N.en[key] !== undefined ? I18N.en[key] : key);
+  if (vars) {
+    Object.keys(vars).forEach(function (k) {
+      s = s.split("{" + k + "}").join(String(vars[k]));
+    });
+  }
+  return s;
+}
+
+/* ---------------------------------------------------------------------
+   2. ART — procedural SVG scenes.
+      Real artwork (assets/**.webp) always wins when it loads. When it is
+      missing we render a scene from a compact spec instead of a blank
+      placeholder. This keeps the pedagogical contract intact: distractors
+      differ ONLY in the attribute named by the audio (colour, count,
+      position, action), because they are generated from the same spec
+      with one field changed.
+      Local icon space: 100 x 100, anchored at bottom-centre.
+   --------------------------------------------------------------------- */
+var PALETTE = {
+  grey: "#9AA3B2", darkgrey: "#6B7280", white: "#FFFFFF", black: "#2F2B3A",
+  red: "#FF4D4D", orange: "#FF8A3D", yellow: "#FFC93D", gold: "#FFAD00",
+  green: "#3DCF6B", blue: "#4DA3FF", cyan: "#3DD9E6", purple: "#A77BFF",
+  pink: "#FF8FC7", brown: "#A9703F", wood: "#C89B63", cream: "#F3E6CE",
+  silver: "#D6DBE3", teal: "#2FBFA8", navy: "#3A4A7A"
+};
+
+function hex2rgb(h) {
+  h = h.replace("#", "");
+  if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+  return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+}
+function shade(hexColor, amount) {
+  var c = hex2rgb(hexColor);
+  var f = function (v) {
+    var n = amount < 0 ? v * (1 + amount) : v + (255 - v) * amount;
+    return Math.max(0, Math.min(255, Math.round(n)));
+  };
+  return "rgb(" + f(c[0]) + "," + f(c[1]) + "," + f(c[2]) + ")";
+}
+function col(name) { return PALETTE[name] || name || PALETTE.grey; }
+
+/* Each icon draws inside 0..100 (x) / 0..100 (y), feet on y=100. */
+var ICONS = {
+  cat: function (c) {
+    var d = shade(c, -.22);
+    return '<path d="M78 96q14-22 4-30-8-6-14 4" fill="' + d + '"/>' +
+      '<ellipse cx="46" cy="80" rx="32" ry="19" fill="' + c + '"/>' +
+      '<circle cx="24" cy="58" r="19" fill="' + c + '"/>' +
+      '<path d="M10 46l2-16 13 9zM38 46l-2-16-13 9z" fill="' + d + '"/>' +
+      '<circle cx="18" cy="56" r="2.6" fill="#2F2B3A"/><circle cx="31" cy="56" r="2.6" fill="#2F2B3A"/>' +
+      '<path d="M22 63h5l-2.5 3z" fill="#2F2B3A"/>';
+  },
+  dog: function (c) {
+    var d = shade(c, -.25);
+    return '<path d="M80 92q12-14 4-24" stroke="' + d + '" stroke-width="7" fill="none" stroke-linecap="round"/>' +
+      '<ellipse cx="48" cy="79" rx="33" ry="20" fill="' + c + '"/>' +
+      '<circle cx="24" cy="55" r="20" fill="' + c + '"/>' +
+      '<ellipse cx="7" cy="56" rx="7" ry="13" fill="' + d + '"/><ellipse cx="41" cy="56" rx="7" ry="13" fill="' + d + '"/>' +
+      '<circle cx="18" cy="52" r="2.6" fill="#2F2B3A"/><circle cx="31" cy="52" r="2.6" fill="#2F2B3A"/>' +
+      '<ellipse cx="24" cy="63" rx="5" ry="4" fill="#2F2B3A"/>';
+  },
+  bird: function (c) {
+    var d = shade(c, -.2);
+    return '<ellipse cx="50" cy="70" rx="26" ry="20" fill="' + c + '"/><circle cx="30" cy="52" r="14" fill="' + c + '"/>' +
+      '<path d="M16 52l-12 4 12 5z" fill="' + PALETTE.gold + '"/>' +
+      '<circle cx="27" cy="49" r="2.4" fill="#2F2B3A"/>' +
+      '<path d="M50 62q16 4 20 18-18 4-26-8z" fill="' + d + '"/>' +
+      '<path d="M44 90l-4 10M58 90l4 10" stroke="' + PALETTE.gold + '" stroke-width="4" stroke-linecap="round"/>';
+  },
+  fish: function (c) {
+    var d = shade(c, -.2);
+    return '<ellipse cx="46" cy="62" rx="32" ry="20" fill="' + c + '"/>' +
+      '<path d="M78 62l18-14v28z" fill="' + d + '"/><circle cx="26" cy="57" r="3" fill="#2F2B3A"/>';
+  },
+  teddy: function (c) {
+    var d = shade(c, -.2);
+    return '<circle cx="24" cy="36" r="9" fill="' + d + '"/><circle cx="62" cy="36" r="9" fill="' + d + '"/>' +
+      '<circle cx="43" cy="44" r="21" fill="' + c + '"/>' +
+      '<ellipse cx="43" cy="80" rx="25" ry="20" fill="' + c + '"/>' +
+      '<circle cx="36" cy="42" r="2.6" fill="#2F2B3A"/><circle cx="50" cy="42" r="2.6" fill="#2F2B3A"/>' +
+      '<ellipse cx="43" cy="50" rx="6" ry="4.5" fill="' + d + '"/>';
+  },
+  table: function (c) {
+    var d = shade(c, -.2);
+    return '<rect x="4" y="40" width="92" height="12" rx="6" fill="' + c + '"/>' +
+      '<rect x="14" y="52" width="9" height="48" rx="4" fill="' + d + '"/>' +
+      '<rect x="77" y="52" width="9" height="48" rx="4" fill="' + d + '"/>';
+  },
+  chair: function (c) {
+    var d = shade(c, -.2);
+    return '<rect x="18" y="12" width="12" height="52" rx="6" fill="' + d + '"/>' +
+      '<rect x="18" y="16" width="56" height="10" rx="5" fill="' + c + '"/>' +
+      '<rect x="14" y="56" width="70" height="12" rx="6" fill="' + c + '"/>' +
+      '<rect x="20" y="68" width="9" height="32" rx="4" fill="' + d + '"/>' +
+      '<rect x="70" y="68" width="9" height="32" rx="4" fill="' + d + '"/>';
+  },
+  sofa: function (c) {
+    var d = shade(c, -.18), l = shade(c, .16);
+    return '<rect x="2" y="42" width="96" height="40" rx="14" fill="' + c + '"/>' +
+      '<rect x="12" y="30" width="76" height="30" rx="12" fill="' + l + '"/>' +
+      '<rect x="0" y="46" width="18" height="38" rx="9" fill="' + d + '"/>' +
+      '<rect x="82" y="46" width="18" height="38" rx="9" fill="' + d + '"/>' +
+      '<rect x="14" y="82" width="8" height="16" rx="3" fill="' + PALETTE.brown + '"/>' +
+      '<rect x="78" y="82" width="8" height="16" rx="3" fill="' + PALETTE.brown + '"/>';
+  },
+  bed: function (c) {
+    var d = shade(c, -.2);
+    return '<rect x="0" y="34" width="16" height="50" rx="7" fill="' + PALETTE.wood + '"/>' +
+      '<rect x="6" y="56" width="92" height="30" rx="10" fill="' + c + '"/>' +
+      '<rect x="14" y="46" width="30" height="16" rx="8" fill="' + shade(PALETTE.white, -.05) + '"/>' +
+      '<rect x="44" y="58" width="52" height="12" rx="6" fill="' + d + '"/>' +
+      '<rect x="10" y="86" width="8" height="14" rx="3" fill="' + PALETTE.brown + '"/>' +
+      '<rect x="84" y="86" width="8" height="14" rx="3" fill="' + PALETTE.brown + '"/>';
+  },
+  lamp: function (c) {
+    return '<path d="M26 8h48l14 34H12z" fill="' + c + '"/>' +
+      '<rect x="46" y="42" width="8" height="48" rx="4" fill="' + PALETTE.darkgrey + '"/>' +
+      '<ellipse cx="50" cy="94" rx="24" ry="7" fill="' + PALETTE.darkgrey + '"/>';
+  },
+  rug: function (c) {
+    return '<ellipse cx="50" cy="88" rx="48" ry="12" fill="' + c + '"/>' +
+      '<ellipse cx="50" cy="88" rx="30" ry="7" fill="' + shade(c, .2) + '"/>';
+  },
+  window: function (c) {
+    return '<rect x="6" y="6" width="88" height="88" rx="10" fill="' + PALETTE.cyan + '" opacity=".55"/>' +
+      '<rect x="6" y="6" width="88" height="88" rx="10" fill="none" stroke="' + c + '" stroke-width="8"/>' +
+      '<path d="M50 8v84M8 50h84" stroke="' + c + '" stroke-width="6"/>';
+  },
+  door: function (c) {
+    return '<rect x="16" y="4" width="68" height="96" rx="8" fill="' + c + '"/>' +
+      '<rect x="26" y="14" width="48" height="76" rx="6" fill="' + shade(c, .12) + '"/>' +
+      '<circle cx="70" cy="56" r="4.5" fill="' + PALETTE.gold + '"/>';
+  },
+  clock: function (c) {
+    return '<circle cx="50" cy="50" r="42" fill="' + c + '"/><circle cx="50" cy="50" r="33" fill="' + PALETTE.white + '"/>' +
+      '<path d="M50 50V28M50 50l18 10" stroke="#2F2B3A" stroke-width="5" stroke-linecap="round"/>';
+  },
+  tv: function (c) {
+    return '<rect x="4" y="16" width="92" height="58" rx="8" fill="' + c + '"/>' +
+      '<rect x="11" y="23" width="78" height="44" rx="4" fill="' + PALETTE.navy + '"/>' +
+      '<rect x="40" y="74" width="20" height="14" rx="3" fill="' + shade(c, -.2) + '"/>' +
+      '<rect x="24" y="88" width="52" height="8" rx="4" fill="' + shade(c, -.2) + '"/>';
+  },
+  fridge: function (c) {
+    return '<rect x="18" y="2" width="64" height="98" rx="10" fill="' + c + '"/>' +
+      '<path d="M18 38h64" stroke="' + shade(c, -.25) + '" stroke-width="4"/>' +
+      '<rect x="66" y="16" width="6" height="16" rx="3" fill="' + PALETTE.darkgrey + '"/>' +
+      '<rect x="66" y="46" width="6" height="20" rx="3" fill="' + PALETTE.darkgrey + '"/>';
+  },
+  plant: function (c) {
+    return '<path d="M50 62C28 58 20 40 24 22c18 0 28 16 26 40z" fill="' + c + '"/>' +
+      '<path d="M50 62c22-4 30-22 26-40-18 0-28 16-26 40z" fill="' + shade(c, -.16) + '"/>' +
+      '<path d="M30 62h40l-6 38H36z" fill="' + PALETTE.orange + '"/>';
+  },
+  box: function (c) {
+    return '<rect x="12" y="38" width="76" height="62" rx="6" fill="' + c + '"/>' +
+      '<rect x="8" y="30" width="84" height="16" rx="5" fill="' + shade(c, .14) + '"/>' +
+      '<rect x="44" y="46" width="12" height="54" fill="' + shade(c, -.16) + '"/>';
+  },
+  shelf: function (c) {
+    return '<rect x="4" y="60" width="92" height="10" rx="5" fill="' + c + '"/>' +
+      '<rect x="14" y="30" width="12" height="30" rx="3" fill="' + PALETTE.red + '"/>' +
+      '<rect x="28" y="24" width="12" height="36" rx="3" fill="' + PALETTE.blue + '"/>' +
+      '<rect x="42" y="32" width="12" height="28" rx="3" fill="' + PALETTE.green + '"/>';
+  },
+  mirror: function (c) {
+    return '<ellipse cx="50" cy="50" rx="34" ry="46" fill="' + c + '"/>' +
+      '<ellipse cx="50" cy="50" rx="26" ry="38" fill="' + PALETTE.cyan + '" opacity=".45"/>';
+  },
+  picture: function (c) {
+    return '<rect x="8" y="14" width="84" height="66" rx="6" fill="' + c + '"/>' +
+      '<rect x="16" y="22" width="68" height="50" rx="4" fill="' + PALETTE.cyan + '" opacity=".5"/>' +
+      '<path d="M22 66l16-20 12 14 10-10 16 16z" fill="' + PALETTE.green + '"/>';
+  },
+  cup: function (c) {
+    return '<path d="M22 44h52l-6 46a10 10 0 0 1-10 9H38a10 10 0 0 1-10-9z" fill="' + c + '"/>' +
+      '<path d="M74 54h10a10 10 0 0 1 0 20h-8" fill="none" stroke="' + c + '" stroke-width="7"/>' +
+      '<ellipse cx="48" cy="44" rx="26" ry="7" fill="' + shade(c, .22) + '"/>';
+  },
+  plate: function (c) {
+    return '<ellipse cx="50" cy="82" rx="44" ry="17" fill="' + c + '"/>' +
+      '<ellipse cx="50" cy="80" rx="30" ry="11" fill="' + shade(c, -.1) + '"/>';
+  },
+  bowl: function (c) {
+    return '<path d="M8 56h84a42 42 0 0 1-84 0z" fill="' + c + '"/>' +
+      '<ellipse cx="50" cy="56" rx="42" ry="9" fill="' + shade(c, .2) + '"/>';
+  },
+  bottle: function (c) {
+    return '<rect x="42" y="8" width="16" height="22" rx="5" fill="' + shade(c, -.2) + '"/>' +
+      '<path d="M32 30h36c6 10 10 16 10 26v34a10 10 0 0 1-10 10H32a10 10 0 0 1-10-10V56c0-10 4-16 10-26z" fill="' + c + '"/>';
+  },
+  kettle: function (c) {
+    return '<path d="M20 44h56v34a12 12 0 0 1-12 12H32a12 12 0 0 1-12-12z" fill="' + c + '"/>' +
+      '<path d="M76 52l16-10v12z" fill="' + shade(c, -.2) + '"/>' +
+      '<path d="M32 44q16-22 32 0" fill="none" stroke="' + PALETTE.darkgrey + '" stroke-width="6"/>';
+  },
+  cake: function (c) {
+    return '<rect x="14" y="52" width="72" height="40" rx="8" fill="' + c + '"/>' +
+      '<path d="M14 58q12 10 24 0t24 0 24 0v-8H14z" fill="' + PALETTE.white + '"/>' +
+      '<circle cx="50" cy="42" r="8" fill="' + PALETTE.red + '"/>';
+  },
+  apple: function (c) {
+    return '<path d="M50 32c18-8 38 4 38 28s-18 40-38 40S12 84 12 60s20-36 38-28z" fill="' + c + '"/>' +
+      '<rect x="47" y="14" width="6" height="20" rx="3" fill="' + PALETTE.brown + '"/>' +
+      '<path d="M53 22q16-12 22 0-14 10-22 0z" fill="' + PALETTE.green + '"/>';
+  },
+  banana: function (c) {
+    return '<path d="M10 40q10 52 78 46-14-16-26-34T44 26z" fill="' + c + '"/>';
+  },
+  bread: function (c) {
+    return '<path d="M10 56q0-28 40-28t40 28v26a10 10 0 0 1-10 10H20a10 10 0 0 1-10-10z" fill="' + c + '"/>' +
+      '<path d="M26 44q10-10 20 0M54 44q10-10 20 0" stroke="' + shade(c, -.2) + '" stroke-width="5" fill="none" stroke-linecap="round"/>';
+  },
+  book: function (c) {
+    return '<rect x="14" y="24" width="72" height="66" rx="7" fill="' + c + '"/>' +
+      '<rect x="14" y="24" width="14" height="66" rx="7" fill="' + shade(c, -.25) + '"/>' +
+      '<path d="M36 40h40M36 54h40M36 68h28" stroke="' + PALETTE.white + '" stroke-width="5" stroke-linecap="round"/>';
+  },
+  laptop: function (c) {
+    return '<rect x="16" y="20" width="68" height="46" rx="5" fill="' + c + '"/>' +
+      '<rect x="22" y="26" width="56" height="34" rx="3" fill="' + PALETTE.navy + '"/>' +
+      '<path d="M6 66h88l8 16H-2z" fill="' + shade(c, .1) + '"/>';
+  },
+  phone: function (c) {
+    return '<rect x="30" y="10" width="40" height="82" rx="10" fill="' + c + '"/>' +
+      '<rect x="35" y="19" width="30" height="62" rx="4" fill="' + PALETTE.cyan + '" opacity=".6"/>';
+  },
+  key: function (c) {
+    return '<circle cx="26" cy="50" r="20" fill="none" stroke="' + c + '" stroke-width="10"/>' +
+      '<path d="M46 50h44M76 50v16M62 50v12" stroke="' + c + '" stroke-width="10" stroke-linecap="round"/>';
+  },
+  ball: function (c) {
+    return '<circle cx="50" cy="62" r="36" fill="' + c + '"/>' +
+      '<path d="M14 62q36-22 72 0" fill="none" stroke="' + PALETTE.white + '" stroke-width="7"/>';
+  },
+  shoe: function (c) {
+    return '<path d="M12 56h26l18 14h26a10 10 0 0 1 10 10v8H12z" fill="' + c + '"/>' +
+      '<rect x="8" y="88" width="88" height="10" rx="5" fill="' + shade(c, -.3) + '"/>';
+  },
+  hat: function (c) {
+    return '<path d="M28 60V38a22 22 0 0 1 44 0v22z" fill="' + c + '"/>' +
+      '<rect x="6" y="58" width="88" height="12" rx="6" fill="' + shade(c, -.2) + '"/>';
+  },
+  bag: function (c) {
+    return '<path d="M34 44V32a16 16 0 0 1 32 0v12" fill="none" stroke="' + shade(c, -.3) + '" stroke-width="7"/>' +
+      '<rect x="14" y="44" width="72" height="52" rx="10" fill="' + c + '"/>';
+  },
+  umbrella: function (c) {
+    return '<path d="M6 54a44 44 0 0 1 88 0z" fill="' + c + '"/>' +
+      '<path d="M50 54v34a10 10 0 0 0 20 0" fill="none" stroke="' + PALETTE.darkgrey + '" stroke-width="7"/>';
+  },
+  candle: function (c) {
+    return '<rect x="38" y="36" width="24" height="60" rx="6" fill="' + c + '"/>' +
+      '<path d="M50 12q12 14 0 22-12-8 0-22z" fill="' + PALETTE.gold + '"/>';
+  },
+  flower: function (c) {
+    return '<path d="M50 62V96" stroke="' + PALETTE.green + '" stroke-width="7" stroke-linecap="round"/>' +
+      '<circle cx="50" cy="30" r="13" fill="' + c + '"/><circle cx="28" cy="46" r="13" fill="' + c + '"/>' +
+      '<circle cx="72" cy="46" r="13" fill="' + c + '"/><circle cx="38" cy="66" r="13" fill="' + c + '"/>' +
+      '<circle cx="62" cy="66" r="13" fill="' + c + '"/><circle cx="50" cy="48" r="11" fill="' + PALETTE.gold + '"/>';
+  },
+  tree: function (c) {
+    return '<rect x="42" y="56" width="16" height="44" rx="6" fill="' + PALETTE.brown + '"/>' +
+      '<circle cx="50" cy="38" r="30" fill="' + c + '"/><circle cx="26" cy="52" r="18" fill="' + shade(c, -.12) + '"/>' +
+      '<circle cx="74" cy="52" r="18" fill="' + shade(c, .1) + '"/>';
+  },
+  cloud: function (c) {
+    return '<g fill="' + c + '"><circle cx="32" cy="60" r="22"/><circle cx="58" cy="52" r="28"/><circle cx="80" cy="62" r="18"/><rect x="30" y="60" width="54" height="22" rx="11"/></g>';
+  },
+  sun: function (c) {
+    return '<circle cx="50" cy="50" r="28" fill="' + c + '"/>' +
+      '<path d="M50 4v12M50 84v12M4 50h12M84 50h12M18 18l9 9M73 73l9 9M82 18l-9 9M27 73l-9 9" stroke="' + c + '" stroke-width="7" stroke-linecap="round"/>';
+  },
+  car: function (c) {
+    return '<path d="M8 74V58l14-18h50l16 18h4v16z" fill="' + c + '"/>' +
+      '<path d="M28 44h38l10 14H24z" fill="' + PALETTE.cyan + '" opacity=".6"/>' +
+      '<circle cx="28" cy="78" r="12" fill="#2F2B3A"/><circle cx="74" cy="78" r="12" fill="#2F2B3A"/>';
+  },
+  house: function (c) {
+    return '<path d="M50 10l46 36H4z" fill="' + PALETTE.red + '"/>' +
+      '<rect x="14" y="46" width="72" height="52" rx="6" fill="' + c + '"/>' +
+      '<rect x="40" y="66" width="22" height="32" rx="4" fill="' + PALETTE.brown + '"/>';
+  },
+  person: function (c, it) {
+    var mood = (it && it.m) || "neutral";
+    var mouth = mood === "happy" ? "M40 42q10 10 20 0" : mood === "sad" ? "M40 46q10-10 20 0" : "M40 44h20";
+    var skin = "#F2C79B";
+    return '<path d="M38 70h6v30h-6zM56 70h6v30h-6z" fill="' + PALETTE.navy + '"/>' +
+      '<path d="M30 40h40q8 0 8 10v24H22V50q0-10 8-10z" fill="' + c + '"/>' +
+      '<path d="M22 46l-10 26M78 46l10 26" stroke="' + c + '" stroke-width="10" stroke-linecap="round"/>' +
+      '<circle cx="50" cy="26" r="18" fill="' + skin + '"/>' +
+      '<circle cx="43" cy="24" r="2.4" fill="#2F2B3A"/><circle cx="57" cy="24" r="2.4" fill="#2F2B3A"/>' +
+      '<path d="' + mouth + '" transform="translate(0,-10)" fill="none" stroke="#2F2B3A" stroke-width="3" stroke-linecap="round"/>';
+  }
+};
+
+/* Background layers, 800 x 600 */
+var BACKDROPS = {
+  plain: function () { return '<rect width="800" height="600" fill="url(#skyG)"/>'; },
+  kitchen: function () {
+    return '<rect width="800" height="600" fill="#FBEFD9"/><rect y="0" width="800" height="430" fill="#F6E2C0"/>' +
+      '<rect y="430" width="800" height="170" fill="#D9B98C"/>' +
+      '<rect x="60" y="70" width="200" height="150" rx="14" fill="#BFE6F5"/>' +
+      '<rect x="60" y="70" width="200" height="150" rx="14" fill="none" stroke="#E8D3AE" stroke-width="12"/>';
+  },
+  living: function () {
+    return '<rect width="800" height="600" fill="#F3EEFB"/><rect y="430" width="800" height="170" fill="#D9C9B0"/>' +
+      '<circle cx="660" cy="130" r="70" fill="#E7DCFA"/>';
+  },
+  bedroom: function () {
+    return '<rect width="800" height="600" fill="#F0ECFB"/><rect y="440" width="800" height="160" fill="#CBB9E0"/>' +
+      '<rect x="540" y="60" width="180" height="140" rx="12" fill="#BFE6F5"/>';
+  },
+  hall: function () {
+    return '<rect width="800" height="600" fill="#EFF3F8"/><rect y="440" width="800" height="160" fill="#C9D2DE"/>';
+  },
+  garden: function () {
+    return '<rect width="800" height="600" fill="#D9F1FF"/><rect y="400" width="800" height="200" fill="#A8DC93"/>';
+  },
+  street: function () {
+    return '<rect width="800" height="600" fill="#CFE9FB"/><rect y="440" width="800" height="160" fill="#9AA3B2"/>' +
+      '<rect y="500" width="800" height="8" fill="#F3EEFB"/>';
+  },
+  classroom: function () {
+    return '<rect width="800" height="600" fill="#EAF6F2"/><rect y="440" width="800" height="160" fill="#C6B8A0"/>' +
+      '<rect x="120" y="60" width="300" height="170" rx="10" fill="#2F6B58"/>';
+  }
+};
+
+/* Render a scene spec to an <svg> string. */
+function renderScene(scene, title) {
+  if (!scene) return placeholderSVG(title || "");
+  var bg = BACKDROPS[scene.bg] || BACKDROPS.plain;
+  var body = "";
+  (scene.items || []).forEach(function (it) {
+    var fn = ICONS[it.i];
+    if (!fn) return;
+    var k = (it.s || 1) * 1.6;
+    var px = (it.x / 100) * 800;
+    var py = (it.y / 100) * 600;
+    var flip = it.f ? " scale(-1,1) translate(-100,0)" : "";
+    body += '<g transform="translate(' + (px - 50 * k).toFixed(1) + ',' + (py - 100 * k).toFixed(1) +
+      ') scale(' + k.toFixed(3) + ')' + flip + '">' + fn(col(it.c), it) + "</g>";
+  });
+  return '<svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img"' +
+    (title ? ' aria-label="' + escapeAttr(title) + '"' : ' aria-hidden="true"') + ">" +
+    '<defs><linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">' +
+    '<stop offset="0" stop-color="#E7F4FF"/><stop offset="1" stop-color="#F6F1FF"/></linearGradient></defs>' +
+    bg() + body + "</svg>";
+}
+
+function placeholderSVG(label) {
+  return '<svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+    '<rect width="800" height="600" fill="#EFEAFB"/>' +
+    '<rect x="230" y="200" width="340" height="180" rx="40" fill="#D9CDF6"/>' +
+    '<path d="M300 380l-40 50 10-50z" fill="#D9CDF6"/>' +
+    '<circle cx="340" cy="290" r="18" fill="#874BF8"/><circle cx="400" cy="290" r="18" fill="#874BF8"/>' +
+    '<circle cx="460" cy="290" r="18" fill="#874BF8"/>' +
+    (label ? '<text x="400" y="500" text-anchor="middle" font-family="sans-serif" font-size="30" fill="#8F88A6">' +
+      escapeText(label) + "</text>" : "") + "</svg>";
+}
+
+function escapeAttr(s) { return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;"); }
+function escapeText(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+/* ---------------------------------------------------------------------
+   Media resolution: local assets/ first, optional CDN second, generated
+   placeholder last. Only files listed in ASSETS are ever requested, so a
+   shipment without artwork produces no failed network requests at all.
+   --------------------------------------------------------------------- */
+var ASSETS = {
+  /* audio files that really ship next to this html file */
+  audio: [],
+  /* illustrations that really ship next to this html file */
+  image: []
+};
+var MEDIA = {
+  cdnBase: "",   /* e.g. "https://cdn.justtostudy.kz/listen-and-choose/" */
+  _a: null, _i: null,
+  index: function () {
+    if (this._a) return;
+    this._a = {}; this._i = {};
+    var self = this;
+    ASSETS.audio.forEach(function (p) { self._a[p] = 1; });
+    ASSETS.image.forEach(function (p) { self._i[p] = 1; });
+  },
+  resolve: function (path, kind) {
+    if (!path) return null;
+    this.index();
+    var table = kind === "audio" ? this._a : this._i;
+    if (table[path]) return path;
+    if (this.cdnBase) return this.cdnBase + path;
+    return null;
+  }
+};
+
+/* Build the media node for an option: try <img> first, fall back to scene. */
+function buildMedia(option) {
+  var host = document.createElement("div");
+  host.className = "opt__media";
+  var fallback = function () {
+    host.innerHTML = renderScene(option.scene, "");
+  };
+  var src = MEDIA.resolve(option.img, "image");
+  if (src) {
+    var img = new Image();
+    img.alt = "";
+    img.decoding = "async";
+    img.loading = "lazy";
+    img.addEventListener("error", fallback, { once: true });
+    img.src = src;
+    host.appendChild(img);
+  } else {
+    fallback();
+  }
+  return host;
+}
+
+/* ---------------------------------------------------------------------
+   3. CONTENT
+      One flat array, one schema — designed to be generated in batches.
+      Helpers below exist for a pedagogical reason: every distractor is the
+      SAME base scene with exactly ONE field changed (colour, count, place,
+      object, action). A learner can never solve the item without listening.
+   --------------------------------------------------------------------- */
+function sc(bg, items) { return { bg: bg, items: items }; }
+/* V = variant: deep-clone the base scene and apply one mutation. */
+function V(base, mutate) {
+  var s = JSON.parse(JSON.stringify(base));
+  if (mutate) mutate(s);
+  return s;
+}
+function o(scene, correct, hotspots) {
+  return { img: null, scene: scene, correct: !!correct, hotspots: hotspots || null };
+}
+/* find item by icon name inside a cloned scene */
+function pick(s, icon, nth) {
+  var n = 0;
+  for (var i = 0; i < s.items.length; i++) {
+    if (s.items[i].i === icon) { if (n === (nth || 0)) return s.items[i]; n++; }
+  }
+  return s.items[0];
+}
+
+/* ============================ A0 · home ============================ */
+var A0_BASE = {
+  cat:    sc("living", [{ i: "rug", x: 50, y: 92, s: 1.1, c: "cream" }, { i: "cat", x: 50, y: 88, s: 1.5, c: "grey" }]),
+  apple:  sc("kitchen", [{ i: "table", x: 50, y: 92, s: 1.6, c: "wood" }, { i: "apple", x: 50, y: 66, s: 1.1, c: "red" }]),
+  dog:    sc("living", [{ i: "dog", x: 50, y: 90, s: 1.6, c: "brown" }]),
+  cups:   sc("kitchen", [{ i: "table", x: 50, y: 92, s: 1.7, c: "wood" }, { i: "cup", x: 38, y: 64, s: 0.9, c: "white" }, { i: "cup", x: 62, y: 64, s: 0.9, c: "white" }]),
+  door:   sc("hall", [{ i: "door", x: 50, y: 95, s: 1.8, c: "blue" }]),
+  ball:   sc("garden", [{ i: "ball", x: 50, y: 90, s: 1.5, c: "yellow" }]),
+  bed:    sc("bedroom", [{ i: "bed", x: 50, y: 92, s: 1.9, c: "cyan" }]),
+  plant:  sc("living", [{ i: "plant", x: 50, y: 90, s: 1.6, c: "green" }]),
+  books:  sc("living", [{ i: "book", x: 30, y: 90, s: 1.1, c: "red" }, { i: "book", x: 50, y: 90, s: 1.1, c: "blue" }, { i: "book", x: 70, y: 90, s: 1.1, c: "green" }]),
+  wcat:   sc("bedroom", [{ i: "cat", x: 50, y: 90, s: 1.5, c: "white" }]),
+  clock:  sc("living", [{ i: "clock", x: 50, y: 78, s: 1.6, c: "navy" }]),
+  fish:   sc("garden", [{ i: "fish", x: 50, y: 78, s: 1.7, c: "orange" }])
+};
+
+var SET_A0 = [
+  {
+    id: "a0_home_001", level: "A0", topic: "home", mode: "classic",
+    audio: "assets/a0/home_001.mp3", script: "A cat.",
+    translations: { ru: "Кошка.", kz: "Мысық." }, vocab: ["cat"],
+    options: [
+      o(A0_BASE.cat, true),
+      o(V(A0_BASE.cat, function (s) { pick(s, "cat").i = "dog"; pick(s, "dog").c = "brown"; })),
+      o(V(A0_BASE.cat, function (s) { pick(s, "cat").i = "bird"; pick(s, "bird").c = "blue"; }))
+    ]
+  },
+  {
+    id: "a0_home_002", level: "A0", topic: "home", mode: "classic",
+    audio: "assets/a0/home_002.mp3", script: "A red apple.",
+    translations: { ru: "Красное яблоко.", kz: "Қызыл алма." }, vocab: ["red", "apple"],
+    options: [
+      o(A0_BASE.apple, true),
+      o(V(A0_BASE.apple, function (s) { pick(s, "apple").c = "green"; })),
+      o(V(A0_BASE.apple, function (s) { pick(s, "apple").i = "cup"; pick(s, "cup").c = "red"; }))
+    ]
+  },
+  {
+    id: "a0_home_003", level: "A0", topic: "home", mode: "classic",
+    audio: "assets/a0/home_003.mp3", script: "A big dog.",
+    translations: { ru: "Большая собака.", kz: "Үлкен ит." }, vocab: ["big", "dog"],
+    options: [
+      o(A0_BASE.dog, true),
+      o(V(A0_BASE.dog, function (s) { pick(s, "dog").s = 0.7; })),
+      o(V(A0_BASE.dog, function (s) { pick(s, "dog").i = "cat"; }))
+    ]
+  },
+  {
+    id: "a0_home_004", level: "A0", topic: "home", mode: "classic",
+    audio: "assets/a0/home_004.mp3", script: "Two cups.",
+    translations: { ru: "Две чашки.", kz: "Екі кесе." }, vocab: ["two", "cup"],
+    options: [
+      o(A0_BASE.cups, true),
+      o(V(A0_BASE.cups, function (s) { s.items.splice(2, 1); })),
+      o(V(A0_BASE.cups, function (s) { s.items.push({ i: "cup", x: 50, y: 64, s: 0.9, c: "white" }); }))
+    ]
+  },
+  {
+    id: "a0_home_005", level: "A0", topic: "home", mode: "classic",
+    audio: "assets/a0/home_005.mp3", script: "A blue door.",
+    translations: { ru: "Синяя дверь.", kz: "Көк есік." }, vocab: ["blue", "door"],
+    options: [
+      o(A0_BASE.door, true),
+      o(V(A0_BASE.door, function (s) { pick(s, "door").c = "red"; })),
+      o(V(A0_BASE.door, function (s) { pick(s, "door").i = "window"; pick(s, "window").y = 70; }))
+    ]
+  },
+  {
+    id: "a0_home_006", level: "A0", topic: "home", mode: "classic",
+    audio: "assets/a0/home_006.mp3", script: "A yellow ball.",
+    translations: { ru: "Жёлтый мяч.", kz: "Сары доп." }, vocab: ["yellow", "ball"],
+    options: [
+      o(A0_BASE.ball, true),
+      o(V(A0_BASE.ball, function (s) { pick(s, "ball").c = "blue"; })),
+      o(V(A0_BASE.ball, function (s) { pick(s, "ball").i = "hat"; pick(s, "hat").c = "yellow"; }))
+    ]
+  },
+  {
+    id: "a0_home_007", level: "A0", topic: "home", mode: "classic",
+    audio: "assets/a0/home_007.mp3", script: "A bed.",
+    translations: { ru: "Кровать.", kz: "Кереует." }, vocab: ["bed"],
+    options: [
+      o(A0_BASE.bed, true),
+      o(V(A0_BASE.bed, function (s) { pick(s, "bed").i = "sofa"; })),
+      o(V(A0_BASE.bed, function (s) { pick(s, "bed").i = "table"; pick(s, "table").c = "wood"; }))
+    ]
+  },
+  {
+    id: "a0_home_008", level: "A0", topic: "home", mode: "classic",
+    audio: "assets/a0/home_008.mp3", script: "A green plant.",
+    translations: { ru: "Зелёное растение.", kz: "Жасыл өсімдік." }, vocab: ["green", "plant"],
+    options: [
+      o(A0_BASE.plant, true),
+      o(V(A0_BASE.plant, function (s) { pick(s, "plant").c = "pink"; })),
+      o(V(A0_BASE.plant, function (s) { pick(s, "plant").i = "chair"; pick(s, "chair").c = "green"; }))
+    ]
+  },
+  {
+    id: "a0_home_009", level: "A0", topic: "home", mode: "classic",
+    audio: "assets/a0/home_009.mp3", script: "Three books.",
+    translations: { ru: "Три книги.", kz: "Үш кітап." }, vocab: ["three", "book"],
+    options: [
+      o(A0_BASE.books, true),
+      o(V(A0_BASE.books, function (s) { s.items.splice(2, 1); })),
+      o(V(A0_BASE.books, function (s) { s.items.push({ i: "book", x: 88, y: 90, s: 1.1, c: "gold" }); }))
+    ]
+  },
+  {
+    id: "a0_home_010", level: "A0", topic: "home", mode: "classic",
+    audio: "assets/a0/home_010.mp3", script: "A white cat.",
+    translations: { ru: "Белая кошка.", kz: "Ақ мысық." }, vocab: ["white", "cat"],
+    options: [
+      o(A0_BASE.wcat, true),
+      o(V(A0_BASE.wcat, function (s) { pick(s, "cat").c = "black"; })),
+      o(V(A0_BASE.wcat, function (s) { pick(s, "cat").i = "dog"; pick(s, "dog").c = "white"; }))
+    ]
+  },
+  {
+    id: "a0_home_011", level: "A0", topic: "home", mode: "classic",
+    audio: "assets/a0/home_011.mp3", script: "A clock.",
+    translations: { ru: "Часы.", kz: "Сағат." }, vocab: ["clock"],
+    options: [
+      o(A0_BASE.clock, true),
+      o(V(A0_BASE.clock, function (s) { pick(s, "clock").i = "mirror"; pick(s, "mirror").c = "wood"; })),
+      o(V(A0_BASE.clock, function (s) { pick(s, "clock").i = "plate"; pick(s, "plate").c = "white"; }))
+    ]
+  },
+  {
+    id: "a0_home_012", level: "A0", topic: "home", mode: "classic",
+    audio: "assets/a0/home_012.mp3", script: "An orange fish.",
+    translations: { ru: "Оранжевая рыбка.", kz: "Қызғылт сары балық." }, vocab: ["orange", "fish"],
+    options: [
+      o(A0_BASE.fish, true),
+      o(V(A0_BASE.fish, function (s) { pick(s, "fish").c = "blue"; })),
+      o(V(A0_BASE.fish, function (s) { pick(s, "fish").i = "bird"; pick(s, "bird").c = "orange"; }))
+    ]
+  }
+];
+
+/* ============================ A1 · home ============================ */
+var A1_BASE = {
+  catChair: sc("living", [{ i: "chair", x: 50, y: 90, s: 1.3, c: "wood" }, { i: "cat", x: 50, y: 69, s: 0.7, c: "grey" }]),
+  twoCups:  sc("kitchen", [{ i: "table", x: 50, y: 92, s: 1.7, c: "wood" }, { i: "cup", x: 38, y: 64, s: 0.75, c: "white" }, { i: "cup", x: 62, y: 64, s: 0.75, c: "white" }]),
+  dogTable: sc("kitchen", [{ i: "dog", x: 50, y: 90, s: 0.85, c: "brown" }, { i: "table", x: 50, y: 92, s: 1.7, c: "wood" }]),
+  lampBed:  sc("bedroom", [{ i: "bed", x: 42, y: 93, s: 1.5, c: "cyan" }, { i: "lamp", x: 82, y: 92, s: 1.0, c: "gold" }]),
+  redBook:  sc("living", [{ i: "sofa", x: 50, y: 84, s: 1.5, c: "purple" }, { i: "book", x: 28, y: 95, s: 0.8, c: "red" }]),
+  girlBag:  sc("hall", [{ i: "person", x: 42, y: 94, s: 1.5, c: "cyan", m: "happy" }, { i: "bag", x: 68, y: 94, s: 0.8, c: "yellow" }]),
+  apples:   sc("kitchen", [{ i: "table", x: 50, y: 92, s: 1.7, c: "wood" }, { i: "plate", x: 50, y: 66, s: 1.0, c: "white" }, { i: "apple", x: 42, y: 62, s: 0.5, c: "red" }, { i: "apple", x: 58, y: 62, s: 0.5, c: "red" }]),
+  birdWin:  sc("kitchen", [{ i: "window", x: 30, y: 62, s: 1.5, c: "cream" }, { i: "bird", x: 30, y: 58, s: 0.55, c: "blue" }, { i: "table", x: 70, y: 92, s: 1.3, c: "wood" }]),
+  ballSofa: sc("living", [{ i: "ball", x: 50, y: 92, s: 0.6, c: "blue" }, { i: "sofa", x: 50, y: 90, s: 1.6, c: "orange" }]),
+  clockDoor: sc("hall", [{ i: "door", x: 50, y: 96, s: 1.5, c: "brown" }, { i: "clock", x: 50, y: 34, s: 0.8, c: "navy" }]),
+  greyCat:  sc("living", [{ i: "rug", x: 50, y: 93, s: 1.0, c: "cream" }, { i: "cat", x: 50, y: 90, s: 1.2, c: "grey" }]),
+  keys:     sc("hall", [{ i: "table", x: 38, y: 90, s: 0.9, c: "wood" }, { i: "key", x: 38, y: 76, s: 0.5, c: "silver" }, { i: "door", x: 80, y: 96, s: 1.2, c: "brown" }])
+};
+
+var SET_A1 = [
+  {
+    id: "a1_home_001", level: "A1", topic: "home", mode: "classic",
+    audio: "assets/a1/home_001.mp3", script: "The cat is on the chair.",
+    translations: { ru: "Кошка на стуле.", kz: "Мысық орындықта отыр." }, vocab: ["cat", "on", "chair"],
+    options: [
+      o(A1_BASE.catChair, true),
+      o(V(A1_BASE.catChair, function (s) { pick(s, "cat").y = 92; pick(s, "cat").x = 72; })),
+      o(V(A1_BASE.catChair, function (s) { pick(s, "cat").i = "dog"; pick(s, "dog").c = "brown"; })),
+      o(V(A1_BASE.catChair, function (s) { pick(s, "chair").i = "table"; pick(s, "cat").y = 66; }))
+    ]
+  },
+  {
+    id: "a1_home_002", level: "A1", topic: "home", mode: "classic",
+    audio: "assets/a1/home_002.mp3", script: "There are two cups on the table.",
+    translations: { ru: "На столе две чашки.", kz: "Үстелде екі кесе тұр." }, vocab: ["two", "cup", "on the table"],
+    options: [
+      o(A1_BASE.twoCups, true),
+      o(V(A1_BASE.twoCups, function (s) { s.items.splice(2, 1); })),
+      o(V(A1_BASE.twoCups, function (s) { s.items.push({ i: "cup", x: 50, y: 64, s: 0.75, c: "white" }); })),
+      o(V(A1_BASE.twoCups, function (s) { s.items[1].y = 92; s.items[2].y = 92; s.items[1].x = 20; s.items[2].x = 82; }))
+    ]
+  },
+  {
+    id: "a1_home_003", level: "A1", topic: "home", mode: "truefalse", tfAnswer: true,
+    audio: "assets/a1/home_003.mp3", script: "The dog is under the table.",
+    translations: { ru: "Собака под столом.", kz: "Ит үстелдің астында." }, vocab: ["dog", "under", "table"],
+    options: [o(A1_BASE.dogTable, true)]
+  },
+  {
+    id: "a1_home_004", level: "A1", topic: "home", mode: "pinpoint",
+    audio: "assets/a1/home_004.mp3", script: "The lamp is next to the bed.",
+    translations: { ru: "Лампа стоит рядом с кроватью.", kz: "Шам кереуеттің қасында тұр." }, vocab: ["lamp", "next to", "bed"],
+    options: [
+      o(A1_BASE.lampBed, true, [{ x: 82, y: 78, r: 12, prompt: "Tap the lamp" }]),
+      o(V(A1_BASE.lampBed, function (s) { pick(s, "lamp").x = 42; pick(s, "lamp").y = 68; pick(s, "bed").x = 60; })),
+      o(V(A1_BASE.lampBed, function (s) { pick(s, "lamp").i = "plant"; pick(s, "plant").c = "green"; }))
+    ]
+  },
+  {
+    id: "a1_home_005", level: "A1", topic: "home", mode: "classic",
+    audio: "assets/a1/home_005.mp3", script: "The red book is on the floor.",
+    translations: { ru: "Красная книга лежит на полу.", kz: "Қызыл кітап еденде жатыр." }, vocab: ["red", "book", "floor"],
+    options: [
+      o(A1_BASE.redBook, true),
+      o(V(A1_BASE.redBook, function (s) { pick(s, "book").c = "blue"; })),
+      o(V(A1_BASE.redBook, function (s) { pick(s, "book").y = 72; pick(s, "book").x = 50; })),
+      o(V(A1_BASE.redBook, function (s) { pick(s, "book").i = "bag"; pick(s, "bag").c = "red"; }))
+    ]
+  },
+  {
+    id: "a1_home_006", level: "A1", topic: "home", mode: "classic",
+    audio: "assets/a1/home_006.mp3", script: "The girl has a yellow bag.",
+    translations: { ru: "У девочки жёлтая сумка.", kz: "Қыздың сары сөмкесі бар." }, vocab: ["girl", "yellow", "bag"],
+    options: [
+      o(A1_BASE.girlBag, true),
+      o(V(A1_BASE.girlBag, function (s) { pick(s, "bag").c = "green"; })),
+      o(V(A1_BASE.girlBag, function (s) { pick(s, "bag").i = "umbrella"; pick(s, "umbrella").c = "yellow"; })),
+      o(V(A1_BASE.girlBag, function (s) { s.items.splice(1, 1); }))
+    ]
+  },
+  {
+    id: "a1_home_007", level: "A1", topic: "home", mode: "truefalse", tfAnswer: false,
+    audio: "assets/a1/home_007.mp3", script: "There are three apples on the plate.",
+    translations: { ru: "На тарелке три яблока.", kz: "Табақта үш алма бар." }, vocab: ["three", "apple", "plate"],
+    options: [o(A1_BASE.apples, true)]
+  },
+  {
+    id: "a1_home_008", level: "A1", topic: "home", mode: "pinpoint",
+    audio: "assets/a1/home_008.mp3", script: "There is a bird in the window.",
+    translations: { ru: "В окне сидит птица.", kz: "Терезеде құс отыр." }, vocab: ["bird", "window"],
+    options: [
+      o(A1_BASE.birdWin, true, [{ x: 30, y: 51, r: 11, prompt: "Tap the bird" }]),
+      o(V(A1_BASE.birdWin, function (s) { pick(s, "bird").x = 70; pick(s, "bird").y = 68; })),
+      o(V(A1_BASE.birdWin, function (s) { pick(s, "bird").i = "cat"; pick(s, "cat").c = "grey"; }))
+    ]
+  },
+  {
+    id: "a1_home_009", level: "A1", topic: "home", mode: "classic",
+    audio: "assets/a1/home_009.mp3", script: "The blue ball is under the sofa.",
+    translations: { ru: "Синий мяч под диваном.", kz: "Көк доп диванның астында." }, vocab: ["blue", "ball", "under", "sofa"],
+    options: [
+      o(A1_BASE.ballSofa, true),
+      o(V(A1_BASE.ballSofa, function (s) { pick(s, "ball").c = "red"; })),
+      o(V(A1_BASE.ballSofa, function (s) { s.items.reverse(); pick(s, "ball").y = 70; })),
+      o(V(A1_BASE.ballSofa, function (s) { pick(s, "ball").i = "cat"; pick(s, "cat").c = "blue"; }))
+    ]
+  },
+  {
+    id: "a1_home_010", level: "A1", topic: "home", mode: "classic",
+    audio: "assets/a1/home_010.mp3", script: "The clock is above the door.",
+    translations: { ru: "Часы висят над дверью.", kz: "Сағат есіктің үстінде ілулі." }, vocab: ["clock", "above", "door"],
+    options: [
+      o(A1_BASE.clockDoor, true),
+      o(V(A1_BASE.clockDoor, function (s) { pick(s, "clock").x = 84; pick(s, "clock").y = 55; })),
+      o(V(A1_BASE.clockDoor, function (s) { pick(s, "clock").i = "picture"; pick(s, "picture").c = "wood"; })),
+      o(V(A1_BASE.clockDoor, function (s) { pick(s, "door").i = "window"; pick(s, "window").y = 78; }))
+    ]
+  },
+  {
+    id: "a1_home_011", level: "A1", topic: "home", mode: "truefalse", tfAnswer: false,
+    audio: "assets/a1/home_011.mp3", script: "The cat is black.",
+    translations: { ru: "Кошка чёрная.", kz: "Мысық қара түсті." }, vocab: ["cat", "black"],
+    options: [o(A1_BASE.greyCat, true)]
+  },
+  {
+    id: "a1_home_012", level: "A1", topic: "home", mode: "pinpoint",
+    audio: "assets/a1/home_012.mp3", script: "The keys are on the small table.",
+    translations: { ru: "Ключи лежат на маленьком столе.", kz: "Кілттер кішкене үстелде жатыр." }, vocab: ["keys", "small", "table"],
+    options: [
+      o(A1_BASE.keys, true, [{ x: 38, y: 70, r: 11, prompt: "Tap the keys" }]),
+      o(V(A1_BASE.keys, function (s) { pick(s, "key").y = 93; pick(s, "key").x = 60; })),
+      o(V(A1_BASE.keys, function (s) { pick(s, "key").i = "phone"; pick(s, "phone").c = "black"; }))
+    ]
+  }
+];
+
+/* ============ A2 · home — reference set, all eight modes ============ */
+var A2_BASE = {
+  catTable: sc("kitchen", [
+    { i: "cat", x: 44, y: 92, s: 0.6, c: "grey" },
+    { i: "table", x: 50, y: 92, s: 1.7, c: "wood" },
+    { i: "chair", x: 82, y: 92, s: 1.0, c: "wood" }
+  ]),
+  redCup: sc("kitchen", [
+    { i: "table", x: 50, y: 92, s: 1.7, c: "wood" },
+    { i: "plate", x: 36, y: 65, s: 0.7, c: "white" },
+    { i: "cup", x: 62, y: 65, s: 0.6, c: "red" }
+  ]),
+  books: sc("living", [
+    { i: "table", x: 50, y: 92, s: 1.7, c: "wood" },
+    { i: "book", x: 34, y: 65, s: 0.5, c: "red" },
+    { i: "book", x: 50, y: 65, s: 0.5, c: "blue" },
+    { i: "book", x: 66, y: 65, s: 0.5, c: "green" }
+  ]),
+  chairWindow: sc("kitchen", [
+    { i: "window", x: 26, y: 60, s: 1.4, c: "cream" },
+    { i: "chair", x: 60, y: 92, s: 1.3, c: "blue" }
+  ]),
+  lampBed: sc("bedroom", [
+    { i: "bed", x: 38, y: 94, s: 1.6, c: "cyan" },
+    { i: "lamp", x: 78, y: 93, s: 1.2, c: "gold" }
+  ]),
+  redThings: sc("living", [
+    { i: "sofa", x: 62, y: 86, s: 1.5, c: "silver" },
+    { i: "table", x: 26, y: 92, s: 1.0, c: "wood" },
+    { i: "cup", x: 26, y: 76, s: 0.45, c: "red" },
+    { i: "book", x: 84, y: 95, s: 0.55, c: "red" },
+    { i: "ball", x: 46, y: 95, s: 0.5, c: "red" }
+  ]),
+  diff: sc("living", [
+    { i: "sofa", x: 50, y: 88, s: 1.7, c: "purple" },
+    { i: "cat", x: 62, y: 70, s: 0.55, c: "grey" },
+    { i: "lamp", x: 88, y: 92, s: 0.9, c: "gold" }
+  ]),
+  seq1: sc("hall", [{ i: "door", x: 72, y: 96, s: 1.4, c: "brown" }, { i: "person", x: 38, y: 94, s: 1.3, c: "cyan", m: "happy" }]),
+  seq2: sc("hall", [{ i: "chair", x: 66, y: 94, s: 1.2, c: "wood" }, { i: "bag", x: 66, y: 76, s: 0.55, c: "yellow" }, { i: "person", x: 30, y: 94, s: 1.3, c: "cyan" }]),
+  seq3: sc("kitchen", [{ i: "table", x: 62, y: 92, s: 1.4, c: "wood" }, { i: "cup", x: 62, y: 70, s: 0.5, c: "white" }, { i: "person", x: 28, y: 92, s: 1.3, c: "cyan", m: "happy" }]),
+  dogRug: sc("living", [
+    { i: "rug", x: 50, y: 94, s: 1.3, c: "blue" },
+    { i: "dog", x: 50, y: 91, s: 0.9, c: "brown" }
+  ]),
+  plantTable: sc("living", [
+    { i: "table", x: 50, y: 92, s: 1.5, c: "wood" },
+    { i: "plant", x: 50, y: 68, s: 0.7, c: "green" }
+  ]),
+  mirror: sc("hall", [
+    { i: "table", x: 50, y: 94, s: 1.1, c: "wood" },
+    { i: "mirror", x: 50, y: 56, s: 0.9, c: "gold" }
+  ]),
+  apples: sc("kitchen", [
+    { i: "table", x: 50, y: 92, s: 1.7, c: "wood" },
+    { i: "bowl", x: 50, y: 66, s: 0.9, c: "cyan" },
+    { i: "apple", x: 40, y: 60, s: 0.38, c: "red" },
+    { i: "apple", x: 48, y: 60, s: 0.38, c: "red" },
+    { i: "apple", x: 56, y: 60, s: 0.38, c: "red" },
+    { i: "apple", x: 64, y: 60, s: 0.38, c: "red" }
+  ])
+};
+
+var SET_A2 = [
+  {
+    id: "a2_home_001", level: "A2", topic: "home", mode: "classic",
+    audio: "assets/a2/home_001.mp3",
+    script: "A small grey cat is sleeping under the kitchen table.",
+    translations: { ru: "Маленькая серая кошка спит под кухонным столом.", kz: "Кішкентай сұр мысық ас үй үстелінің астында ұйықтап жатыр." },
+    vocab: ["grey", "under", "kitchen table"],
+    options: [
+      o(A2_BASE.catTable, true),
+      o(V(A2_BASE.catTable, function (s) { pick(s, "cat").c = "orange"; })),
+      o(V(A2_BASE.catTable, function (s) { var c = pick(s, "cat"); c.y = 65; c.x = 50; s.items.splice(0, 1); s.items.splice(1, 0, c); }))
+    ]
+  },
+  {
+    id: "a2_home_002", level: "A2", topic: "home", mode: "pinpoint",
+    audio: "assets/a2/home_002.mp3",
+    script: "There is a red cup on the table, next to the white plate.",
+    translations: { ru: "На столе стоит красная чашка рядом с белой тарелкой.", kz: "Үстелде ақ табақтың қасында қызыл кесе тұр." },
+    vocab: ["red cup", "next to", "plate"],
+    options: [
+      o(A2_BASE.redCup, true, [{ x: 62, y: 57, r: 12, prompt: "Tap the red cup" }]),
+      o(V(A2_BASE.redCup, function (s) { pick(s, "cup").c = "blue"; })),
+      o(V(A2_BASE.redCup, function (s) { pick(s, "cup").y = 94; pick(s, "cup").s = 0.6; }))
+    ]
+  },
+  {
+    id: "a2_home_003", level: "A2", topic: "home", mode: "classic",
+    audio: "assets/a2/home_003.mp3",
+    script: "Three books are lying on the table, and one of them is red.",
+    translations: { ru: "На столе лежат три книги, и одна из них красная.", kz: "Үстелде үш кітап жатыр, солардың біреуі қызыл." },
+    vocab: ["three", "book", "on the table"],
+    options: [
+      o(A2_BASE.books, true),
+      o(V(A2_BASE.books, function (s) { s.items.splice(3, 1); })),
+      o(V(A2_BASE.books, function (s) { s.items[1].c = "gold"; })),
+      o(V(A2_BASE.books, function (s) { s.items[1].y = 95; s.items[2].y = 95; s.items[3].y = 95; }))
+    ]
+  },
+  {
+    id: "a2_home_004", level: "A2", topic: "home", mode: "truefalse", tfAnswer: false,
+    audio: "assets/a2/home_004.mp3",
+    script: "The chair next to the window is green.",
+    translations: { ru: "Стул рядом с окном — зелёный.", kz: "Терезенің қасындағы орындық жасыл." },
+    vocab: ["chair", "next to", "window", "green"],
+    options: [o(A2_BASE.chairWindow, true)]
+  },
+  {
+    id: "a2_home_005", level: "A2", topic: "home", mode: "elimination",
+    audio: "assets/a2/home_005.mp3",
+    script: "There is a big lamp in the room, and it is standing next to the bed.",
+    chunks: ["There is a big lamp in the room...", "...and it is standing next to the bed."],
+    eliminate: [[3], [1]],
+    translations: { ru: "В комнате есть большая лампа, и она стоит рядом с кроватью.", kz: "Бөлмеде үлкен шам бар, ол кереуеттің қасында тұр." },
+    vocab: ["big", "lamp", "next to", "bed"],
+    options: [
+      o(A2_BASE.lampBed, true),
+      o(V(A2_BASE.lampBed, function (s) { pick(s, "lamp").s = 0.6; })),
+      o(V(A2_BASE.lampBed, function (s) { pick(s, "bed").i = "sofa"; })),
+      o(V(A2_BASE.lampBed, function (s) { pick(s, "lamp").i = "plant"; pick(s, "plant").c = "green"; }))
+    ]
+  },
+  {
+    id: "a2_home_006", level: "A2", topic: "home", mode: "multipin",
+    audio: "assets/a2/home_006.mp3",
+    script: "Find three red things in this room: a cup, a ball and a book.",
+    translations: { ru: "Найди три красных предмета в комнате: чашку, мяч и книгу.", kz: "Бөлмеден үш қызыл затты тап: кесе, доп және кітап." },
+    vocab: ["red", "cup", "ball", "book"],
+    options: [
+      o(A2_BASE.redThings, true, [
+        { x: 26, y: 70, r: 10, prompt: "Tap the red cup" },
+        { x: 46, y: 88, r: 10, prompt: "Tap the red ball" },
+        { x: 84, y: 88, r: 10, prompt: "Tap the red book" }
+      ])
+    ]
+  },
+  {
+    id: "a2_home_007", level: "A2", topic: "home", mode: "difference",
+    audio: "assets/a2/home_007.mp3",
+    script: "In this picture the cat is sitting on the sofa, not under it.",
+    translations: { ru: "На этой картинке кошка сидит на диване, а не под ним.", kz: "Бұл суретте мысық диванның астында емес, үстінде отыр." },
+    vocab: ["on", "under", "sofa"],
+    options: [
+      o(A2_BASE.diff, true),
+      o(V(A2_BASE.diff, function (s) { var c = pick(s, "cat"); c.y = 93; s.items.splice(1, 1); s.items.unshift(c); }))
+    ]
+  },
+  {
+    id: "a2_home_008", level: "A2", topic: "home", mode: "sequence",
+    audio: "assets/a2/home_008.mp3",
+    script: "First the boy opens the door. Then he puts his bag on the chair. Finally he drinks a cup of tea in the kitchen.",
+    chunks: ["First the boy opens the door.", "Then he puts his bag on the chair.", "Finally he drinks a cup of tea in the kitchen."],
+    translations: { ru: "Сначала мальчик открывает дверь. Потом кладёт сумку на стул. В конце он пьёт чашку чая на кухне.", kz: "Алдымен бала есікті ашады. Содан кейін сөмкесін орындыққа қояды. Соңында ас үйде бір кесе шай ішеді." },
+    vocab: ["first", "then", "finally"],
+    options: [o(A2_BASE.seq1, true), o(A2_BASE.seq2, true), o(A2_BASE.seq3, true)]
+  },
+  {
+    id: "a2_home_009", level: "A2", topic: "home", mode: "classic",
+    audio: "assets/a2/home_009.mp3",
+    script: "The brown dog is sleeping on the blue rug.",
+    translations: { ru: "Коричневая собака спит на синем ковре.", kz: "Қоңыр ит көк кілемде ұйықтап жатыр." },
+    vocab: ["brown", "dog", "blue rug"],
+    options: [
+      o(A2_BASE.dogRug, true),
+      o(V(A2_BASE.dogRug, function (s) { pick(s, "rug").c = "green"; })),
+      o(V(A2_BASE.dogRug, function (s) { pick(s, "dog").x = 82; })),
+      o(V(A2_BASE.dogRug, function (s) { pick(s, "dog").i = "cat"; pick(s, "cat").c = "brown"; }))
+    ]
+  },
+  {
+    id: "a2_home_010", level: "A2", topic: "home", mode: "oddoneout",
+    audio: "assets/a2/home_010.mp3",
+    script: "In three of these pictures the plant is standing on the table. Choose the picture where it is not.",
+    translations: { ru: "На трёх картинках растение стоит на столе. Выбери картинку, где это не так.", kz: "Үш суретте өсімдік үстелде тұр. Олай емес суретті таңда." },
+    vocab: ["plant", "on the table"],
+    options: [
+      o(A2_BASE.plantTable),
+      o(V(A2_BASE.plantTable, function (s) { pick(s, "plant").c = "teal"; })),
+      o(V(A2_BASE.plantTable, function (s) { pick(s, "plant").y = 94; pick(s, "plant").x = 76; }), true),
+      o(V(A2_BASE.plantTable, function (s) { pick(s, "table").c = "silver"; }))
+    ]
+  },
+  {
+    id: "a2_home_011", level: "A2", topic: "home", mode: "pinpoint",
+    audio: "assets/a2/home_011.mp3",
+    script: "A round mirror is hanging above the small table.",
+    translations: { ru: "Круглое зеркало висит над маленьким столом.", kz: "Дөңгелек айна кішкене үстелдің үстінде ілулі тұр." },
+    vocab: ["round", "mirror", "above"],
+    options: [
+      o(A2_BASE.mirror, true, [{ x: 50, y: 44, r: 13, prompt: "Tap the mirror" }]),
+      o(V(A2_BASE.mirror, function (s) { pick(s, "mirror").i = "picture"; pick(s, "picture").c = "wood"; })),
+      o(V(A2_BASE.mirror, function (s) { pick(s, "mirror").x = 84; pick(s, "mirror").y = 92; }))
+    ]
+  },
+  {
+    id: "a2_home_012", level: "A2", topic: "home", mode: "classic",
+    audio: "assets/a2/home_012.mp3",
+    script: "There are four apples in the bowl on the kitchen table.",
+    translations: { ru: "В миске на кухонном столе четыре яблока.", kz: "Ас үй үстеліндегі тостағанда төрт алма бар." },
+    vocab: ["four", "apple", "bowl"],
+    options: [
+      o(A2_BASE.apples, true),
+      o(V(A2_BASE.apples, function (s) { s.items.splice(5, 1); })),
+      o(V(A2_BASE.apples, function (s) { s.items[2].c = "green"; s.items[3].c = "green"; s.items[4].c = "green"; s.items[5].c = "green"; })),
+      o(V(A2_BASE.apples, function (s) { s.items.splice(1, 1); s.items[1].y = 64; s.items[2].y = 64; s.items[3].y = 64; s.items[4].y = 64; }))
+    ]
+  }
+];
+
+/* ============================ B1 · home ============================ */
+var B1_BASE = {
+  womanWindow: sc("living", [
+    { i: "window", x: 24, y: 58, s: 1.4, c: "cream" },
+    { i: "person", x: 52, y: 94, s: 1.5, c: "green", m: "neutral" },
+    { i: "cup", x: 72, y: 78, s: 0.45, c: "white" }
+  ]),
+  boyBowl: sc("kitchen", [
+    { i: "table", x: 58, y: 92, s: 1.5, c: "wood" },
+    { i: "bowl", x: 58, y: 68, s: 0.6, c: "cyan" },
+    { i: "person", x: 24, y: 92, s: 1.3, c: "blue" }
+  ]),
+  umbrella: sc("hall", [
+    { i: "door", x: 74, y: 96, s: 1.4, c: "brown" },
+    { i: "umbrella", x: 40, y: 94, s: 1.0, c: "red" },
+    { i: "shoe", x: 18, y: 96, s: 0.6, c: "black" }
+  ]),
+  twoChairs: sc("kitchen", [
+    { i: "table", x: 50, y: 92, s: 1.6, c: "wood" },
+    { i: "chair", x: 22, y: 94, s: 1.1, c: "orange" },
+    { i: "chair", x: 80, y: 94, s: 1.1, c: "orange", f: true }
+  ]),
+  s1: sc("hall", [{ i: "door", x: 76, y: 96, s: 1.3, c: "brown" }, { i: "person", x: 36, y: 94, s: 1.3, c: "pink", m: "happy" }]),
+  s2: sc("hall", [{ i: "person", x: 34, y: 94, s: 1.3, c: "pink" }, { i: "shoe", x: 66, y: 96, s: 0.7, c: "black" }]),
+  s3: sc("kitchen", [{ i: "person", x: 30, y: 92, s: 1.3, c: "pink" }, { i: "bowl", x: 66, y: 94, s: 0.6, c: "cyan" }, { i: "cat", x: 82, y: 93, s: 0.55, c: "grey" }]),
+  s4: sc("living", [{ i: "sofa", x: 60, y: 90, s: 1.5, c: "purple" }, { i: "person", x: 48, y: 78, s: 1.1, c: "pink", m: "happy" }]),
+  kitchenTools: sc("kitchen", [
+    { i: "fridge", x: 18, y: 94, s: 1.5, c: "silver" },
+    { i: "table", x: 62, y: 92, s: 1.4, c: "wood" },
+    { i: "kettle", x: 52, y: 70, s: 0.55, c: "red" },
+    { i: "bowl", x: 74, y: 68, s: 0.5, c: "cyan" }
+  ]),
+  manBook: sc("living", [
+    { i: "sofa", x: 70, y: 88, s: 1.5, c: "purple" },
+    { i: "person", x: 32, y: 94, s: 1.5, c: "navy" },
+    { i: "book", x: 52, y: 80, s: 0.45, c: "red" }
+  ]),
+  pictures: sc("living", [
+    { i: "sofa", x: 50, y: 92, s: 1.7, c: "silver" },
+    { i: "picture", x: 50, y: 42, s: 1.0, c: "wood" },
+    { i: "picture", x: 84, y: 44, s: 0.6, c: "wood" }
+  ]),
+  catShelf: sc("living", [
+    { i: "table", x: 40, y: 90, s: 1.4, c: "wood" },
+    { i: "cat", x: 40, y: 68, s: 0.55, c: "orange" },
+    { i: "flower", x: 76, y: 96, s: 0.6, c: "pink" }
+  ]),
+  keysChair: sc("hall", [
+    { i: "key", x: 46, y: 95, s: 0.5, c: "silver" },
+    { i: "chair", x: 46, y: 94, s: 1.2, c: "wood" },
+    { i: "person", x: 80, y: 94, s: 1.2, c: "orange", m: "sad" }
+  ]),
+  dogLooks: sc("hall", [
+    { i: "door", x: 78, y: 96, s: 1.3, c: "brown" },
+    { i: "window", x: 20, y: 56, s: 1.1, c: "cream" },
+    { i: "dog", x: 52, y: 94, s: 0.9, c: "brown" }
+  ]),
+  oldClock: sc("kitchen", [
+    { i: "fridge", x: 30, y: 94, s: 1.6, c: "silver" },
+    { i: "clock", x: 30, y: 30, s: 0.7, c: "brown" },
+    { i: "plant", x: 74, y: 94, s: 0.9, c: "green" }
+  ])
+};
+
+var SET_B1 = [
+  { id: "b1_home_001", level: "B1", topic: "home", mode: "classic", audio: "assets/b1/home_001.mp3",
+    script: "A woman in a green jacket is standing by the window, holding a cup of tea.",
+    translations: { ru: "Женщина в зелёной куртке стоит у окна и держит чашку чая.", kz: "Жасыл күртешелі әйел терезенің қасында тұрып, қолында бір кесе шай ұстап тұр." },
+    vocab: ["jacket", "by the window", "holding"],
+    options: [
+      o(B1_BASE.womanWindow, true),
+      o(V(B1_BASE.womanWindow, function (s) { pick(s, "person").c = "red"; })),
+      o(V(B1_BASE.womanWindow, function (s) { pick(s, "cup").i = "book"; pick(s, "book").c = "red"; })),
+      o(V(B1_BASE.womanWindow, function (s) { pick(s, "window").i = "door"; pick(s, "door").y = 96; pick(s, "door").c = "brown"; }))
+    ] },
+  { id: "b1_home_002", level: "B1", topic: "home", mode: "elimination", audio: "assets/b1/home_002.mp3",
+    script: "The boy is in the kitchen, and he is putting a blue bowl on the table.",
+    chunks: ["The boy is in the kitchen...", "...and he is putting a blue bowl on the table."],
+    eliminate: [[3], [1]],
+    translations: { ru: "Мальчик на кухне, он ставит синюю миску на стол.", kz: "Бала ас үйде, ол көк тостағанды үстелге қойып жатыр." },
+    vocab: ["kitchen", "bowl", "on the table"],
+    options: [
+      o(B1_BASE.boyBowl, true),
+      o(V(B1_BASE.boyBowl, function (s) { pick(s, "bowl").c = "orange"; })),
+      o(V(B1_BASE.boyBowl, function (s) { pick(s, "bowl").y = 94; pick(s, "bowl").x = 84; })),
+      o(V(B1_BASE.boyBowl, function (s) { s.bg = "bedroom"; pick(s, "table").i = "bed"; }))
+    ] },
+  { id: "b1_home_003", level: "B1", topic: "home", mode: "pinpoint", audio: "assets/b1/home_003.mp3",
+    script: "Someone left a red umbrella near the door, because it was raining outside.",
+    translations: { ru: "Кто-то оставил красный зонт у двери, потому что на улице шёл дождь.", kz: "Далада жаңбыр жауғандықтан, біреу есіктің қасына қызыл қолшатыр қалдырыпты." },
+    vocab: ["umbrella", "near the door", "because"],
+    options: [
+      o(B1_BASE.umbrella, true, [{ x: 40, y: 81, r: 11, prompt: "Tap the umbrella" }]),
+      o(V(B1_BASE.umbrella, function (s) { pick(s, "umbrella").c = "green"; })),
+      o(V(B1_BASE.umbrella, function (s) { pick(s, "umbrella").i = "bag"; pick(s, "bag").c = "red"; })),
+      o(V(B1_BASE.umbrella, function (s) { pick(s, "umbrella").x = 12; pick(s, "shoe").x = 40; }))
+    ] },
+  { id: "b1_home_004", level: "B1", topic: "home", mode: "difference", audio: "assets/b1/home_004.mp3",
+    script: "In this picture there are two chairs at the table, and both of them are orange.",
+    translations: { ru: "На этой картинке у стола два стула, и оба оранжевые.", kz: "Бұл суретте үстелдің қасында екі орындық бар, екеуі де қызғылт сары." },
+    vocab: ["two chairs", "both", "at the table"],
+    options: [
+      o(B1_BASE.twoChairs, true),
+      o(V(B1_BASE.twoChairs, function (s) { s.items[2].c = "blue"; }))
+    ] },
+  { id: "b1_home_005", level: "B1", topic: "home", mode: "sequence", audio: "assets/b1/home_005.mp3",
+    script: "The girl comes home. She takes off her shoes in the hall. Then she feeds the cat in the kitchen, and finally she sits down on the sofa.",
+    chunks: ["The girl comes home.", "She takes off her shoes in the hall.", "Then she feeds the cat in the kitchen.", "Finally she sits down on the sofa."],
+    translations: { ru: "Девочка приходит домой. Снимает обувь в прихожей. Потом кормит кошку на кухне и наконец садится на диван.", kz: "Қыз үйге келеді. Дәлізде аяқ киімін шешеді. Содан кейін ас үйде мысықты тамақтандырып, соңында диванға отырады." },
+    vocab: ["come home", "take off", "feed", "sit down"],
+    options: [o(B1_BASE.s1, true), o(B1_BASE.s2, true), o(B1_BASE.s3, true), o(B1_BASE.s4, true)] },
+  { id: "b1_home_006", level: "B1", topic: "home", mode: "multipin", audio: "assets/b1/home_006.mp3",
+    script: "In this kitchen, find the fridge, the red kettle and the blue bowl.",
+    translations: { ru: "Найди на этой кухне холодильник, красный чайник и синюю миску.", kz: "Осы ас үйден тоңазытқышты, қызыл шәйнекті және көк тостағанды тап." },
+    vocab: ["fridge", "kettle", "bowl"],
+    options: [o(B1_BASE.kitchenTools, true, [
+      { x: 18, y: 74, r: 12, prompt: "Tap the fridge" },
+      { x: 52, y: 63, r: 10, prompt: "Tap the red kettle" },
+      { x: 74, y: 62, r: 10, prompt: "Tap the blue bowl" }
+    ])] },
+  { id: "b1_home_007", level: "B1", topic: "home", mode: "truefalse", tfAnswer: false, audio: "assets/b1/home_007.mp3",
+    script: "The man is sitting on the sofa and reading a book.",
+    translations: { ru: "Мужчина сидит на диване и читает книгу.", kz: "Ер адам диванда отырып кітап оқып жатыр." },
+    vocab: ["sitting", "reading"],
+    options: [o(B1_BASE.manBook, true)] },
+  { id: "b1_home_008", level: "B1", topic: "home", mode: "classic", audio: "assets/b1/home_008.mp3",
+    script: "There are two pictures on the wall, and the bigger one is right above the sofa.",
+    translations: { ru: "На стене две картины, и та, что больше, висит прямо над диваном.", kz: "Қабырғада екі сурет бар, үлкені дәл диванның үстінде ілулі." },
+    vocab: ["picture", "bigger", "above"],
+    options: [
+      o(B1_BASE.pictures, true),
+      o(V(B1_BASE.pictures, function (s) { s.items[1].s = 0.6; s.items[2].s = 1.0; })),
+      o(V(B1_BASE.pictures, function (s) { s.items.splice(2, 1); })),
+      o(V(B1_BASE.pictures, function (s) { s.items[1].x = 18; s.items[2].x = 50; }))
+    ] },
+  { id: "b1_home_009", level: "B1", topic: "home", mode: "classic", audio: "assets/b1/home_009.mp3",
+    script: "The orange cat jumped onto the table, so the flowers are now on the floor.",
+    translations: { ru: "Рыжая кошка запрыгнула на стол, поэтому цветы теперь на полу.", kz: "Сары мысық үстелге секіріп шыққан, сондықтан гүлдер қазір еденде." },
+    vocab: ["jump onto", "so", "on the floor"],
+    options: [
+      o(B1_BASE.catShelf, true),
+      o(V(B1_BASE.catShelf, function (s) { pick(s, "flower").y = 68; pick(s, "flower").x = 40; pick(s, "cat").x = 76; pick(s, "cat").y = 94; })),
+      o(V(B1_BASE.catShelf, function (s) { pick(s, "cat").c = "grey"; })),
+      o(V(B1_BASE.catShelf, function (s) { pick(s, "cat").i = "dog"; pick(s, "dog").y = 94; pick(s, "dog").x = 20; }))
+    ] },
+  { id: "b1_home_010", level: "B1", topic: "home", mode: "pinpoint", audio: "assets/b1/home_010.mp3",
+    script: "The keys fell under the chair, and that is why nobody can find them.",
+    translations: { ru: "Ключи упали под стул, поэтому их никто не может найти.", kz: "Кілттер орындықтың астына түсіп кеткен, сондықтан оны ешкім таба алмай жүр." },
+    vocab: ["fall under", "that is why", "find"],
+    options: [
+      o(B1_BASE.keysChair, true, [{ x: 46, y: 89, r: 10, prompt: "Tap the keys" }]),
+      o(V(B1_BASE.keysChair, function (s) { pick(s, "key").y = 72; })),
+      o(V(B1_BASE.keysChair, function (s) { pick(s, "key").i = "phone"; pick(s, "phone").c = "black"; }))
+    ] },
+  { id: "b1_home_011", level: "B1", topic: "home", mode: "difference", audio: "assets/b1/home_011.mp3",
+    script: "In this picture the dog is looking at the door, not at the window.",
+    translations: { ru: "На этой картинке собака смотрит на дверь, а не в окно.", kz: "Бұл суретте ит терезеге емес, есікке қарап тұр." },
+    vocab: ["look at", "door", "window"],
+    options: [
+      o(B1_BASE.dogLooks, true),
+      o(V(B1_BASE.dogLooks, function (s) { pick(s, "dog").f = true; }))
+    ] },
+  { id: "b1_home_012", level: "B1", topic: "home", mode: "classic", audio: "assets/b1/home_012.mp3",
+    script: "There is an old brown clock above the fridge, and a green plant stands on the other side of the kitchen.",
+    translations: { ru: "Над холодильником висят старые коричневые часы, а зелёное растение стоит в другой части кухни.", kz: "Тоңазытқыштың үстінде ескі қоңыр сағат ілулі, ал жасыл өсімдік ас үйдің екінші жағында тұр." },
+    vocab: ["old", "above", "on the other side"],
+    options: [
+      o(B1_BASE.oldClock, true),
+      o(V(B1_BASE.oldClock, function (s) { pick(s, "clock").x = 74; pick(s, "plant").x = 30; pick(s, "plant").y = 94; })),
+      o(V(B1_BASE.oldClock, function (s) { pick(s, "clock").i = "picture"; pick(s, "picture").c = "brown"; })),
+      o(V(B1_BASE.oldClock, function (s) { pick(s, "plant").c = "pink"; pick(s, "plant").i = "flower"; }))
+    ] }
+];
+
+/* ============================ B2 · home ============================ */
+var B2_BASE = {
+  sofaCat: sc("living", [
+    { i: "sofa", x: 50, y: 88, s: 1.8, c: "purple" },
+    { i: "cat", x: 78, y: 72, s: 0.5, c: "grey" },
+    { i: "lamp", x: 92, y: 92, s: 0.9, c: "gold" }
+  ]),
+  oneChair: sc("kitchen", [
+    { i: "table", x: 50, y: 92, s: 1.6, c: "wood" },
+    { i: "chair", x: 22, y: 94, s: 1.1, c: "orange" }
+  ]),
+  twoPlants: sc("living", [
+    { i: "window", x: 22, y: 58, s: 1.3, c: "cream" },
+    { i: "plant", x: 22, y: 94, s: 0.7, c: "green" },
+    { i: "plant", x: 76, y: 94, s: 1.1, c: "green" }
+  ]),
+  hiddenBall: sc("living", [
+    { i: "ball", x: 26, y: 88, s: 0.45, c: "yellow" },
+    { i: "sofa", x: 40, y: 92, s: 1.5, c: "silver" },
+    { i: "table", x: 82, y: 92, s: 1.0, c: "wood" }
+  ]),
+  glass: sc("kitchen", [
+    { i: "window", x: 20, y: 58, s: 1.3, c: "cream" },
+    { i: "mirror", x: 50, y: 54, s: 0.7, c: "gold" },
+    { i: "table", x: 76, y: 92, s: 1.2, c: "wood" },
+    { i: "bottle", x: 76, y: 74, s: 0.5, c: "cyan" }
+  ]),
+  q1: sc("hall", [{ i: "person", x: 34, y: 94, s: 1.4, c: "navy", m: "neutral" }, { i: "bag", x: 66, y: 96, s: 0.7, c: "brown" }]),
+  q2: sc("kitchen", [{ i: "person", x: 30, y: 92, s: 1.3, c: "navy" }, { i: "kettle", x: 68, y: 70, s: 0.5, c: "red" }, { i: "table", x: 68, y: 92, s: 1.3, c: "wood" }]),
+  q3: sc("kitchen", [{ i: "table", x: 54, y: 92, s: 1.5, c: "wood" }, { i: "cup", x: 54, y: 66, s: 0.5, c: "white" }, { i: "person", x: 22, y: 92, s: 1.3, c: "navy", m: "happy" }]),
+  q4: sc("living", [{ i: "sofa", x: 58, y: 90, s: 1.5, c: "purple" }, { i: "person", x: 46, y: 78, s: 1.1, c: "navy", m: "happy" }, { i: "laptop", x: 78, y: 74, s: 0.5, c: "silver" }]),
+  setTable: sc("kitchen", [
+    { i: "table", x: 50, y: 92, s: 1.7, c: "wood" },
+    { i: "plate", x: 36, y: 65, s: 0.6, c: "white" },
+    { i: "plate", x: 64, y: 65, s: 0.6, c: "white" },
+    { i: "chair", x: 16, y: 95, s: 1.0, c: "wood" }
+  ]),
+  finished: sc("kitchen", [
+    { i: "table", x: 50, y: 92, s: 1.7, c: "wood" },
+    { i: "plate", x: 44, y: 65, s: 0.7, c: "white" },
+    { i: "cup", x: 74, y: 65, s: 0.5, c: "white" },
+    { i: "person", x: 16, y: 92, s: 1.3, c: "teal", m: "happy" }
+  ]),
+  keysWall: sc("hall", [
+    { i: "door", x: 76, y: 96, s: 1.3, c: "brown" },
+    { i: "key", x: 52, y: 44, s: 0.45, c: "silver" },
+    { i: "table", x: 22, y: 94, s: 1.0, c: "wood" }
+  ]),
+  dogBetween: sc("living", [
+    { i: "sofa", x: 22, y: 90, s: 1.2, c: "purple" },
+    { i: "table", x: 78, y: 90, s: 1.2, c: "wood" },
+    { i: "dog", x: 50, y: 95, s: 0.8, c: "brown" }
+  ]),
+  rugRoom: sc("living", [
+    { i: "rug", x: 50, y: 95, s: 1.2, c: "orange" },
+    { i: "sofa", x: 50, y: 84, s: 1.4, c: "silver" }
+  ])
+};
+
+var SET_B2 = [
+  { id: "b2_home_001", level: "B2", topic: "home", mode: "classic", audio: "assets/b2/home_001.mp3",
+    script: "The grey cat is sitting on the right arm of the sofa, and the lamp behind it is much taller than the cat.",
+    translations: { ru: "Серая кошка сидит на правом подлокотнике дивана, а лампа за ней намного выше самой кошки.", kz: "Сұр мысық диванның оң жақ шынтақшасында отыр, оның артындағы шам мысықтан әлдеқайда жоғары." },
+    vocab: ["arm of the sofa", "behind", "much taller"],
+    options: [
+      o(B2_BASE.sofaCat, true),
+      o(V(B2_BASE.sofaCat, function (s) { pick(s, "cat").x = 22; pick(s, "lamp").x = 8; })),
+      o(V(B2_BASE.sofaCat, function (s) { pick(s, "cat").c = "orange"; })),
+      o(V(B2_BASE.sofaCat, function (s) { pick(s, "lamp").s = 0.45; pick(s, "lamp").y = 78; })),
+      o(V(B2_BASE.sofaCat, function (s) { pick(s, "cat").y = 95; pick(s, "cat").x = 88; }))
+    ] },
+  { id: "b2_home_002", level: "B2", topic: "home", mode: "oddoneout", audio: "assets/b2/home_002.mp3",
+    script: "In three of these pictures there is exactly one chair standing at the table. Find the picture where that is not true.",
+    translations: { ru: "На трёх картинках у стола стоит ровно один стул. Найди картинку, где это не так.", kz: "Үш суретте үстелдің қасында тура бір орындық тұр. Олай емес суретті тап." },
+    vocab: ["exactly", "at the table"],
+    options: [
+      o(B2_BASE.oneChair),
+      o(V(B2_BASE.oneChair, function (s) { pick(s, "chair").c = "blue"; })),
+      o(V(B2_BASE.oneChair, function (s) { s.items.push({ i: "chair", x: 80, y: 94, s: 1.1, c: "orange", f: true }); }), true),
+      o(V(B2_BASE.oneChair, function (s) { pick(s, "chair").x = 78; pick(s, "chair").f = true; }))
+    ] },
+  { id: "b2_home_003", level: "B2", topic: "home", mode: "elimination", audio: "assets/b2/home_003.mp3",
+    script: "There are two plants in this room. The one by the window is the smaller of the two, and nothing else stands on the windowsill.",
+    chunks: ["There are two plants in this room...", "...the one by the window is the smaller of the two...", "...and nothing else stands on the windowsill."],
+    eliminate: [[3], [1], []],
+    translations: { ru: "В комнате два растения. То, что у окна, меньше, и на подоконнике больше ничего нет.", kz: "Бөлмеде екі өсімдік бар. Терезенің қасындағысы кішірек, ал терезе алдында басқа зат жоқ." },
+    vocab: ["the smaller of the two", "windowsill", "nothing else"],
+    options: [
+      o(B2_BASE.twoPlants, true),
+      o(V(B2_BASE.twoPlants, function (s) { s.items[1].s = 1.1; s.items[2].s = 0.7; })),
+      o(V(B2_BASE.twoPlants, function (s) { s.items.push({ i: "cup", x: 22, y: 56, s: 0.35, c: "red" }); })),
+      o(V(B2_BASE.twoPlants, function (s) { s.items.splice(2, 1); }))
+    ] },
+  { id: "b2_home_004", level: "B2", topic: "home", mode: "difference", audio: "assets/b2/home_004.mp3",
+    script: "In this picture the ball is behind the sofa, so you can only see a small part of it.",
+    translations: { ru: "На этой картинке мяч за диваном, поэтому виден только его небольшой кусочек.", kz: "Бұл суретте доп диванның артында, сондықтан оның кішкене бөлігі ғана көрінеді." },
+    vocab: ["behind", "only a part of it"],
+    options: [
+      o(B2_BASE.hiddenBall, true),
+      o(V(B2_BASE.hiddenBall, function (s) { var b = pick(s, "ball"); b.x = 66; b.y = 96; s.items.splice(0, 1); s.items.push(b); }))
+    ] },
+  { id: "b2_home_005", level: "B2", topic: "home", mode: "pinpoint", audio: "assets/b2/home_005.mp3",
+    script: "Somewhere behind the sofa, almost hidden, there is a child's yellow ball.",
+    translations: { ru: "Где-то за диваном, почти не видно, лежит детский жёлтый мяч.", kz: "Диванның артында, әрең көрінетін жерде, баланың сары добы жатыр." },
+    vocab: ["almost hidden", "behind", "child's"],
+    options: [
+      o(B2_BASE.hiddenBall, true, [{ x: 26, y: 82, r: 9, prompt: "Tap the yellow ball" }]),
+      o(V(B2_BASE.hiddenBall, function (s) { pick(s, "ball").c = "blue"; })),
+      o(V(B2_BASE.hiddenBall, function (s) { var b = pick(s, "ball"); b.x = 60; b.y = 96; s.items.splice(0, 1); s.items.push(b); })),
+      o(V(B2_BASE.hiddenBall, function (s) { pick(s, "ball").i = "hat"; pick(s, "hat").c = "yellow"; }))
+    ] },
+  { id: "b2_home_006", level: "B2", topic: "home", mode: "multipin", audio: "assets/b2/home_006.mp3",
+    script: "Point at the three things in this kitchen that are made of glass: the window, the mirror and the bottle.",
+    translations: { ru: "Отметь три предмета на этой кухне, которые сделаны из стекла: окно, зеркало и бутылку.", kz: "Осы ас үйдегі шыныдан жасалған үш затты белгіле: терезені, айнаны және бөтелкені." },
+    vocab: ["made of glass", "point at"],
+    options: [o(B2_BASE.glass, true, [
+      { x: 20, y: 46, r: 11, prompt: "Tap the window" },
+      { x: 50, y: 45, r: 10, prompt: "Tap the mirror" },
+      { x: 76, y: 68, r: 9, prompt: "Tap the bottle" }
+    ])] },
+  { id: "b2_home_007", level: "B2", topic: "home", mode: "sequence", audio: "assets/b2/home_007.mp3",
+    script: "He drops his bag in the hall without even taking his coat off. After that he puts the kettle on. Once the tea is ready he sits down at the table, and only then does he open his laptop on the sofa.",
+    chunks: ["He drops his bag in the hall.", "After that he puts the kettle on.", "Once the tea is ready he sits down at the table.", "Only then does he open his laptop on the sofa."],
+    translations: { ru: "Он бросает сумку в прихожей, даже не сняв пальто. Потом ставит чайник. Когда чай готов, садится за стол, и только потом открывает ноутбук на диване.", kz: "Ол пальтосын да шешпей, сөмкесін дәлізге тастайды. Содан кейін шәйнекті қояды. Шай дайын болғанда үстелге отырады, содан кейін ғана диванда ноутбугін ашады." },
+    vocab: ["after that", "once", "only then"],
+    options: [o(B2_BASE.q1, true), o(B2_BASE.q2, true), o(B2_BASE.q3, true), o(B2_BASE.q4, true)] },
+  { id: "b2_home_008", level: "B2", topic: "home", mode: "truefalse", tfAnswer: true, audio: "assets/b2/home_008.mp3",
+    script: "Although the table is laid for two people, only one chair has been left at it.",
+    translations: { ru: "Хотя стол накрыт на двоих, у него оставили только один стул.", kz: "Үстел екі адамға жайылғанымен, қасында бір орындық қалдырылған." },
+    vocab: ["although", "laid for two", "only one"],
+    options: [o(B2_BASE.setTable, true)] },
+  { id: "b2_home_009", level: "B2", topic: "home", mode: "classic", audio: "assets/b2/home_009.mp3",
+    script: "Someone has already eaten here: the plate is empty and the cup has been pushed to the far side of the table.",
+    translations: { ru: "Здесь уже поели: тарелка пустая, а чашку отодвинули на дальний край стола.", kz: "Бұл жерде тамақ ішіп үлгерген: табақ бос, ал кесе үстелдің шет жағына ысырылған." },
+    vocab: ["has already eaten", "empty", "pushed to the far side"],
+    options: [
+      o(B2_BASE.finished, true),
+      o(V(B2_BASE.finished, function (s) { pick(s, "cup").x = 52; })),
+      o(V(B2_BASE.finished, function (s) { s.items.splice(2, 0, { i: "apple", x: 44, y: 62, s: 0.3, c: "red" }); })),
+      o(V(B2_BASE.finished, function (s) { pick(s, "plate").i = "bowl"; pick(s, "bowl").c = "cyan"; }))
+    ] },
+  { id: "b2_home_010", level: "B2", topic: "home", mode: "pinpoint", audio: "assets/b2/home_010.mp3",
+    script: "The keys are not lying on the table any more — they are hanging on the wall, next to the door.",
+    translations: { ru: "Ключи больше не лежат на столе — они висят на стене рядом с дверью.", kz: "Кілттер енді үстелде жатпайды — олар есіктің қасындағы қабырғада ілулі." },
+    vocab: ["not any more", "hanging", "next to"],
+    options: [
+      o(B2_BASE.keysWall, true, [{ x: 52, y: 38, r: 10, prompt: "Tap the keys" }]),
+      o(V(B2_BASE.keysWall, function (s) { pick(s, "key").x = 22; pick(s, "key").y = 78; })),
+      o(V(B2_BASE.keysWall, function (s) { pick(s, "key").i = "picture"; pick(s, "picture").c = "wood"; }))
+    ] },
+  { id: "b2_home_011", level: "B2", topic: "home", mode: "difference", audio: "assets/b2/home_011.mp3",
+    script: "Here the dog is lying exactly between the sofa and the table, not next to either of them.",
+    translations: { ru: "Здесь собака лежит ровно между диваном и столом, а не рядом с одним из них.", kz: "Мұнда ит диван мен үстелдің тура ортасында жатыр, екеуінің де қасында емес." },
+    vocab: ["exactly between", "either of them"],
+    options: [
+      o(B2_BASE.dogBetween, true),
+      o(V(B2_BASE.dogBetween, function (s) { pick(s, "dog").x = 32; }))
+    ] },
+  { id: "b2_home_012", level: "B2", topic: "home", mode: "oddoneout", audio: "assets/b2/home_012.mp3",
+    script: "Three of these living rooms have a rug in front of the sofa. Choose the one that does not.",
+    translations: { ru: "В трёх этих гостиных перед диваном лежит ковёр. Выбери ту, где его нет.", kz: "Осы үш қонақ бөлмеде диванның алдында кілем жатыр. Кілемі жоқ бөлмені таңда." },
+    vocab: ["in front of", "rug"],
+    options: [
+      o(B2_BASE.rugRoom),
+      o(V(B2_BASE.rugRoom, function (s) { pick(s, "rug").c = "cyan"; })),
+      o(V(B2_BASE.rugRoom, function (s) { pick(s, "rug").s = 0.8; })),
+      o(V(B2_BASE.rugRoom, function (s) { s.items.splice(0, 1); }), true)
+    ] }
+];
+
+/* ============================ C1 · home ============================ */
+var C1_BASE = {
+  disappointed: sc("kitchen", [
+    { i: "table", x: 52, y: 92, s: 1.7, c: "wood" },
+    { i: "plate", x: 46, y: 65, s: 0.7, c: "white" },
+    { i: "cup", x: 76, y: 65, s: 0.5, c: "white" },
+    { i: "person", x: 16, y: 92, s: 1.4, c: "navy", m: "sad" }
+  ]),
+  cosy: sc("living", [
+    { i: "sofa", x: 46, y: 88, s: 1.7, c: "purple" },
+    { i: "lamp", x: 88, y: 92, s: 1.0, c: "gold" },
+    { i: "book", x: 18, y: 95, s: 0.5, c: "red" },
+    { i: "cat", x: 62, y: 72, s: 0.45, c: "white" }
+  ]),
+  clutter: sc("hall", [
+    { i: "table", x: 24, y: 94, s: 1.0, c: "wood" },
+    { i: "key", x: 24, y: 78, s: 0.4, c: "silver" },
+    { i: "phone", x: 46, y: 96, s: 0.45, c: "black" },
+    { i: "bag", x: 68, y: 96, s: 0.7, c: "brown" },
+    { i: "umbrella", x: 88, y: 94, s: 0.8, c: "navy" }
+  ]),
+  leaving: sc("hall", [
+    { i: "door", x: 72, y: 96, s: 1.4, c: "brown" },
+    { i: "person", x: 40, y: 94, s: 1.4, c: "orange", m: "neutral" },
+    { i: "bag", x: 18, y: 96, s: 0.7, c: "brown" }
+  ]),
+  r1: sc("bedroom", [{ i: "bed", x: 46, y: 94, s: 1.6, c: "cyan" }, { i: "person", x: 84, y: 94, s: 1.2, c: "pink", m: "sad" }]),
+  r2: sc("bedroom", [{ i: "person", x: 30, y: 94, s: 1.3, c: "pink" }, { i: "window", x: 74, y: 56, s: 1.2, c: "cream" }]),
+  r3: sc("kitchen", [{ i: "person", x: 28, y: 92, s: 1.3, c: "pink" }, { i: "kettle", x: 66, y: 70, s: 0.5, c: "red" }, { i: "table", x: 66, y: 92, s: 1.3, c: "wood" }]),
+  r4: sc("hall", [{ i: "door", x: 74, y: 96, s: 1.3, c: "brown" }, { i: "person", x: 38, y: 94, s: 1.3, c: "pink", m: "happy" }, { i: "bag", x: 14, y: 96, s: 0.6, c: "brown" }]),
+  quiet: sc("living", [
+    { i: "sofa", x: 40, y: 90, s: 1.5, c: "silver" },
+    { i: "laptop", x: 78, y: 74, s: 0.5, c: "silver" },
+    { i: "table", x: 78, y: 92, s: 1.1, c: "wood" },
+    { i: "plant", x: 12, y: 94, s: 0.8, c: "green" }
+  ]),
+  tidy: sc("bedroom", [
+    { i: "bed", x: 44, y: 94, s: 1.7, c: "cyan" },
+    { i: "lamp", x: 86, y: 93, s: 0.8, c: "gold" },
+    { i: "book", x: 86, y: 72, s: 0.35, c: "blue" }
+  ]),
+  workspace: sc("classroom", [
+    { i: "table", x: 50, y: 92, s: 1.8, c: "wood" },
+    { i: "laptop", x: 40, y: 66, s: 0.7, c: "silver" },
+    { i: "cup", x: 72, y: 66, s: 0.45, c: "red" },
+    { i: "book", x: 20, y: 66, s: 0.4, c: "green" }
+  ])
+};
+
+var SET_C1 = [
+  { id: "c1_home_001", level: "C1", topic: "home", mode: "classic", accent: "US", audio: "assets/c1/home_001.mp3",
+    script: "Judging by the empty plate and the cup pushed right to the edge of the table, the man has clearly finished his breakfast — and he doesn't look particularly happy about the day ahead.",
+    translations: { ru: "Судя по пустой тарелке и чашке, отодвинутой к самому краю стола, мужчина уже закончил завтрак — и, похоже, предстоящий день его не радует.", kz: "Бос табақ пен үстелдің шетіне ысырылған кесеге қарағанда, ер адам таңғы асын ішіп бітірген — және алдағы күн оны қуантып тұрған жоқ." },
+    vocab: ["judging by", "pushed to the edge", "clearly", "the day ahead"],
+    options: [
+      o(C1_BASE.disappointed, true),
+      o(V(C1_BASE.disappointed, function (s) { pick(s, "person").m = "happy"; })),
+      o(V(C1_BASE.disappointed, function (s) { pick(s, "cup").x = 52; })),
+      o(V(C1_BASE.disappointed, function (s) { s.items.splice(2, 0, { i: "bread", x: 46, y: 62, s: 0.3, c: "cream" }); }))
+    ] },
+  { id: "c1_home_002", level: "C1", topic: "home", mode: "difference", accent: "UK", audio: "assets/c1/home_002.mp3",
+    script: "What gives this room its cosy feel is the lamp left on in the corner — in the other picture the same corner is empty.",
+    translations: { ru: "Уют этой комнате придаёт лампа, оставленная включённой в углу, — на другой картинке этот угол пустой.", kz: "Бұл бөлмеге жайлылық сыйлайтын нәрсе — бұрышта қалдырылған шам; екінші суретте сол бұрыш бос." },
+    vocab: ["cosy", "left on", "corner"],
+    options: [
+      o(C1_BASE.cosy, true),
+      o(V(C1_BASE.cosy, function (s) { s.items.splice(1, 1); }))
+    ] },
+  { id: "c1_home_003", level: "C1", topic: "home", mode: "pinpoint", accent: "AUS", audio: "assets/c1/home_003.mp3",
+    script: "Of all the things dropped in the hallway, the one its owner will be looking for first is almost certainly the phone.",
+    translations: { ru: "Из всего, что брошено в прихожей, владелец первым делом будет искать, скорее всего, телефон.", kz: "Дәлізге тасталған заттардың ішінен иесі бірінші болып іздейтіні — телефон." },
+    vocab: ["dropped", "its owner", "almost certainly"],
+    options: [
+      o(C1_BASE.clutter, true, [{ x: 46, y: 90, r: 9, prompt: "Tap the phone" }]),
+      o(V(C1_BASE.clutter, function (s) { pick(s, "phone").i = "book"; pick(s, "book").c = "navy"; })),
+      o(V(C1_BASE.clutter, function (s) { s.items.splice(2, 1); }))
+    ] },
+  { id: "c1_home_004", level: "C1", topic: "home", mode: "elimination", accent: "UK", audio: "assets/c1/home_004.mp3",
+    script: "He is not coming in — he is on his way out. His bag is already by the wall behind him, and the door in front of him is still shut.",
+    chunks: ["He is not coming in — he is on his way out...", "...his bag is already by the wall behind him...", "...and the door in front of him is still shut."],
+    eliminate: [[3], [1], []],
+    translations: { ru: "Он не входит — он уходит. Сумка уже стоит у стены позади него, а дверь перед ним ещё закрыта.", kz: "Ол кіріп келе жатқан жоқ — шығып барады. Сөмкесі артындағы қабырғаның қасында тұр, ал алдындағы есік әлі жабық." },
+    vocab: ["on his way out", "behind him", "still shut"],
+    options: [
+      o(C1_BASE.leaving, true),
+      o(V(C1_BASE.leaving, function (s) { pick(s, "bag").x = 58; })),
+      o(V(C1_BASE.leaving, function (s) { pick(s, "person").f = true; pick(s, "person").x = 58; })),
+      o(V(C1_BASE.leaving, function (s) { pick(s, "door").i = "window"; pick(s, "window").y = 62; }))
+    ] },
+  { id: "c1_home_005", level: "C1", topic: "home", mode: "oddoneout", accent: "US", audio: "assets/c1/home_005.mp3",
+    script: "Three of these bedrooms look as though somebody has just tidied them. Pick out the one that doesn't.",
+    translations: { ru: "Три из этих спален выглядят так, будто их только что убрали. Выбери ту, о которой этого не скажешь.", kz: "Осы жатын бөлмелердің үшеуі жаңа жинастырылған сияқты. Олай емесін таңда." },
+    vocab: ["as though", "tidy up", "pick out"],
+    options: [
+      o(C1_BASE.tidy),
+      o(V(C1_BASE.tidy, function (s) { pick(s, "bed").c = "purple"; })),
+      o(V(C1_BASE.tidy, function (s) { s.items.push({ i: "shoe", x: 16, y: 96, s: 0.55, c: "black" }, { i: "bag", x: 66, y: 96, s: 0.6, c: "brown" }); }), true),
+      o(V(C1_BASE.tidy, function (s) { pick(s, "lamp").x = 12; pick(s, "book").x = 12; }))
+    ] },
+  { id: "c1_home_006", level: "C1", topic: "home", mode: "sequence", accent: "UK", audio: "assets/c1/home_006.mp3",
+    script: "She wakes up long before the alarm and lies there for a while. Eventually she gets up and opens the curtains. Only after her first coffee does she feel human again, and by half past eight she is out of the door.",
+    chunks: ["She wakes up long before the alarm.", "Eventually she gets up and opens the curtains.", "Only after her first coffee does she feel human again.", "By half past eight she is out of the door."],
+    translations: { ru: "Она просыпается задолго до будильника и какое-то время лежит. В конце концов встаёт и открывает шторы. Только после первой чашки кофе снова чувствует себя человеком, а к половине девятого уже выходит за дверь.", kz: "Ол оятқыштан көп бұрын оянып, біраз жатады. Ақыры тұрып, перденi ашады. Бірінші кофесінен кейін ғана өзін адам сезінеді, ал сегіз жарымда есіктен шығып кетеді." },
+    vocab: ["long before", "eventually", "only after", "by half past"],
+    options: [o(C1_BASE.r1, true), o(C1_BASE.r2, true), o(C1_BASE.r3, true), o(C1_BASE.r4, true)] },
+  { id: "c1_home_007", level: "C1", topic: "home", mode: "multipin", accent: "US", audio: "assets/c1/home_007.mp3",
+    script: "Someone has clearly been working from home here. Point at the three giveaways: the laptop, the coffee cup and the notebook on the desk.",
+    translations: { ru: "Здесь явно работали из дома. Отметь три признака: ноутбук, чашку кофе и блокнот на столе.", kz: "Бұл жерде үйден жұмыс істегені анық. Үш белгіні белгіле: ноутбук, кофе кесесі және үстелдегі дәптер." },
+    vocab: ["work from home", "giveaway", "desk"],
+    options: [o(C1_BASE.workspace, true, [
+      { x: 40, y: 58, r: 10, prompt: "Tap the laptop" },
+      { x: 72, y: 60, r: 9, prompt: "Tap the coffee cup" },
+      { x: 20, y: 61, r: 9, prompt: "Tap the notebook" }
+    ])] },
+  { id: "c1_home_008", level: "C1", topic: "home", mode: "truefalse", tfAnswer: false, accent: "AUS", audio: "assets/c1/home_008.mp3",
+    script: "There is nothing in this room to suggest that anybody has been sitting here recently.",
+    translations: { ru: "В этой комнате ничто не говорит о том, что здесь недавно кто-то сидел.", kz: "Бұл бөлмеде жақында біреу отырғанын білдіретін ештеңе жоқ." },
+    vocab: ["nothing to suggest", "recently"],
+    options: [o(C1_BASE.quiet, true)] },
+  { id: "c1_home_009", level: "C1", topic: "home", mode: "classic", accent: "UK", audio: "assets/c1/home_009.mp3",
+    script: "The laptop is still open on the side table, which suggests whoever was working here has only stepped out for a moment.",
+    translations: { ru: "Ноутбук всё ещё открыт на боковом столике — значит, тот, кто здесь работал, отошёл лишь на минуту.", kz: "Ноутбук әлі де бүйірдегі үстелде ашық тұр — демек, мұнда жұмыс істеген адам бір мезетке ғана шығып кеткен." },
+    vocab: ["still open", "which suggests", "step out"],
+    options: [
+      o(C1_BASE.quiet, true),
+      o(V(C1_BASE.quiet, function (s) { s.items.splice(1, 1); })),
+      o(V(C1_BASE.quiet, function (s) { pick(s, "laptop").y = 96; pick(s, "laptop").x = 58; })),
+      o(V(C1_BASE.quiet, function (s) { pick(s, "laptop").i = "book"; pick(s, "book").c = "navy"; }))
+    ] },
+  { id: "c1_home_010", level: "C1", topic: "home", mode: "difference", accent: "US", audio: "assets/c1/home_010.mp3",
+    script: "The difference is subtle: in this one the cup sits beside the laptop rather than on the far side of the desk.",
+    translations: { ru: "Отличие едва заметное: здесь чашка стоит рядом с ноутбуком, а не на дальнем краю стола.", kz: "Айырмашылық байқаусыз: мұнда кесе үстелдің шетінде емес, ноутбуктің қасында тұр." },
+    vocab: ["subtle", "beside", "rather than"],
+    options: [
+      o(V(C1_BASE.workspace, function (s) { pick(s, "cup").x = 54; }), true),
+      o(C1_BASE.workspace)
+    ] },
+  { id: "c1_home_011", level: "C1", topic: "home", mode: "pinpoint", accent: "UK", audio: "assets/c1/home_011.mp3",
+    script: "The one thing in this bedroom that nobody would have put there on purpose is the pair of shoes.",
+    translations: { ru: "Единственное, что в этой спальне никто не поставил бы туда специально, — пара обуви.", kz: "Бұл жатын бөлмеде әдейі қойылмағаны анық зат — аяқ киім." },
+    vocab: ["on purpose", "the one thing", "a pair of"],
+    options: [
+      o(V(C1_BASE.tidy, function (s) { s.items.push({ i: "shoe", x: 16, y: 96, s: 0.6, c: "black" }); }), true,
+        [{ x: 16, y: 90, r: 10, prompt: "Tap the shoes" }]),
+      o(C1_BASE.tidy),
+      o(V(C1_BASE.tidy, function (s) { s.items.push({ i: "book", x: 16, y: 96, s: 0.5, c: "red" }); }))
+    ] },
+  { id: "c1_home_012", level: "C1", topic: "home", mode: "classic", accent: "AUS", audio: "assets/c1/home_012.mp3",
+    script: "What strikes you first is how little there is in the hallway: a small table with the keys on it, and that is about it.",
+    translations: { ru: "Первое, что бросается в глаза, — как мало вещей в прихожей: маленький столик с ключами, и, пожалуй, всё.", kz: "Алдымен көзге түсетіні — дәлізде заттың аздығы: кілт қойылған кішкене үстел, болды." },
+    vocab: ["what strikes you", "how little", "that is about it"],
+    options: [
+      o(V(B2_BASE.keysWall, function (s) { s.items.splice(1, 1); s.items.push({ i: "key", x: 22, y: 78, s: 0.4, c: "silver" }); }), true),
+      o(C1_BASE.clutter),
+      o(V(B2_BASE.keysWall, function (s) { s.items.push({ i: "umbrella", x: 50, y: 94, s: 0.8, c: "navy" }, { i: "shoe", x: 38, y: 96, s: 0.55, c: "black" }); })),
+      o(V(B2_BASE.keysWall, function (s) { s.items.splice(1, 1); }))
+    ] }
+];
+
+/* ---- the single flat content array ---- */
+var CONTENT = [].concat(SET_A0, SET_A1, SET_A2, SET_B1, SET_B2, SET_C1);
+
+/* Topics that exist in the UI. Empty ones are shown as "soon". */
+var TOPICS = ["home", "food", "city", "people", "nature", "school", "work"];
+var LEVELS = ["A0", "A1", "A2", "B1", "B2", "C1"];
+
+/* ---------------------------------------------------------------------
+   4. Store — language, speed, theme and per-topic progress survive reload
+   --------------------------------------------------------------------- */
+var K_LANG = "jts_lc_lang", K_RATE = "jts_lc_rate", K_THEME = "jts_lc_theme", K_PROG = "jts_lc_progress";
+var Store = {
+  get: function (k, d) {
+    try { var v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); }
+    catch (e) { return d; }
+  },
+  set: function (k, v) {
+    try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* private mode */ }
+  },
+  del: function (k) { try { localStorage.removeItem(k); } catch (e) {} }
+};
+
+/* ---------------------------------------------------------------------
+   5. Sfx — two short, quiet, explainable cues. Nothing else ever sounds.
+   --------------------------------------------------------------------- */
+var Sfx = {
+  ctx: null,
+  ac: function () {
+    if (!this.ctx) {
+      var C = window.AudioContext || window.webkitAudioContext;
+      if (!C) return null;
+      this.ctx = new C();
+    }
+    if (this.ctx.state === "suspended") this.ctx.resume();
+    return this.ctx;
+  },
+  blip: function (freqs, gain, dur) {
+    var c = this.ac();
+    if (!c) return;
+    var t0 = c.currentTime;
+    freqs.forEach(function (f, i) {
+      var osc = c.createOscillator(), g = c.createGain();
+      osc.type = "sine";
+      osc.frequency.value = f;
+      g.gain.setValueAtTime(0, t0 + i * 0.08);
+      g.gain.linearRampToValueAtTime(gain, t0 + i * 0.08 + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + i * 0.08 + dur);
+      osc.connect(g); g.connect(c.destination);
+      osc.start(t0 + i * 0.08); osc.stop(t0 + i * 0.08 + dur + 0.02);
+    });
+  },
+  ok: function () { this.blip([660, 880], 0.07, 0.16); },
+  wrong: function () { this.blip([220], 0.05, 0.18); }
+};
+
+/* ---------------------------------------------------------------------
+   6. AudioEngine
+      - exactly one source may sound at a time
+      - real file first, speechSynthesis as the guaranteed fallback
+      - playbackRate + preservesPitch, seekable progress bar
+   --------------------------------------------------------------------- */
+var ACCENT_LANG = { US: "en-US", UK: "en-GB", AUS: "en-AU" };
+var RATE_STEPS = [0.5, 0.75, 1, 1.25];
+
+var AudioEngine = {
+  el: null,
+  rate: 1,
+  mode: "idle",        /* idle | file | tts */
+  onEnd: null,
+  raf: 0,
+  guard: 0,
+  ttsStart: 0,
+  ttsDur: 1,
+  current: null,
+  ui: {},
+
+  init: function (ui) {
+    this.ui = ui;
+    this.el = new Audio();
+    this.el.preload = "auto";
+    var self = this;
+    this.el.addEventListener("timeupdate", function () {
+      if (self.el.duration) self.paint(self.el.currentTime / self.el.duration);
+    });
+    this.el.addEventListener("ended", function () { self.finish(); });
+    this.el.addEventListener("error", function () { self.fileFailed(); });
+    this.el.addEventListener("playing", function () { self.setBusy(true); self.status(""); });
+  },
+
+  setRate: function (r) {
+    this.rate = r;
+    Store.set(K_RATE, r);
+    try {
+      this.el.playbackRate = r;
+      this.el.preservesPitch = true;
+      this.el.mozPreservesPitch = true;
+      this.el.webkitPreservesPitch = true;
+    } catch (e) {}
+    if (this.mode === "tts" && this.current) this.play(this.current); /* restart TTS at new rate */
+  },
+
+  stop: function () {
+    try { this.el.pause(); this.el.currentTime = 0; } catch (e) {}
+    if (window.speechSynthesis) { try { window.speechSynthesis.cancel(); } catch (e) {} }
+    clearTimeout(this.guard);
+    cancelAnimationFrame(this.raf);
+    this.mode = "idle";
+    this.setBusy(false);
+    this.paint(0);
+  },
+
+  /* spec: { src, text, accent, onEnd } */
+  play: function (spec) {
+    this.stop();
+    this.current = spec;
+    this.onEnd = spec.onEnd || null;
+    if (spec.src) {
+      this.mode = "file";
+      this.status(t("audio.loading"));
+      this.el.src = spec.src;
+      this.setRate(this.rate);
+      var p = this.el.play();
+      if (p && p.catch) { var self = this; p.catch(function () { self.fileFailed(); }); }
+    } else {
+      this.speak(spec);
+    }
+  },
+
+  fileFailed: function () {
+    if (this.mode !== "file") return;
+    this.status(this.current && this.current.src ? t("audio.error") : t("audio.tts"), true);
+    this.speak(this.current || {});
+  },
+
+  speak: function (spec) {
+    var synth = window.speechSynthesis;
+    var text = spec.text || "";
+    if (!synth || !text) { this.status(t("audio.error"), true); this.finish(); return; }
+    this.mode = "tts";
+    if (!this.current || !this.current.src) this.status(t("audio.tts"));
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = ACCENT_LANG[spec.accent] || "en-US";
+    u.rate = Math.max(0.1, Math.min(10, 0.9 * this.rate));
+    u.pitch = 1;
+    var vs = synth.getVoices() || [];
+    for (var i = 0; i < vs.length; i++) {
+      if (vs[i].lang && vs[i].lang.replace("_", "-").toLowerCase() === u.lang.toLowerCase()) { u.voice = vs[i]; break; }
+    }
+    if (!u.voice) {
+      for (var j = 0; j < vs.length; j++) {
+        if (vs[j].lang && vs[j].lang.toLowerCase().indexOf("en") === 0) { u.voice = vs[j]; break; }
+      }
+    }
+    var self = this;
+    u.onend = function () { self.finish(); };
+    u.onerror = function () { self.finish(); };
+    /* estimate duration for the progress bar: ~2.6 words per second at 1x */
+    var words = text.split(/\s+/).filter(Boolean).length || 1;
+    this.ttsDur = Math.max(1, words / (2.6 * this.rate));
+    this.ttsStart = performance.now();
+    this.setBusy(true);
+    try { synth.speak(u); } catch (e) { this.finish(); return; }
+    /* Watchdog: some engines never fire onend (or have no installed voice at
+       all). Without it a chunked round could stall forever. */
+    clearTimeout(this.guard);
+    this.guard = setTimeout(function () { if (self.mode === "tts") self.finish(); },
+      this.ttsDur * 1000 * 1.6 + 2500);
+    var tick = function () {
+      if (self.mode !== "tts") return;
+      var p = (performance.now() - self.ttsStart) / 1000 / self.ttsDur;
+      self.paint(Math.min(1, p));
+      if (p < 1) self.raf = requestAnimationFrame(tick);
+    };
+    this.raf = requestAnimationFrame(tick);
+  },
+
+  finish: function () {
+    clearTimeout(this.guard);
+    cancelAnimationFrame(this.raf);
+    this.paint(1);
+    this.mode = "idle";
+    this.setBusy(false);
+    var cb = this.onEnd;
+    this.onEnd = null;
+    if (cb) cb();
+  },
+
+  seek: function (pct) {
+    if (this.mode === "file" && this.el.duration) {
+      this.el.currentTime = Math.max(0, Math.min(1, pct)) * this.el.duration;
+      this.paint(pct);
+    }
+  },
+
+  seekable: function () { return this.mode === "file" && !!this.el.duration; },
+
+  paint: function (p) {
+    if (this.ui.played) this.ui.played.style.width = (Math.max(0, Math.min(1, p)) * 100).toFixed(1) + "%";
+    if (this.ui.track) this.ui.track.setAttribute("aria-valuenow", Math.round(Math.max(0, Math.min(1, p)) * 100));
+  },
+  setBusy: function (on) { if (this.ui.box) this.ui.box.classList.toggle("is-playing", !!on); },
+  status: function (msg, isErr) {
+    if (!this.ui.status) return;
+    this.ui.status.textContent = msg || "";
+    this.ui.status.classList.toggle("is-error", !!isErr);
+  }
+};
+
+/* ---------------------------------------------------------------------
+   7. Adaptive — pure functions, unit-checked in the console.
+      Three correct in a row: speed up one step, harder distractor pool.
+      Two wrong in a row: speed down one step, fewer options.
+   --------------------------------------------------------------------- */
+function defaultRate(level) { return level === "A0" ? 0.75 : 1; }
+function replayLimit(level) { return (level === "B2" || level === "C1") ? 2 : Infinity; }
+function optionCap(level) {
+  return { A0: 3, A1: 4, A2: 4, B1: 6, B2: 6, C1: 6 }[level] || 4;
+}
+function stepRate(rate, dir) {
+  var i = RATE_STEPS.indexOf(rate);
+  if (i < 0) i = RATE_STEPS.indexOf(1);
+  return RATE_STEPS[Math.max(0, Math.min(RATE_STEPS.length - 1, i + dir))];
+}
+/* state: {rate, streak, wrongStreak, cap, bestStreak, hardPool} */
+function adapt(state, correct) {
+  var s = {
+    rate: state.rate, streak: state.streak, wrongStreak: state.wrongStreak,
+    cap: state.cap, bestStreak: state.bestStreak, hardPool: state.hardPool, minCap: state.minCap || 2
+  };
+  if (correct) {
+    s.streak = state.streak + 1;
+    s.wrongStreak = 0;
+    if (s.streak > s.bestStreak) s.bestStreak = s.streak;
+    if (s.streak % 3 === 0) { s.rate = stepRate(s.rate, +1); s.hardPool = true; }
+  } else {
+    s.wrongStreak = state.wrongStreak + 1;
+    s.streak = 0;
+    if (s.wrongStreak % 2 === 0) { s.rate = stepRate(s.rate, -1); s.cap = Math.max(s.minCap, s.cap - 1); s.hardPool = false; }
+  }
+  return s;
+}
+function freshAdaptState(level) {
+  return { rate: defaultRate(level), streak: 0, wrongStreak: 0, cap: optionCap(level), bestStreak: 0, hardPool: false, minCap: 2 };
+}
+
+/* --- console unit checks for the adaptive rules --- */
+function runSelfTests() {
+  var fails = [];
+  var ck = function (name, got, want) {
+    if (JSON.stringify(got) !== JSON.stringify(want)) fails.push(name + ": got " + JSON.stringify(got) + ", want " + JSON.stringify(want));
+  };
+  ck("stepRate up from 0.75", stepRate(0.75, +1), 1);
+  ck("stepRate clamps at top", stepRate(1.25, +1), 1.25);
+  ck("stepRate clamps at bottom", stepRate(0.5, -1), 0.5);
+
+  var s = freshAdaptState("A2");
+  ck("A2 starts at 1x", s.rate, 1);
+  ck("A2 cap", s.cap, 4);
+  s = adapt(s, true); s = adapt(s, true);
+  ck("two correct keeps rate", s.rate, 1);
+  s = adapt(s, true);
+  ck("three correct raises rate", s.rate, 1.25);
+  ck("three correct arms hard pool", s.hardPool, true);
+  ck("best streak tracked", s.bestStreak, 3);
+
+  s = adapt(s, false);
+  ck("one wrong keeps rate", s.rate, 1.25);
+  ck("one wrong resets streak", s.streak, 0);
+  s = adapt(s, false);
+  ck("two wrong lowers rate", s.rate, 1);
+  ck("two wrong narrows options", s.cap, 3);
+
+  var low = freshAdaptState("A0");
+  ck("A0 starts slower", low.rate, 0.75);
+  low = adapt(low, false); low = adapt(low, false);
+  ck("A0 floors at 0.5", low.rate, 0.5);
+  low = adapt(low, false); low = adapt(low, false);
+  ck("cap never drops below 2", low.cap, 2);
+
+  ck("A0 replays unlimited", replayLimit("A0") === Infinity, true);
+  ck("B2 replays limited", replayLimit("B2"), 2);
+
+  /* content integrity: every round must have exactly one correct option
+     (sequence rounds mark all of them, by design) */
+  CONTENT.forEach(function (r) {
+    var n = r.options.filter(function (x) { return x.correct; }).length;
+    if (r.mode === "sequence") {
+      if (n !== r.options.length) fails.push(r.id + ": sequence options must all be marked correct");
+    } else if (n !== 1) {
+      fails.push(r.id + ": expected 1 correct option, found " + n);
+    }
+    if (r.mode === "multipin" && (!r.options[0].hotspots || r.options[0].hotspots.length < 2)) {
+      fails.push(r.id + ": multipin needs at least two hotspots");
+    }
+    if (r.mode === "pinpoint") {
+      var c = r.options.filter(function (x) { return x.correct; })[0];
+      if (!c.hotspots || !c.hotspots.length) fails.push(r.id + ": pinpoint needs a hotspot on the correct option");
+    }
+    if (r.mode === "elimination" && (!r.chunks || !r.eliminate || r.eliminate.length !== r.chunks.length)) {
+      fails.push(r.id + ": elimination needs eliminate[] aligned to chunks[]");
+    }
+    (r.options || []).forEach(function (op) {
+      (op.hotspots || []).forEach(function (h) {
+        if (h.r < 8) fails.push(r.id + ": hotspot radius " + h.r + "% is below the 8% minimum");
+      });
+    });
+    if (!r.translations || !r.translations.ru || !r.translations.kz) fails.push(r.id + ": missing translation");
+  });
+
+  /* i18n integrity: all three dictionaries must cover the same keys */
+  var base = Object.keys(I18N.en);
+  LANGS.forEach(function (l) {
+    base.forEach(function (k) { if (I18N[l][k] === undefined) fails.push("i18n " + l + " missing key " + k); });
+    Object.keys(I18N[l]).forEach(function (k) { if (I18N.en[k] === undefined) fails.push("i18n en missing key " + k); });
+  });
+
+  if (fails.length) {
+    console.error("[JTS] self-tests FAILED (" + fails.length + "):");
+    fails.forEach(function (f) { console.error("  · " + f); });
+  } else {
+    console.log("%c[JTS] self-tests passed · " + CONTENT.length + " rounds · " + LANGS.length + " languages",
+      "color:#00D441;font-weight:bold");
+  }
+  return fails;
+}
+
+/* ---------------------------------------------------------------------
+   8. App — screens, rounds, the eight modes, result
+   --------------------------------------------------------------------- */
+var D = {};
+function $(id) { return document.getElementById(id); }
+function el(tag, cls, txt) {
+  var n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (txt !== undefined) n.textContent = txt;
+  return n;
+}
+function shuffle(a) {
+  var r = a.slice();
+  for (var i = r.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = r[i]; r[i] = r[j]; r[j] = tmp;
+  }
+  return r;
+}
+function buzz(ms) { try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) {} }
+
+var App = {
+  lang: "ru",
+  level: "A2",
+  topic: "home",
+  screen: "start",
+  queue: [],
+  idx: 0,
+  ad: null,
+  log: [],
+  score: 0,
+  round: null,
+  SESSION_SIZE: 12
+};
+
+/* ---------- content helpers ---------- */
+function roundsFor(level, topic) {
+  return CONTENT.filter(function (r) { return r.level === level && r.topic === topic; });
+}
+/* Alternate modes so the same mode never repeats back to back. */
+function alternateModes(list) {
+  var pool = list.slice(), out = [], last = null;
+  while (pool.length) {
+    var k = -1;
+    for (var i = 0; i < pool.length; i++) { if (pool[i].mode !== last) { k = i; break; } }
+    if (k < 0) k = 0;
+    last = pool[k].mode;
+    out.push(pool.splice(k, 1)[0]);
+  }
+  return out;
+}
+function buildQueue(level, topic, size) {
+  var pool = roundsFor(level, topic);
+  if (!pool.length) return [];
+  return alternateModes(shuffle(pool)).slice(0, size || App.SESSION_SIZE);
+}
+/* Trim distractors to the adaptive cap.
+   Authoring convention: the FIRST distractors differ by a single attribute
+   (hardest), later ones differ more obviously. So a "similar" pool keeps the
+   front of the list, an easier pool keeps the back. */
+function visibleOptions(data, cap, hardPool) {
+  var opts = data.options.map(function (op, i) { return { op: op, i: i }; });
+  if (data.mode === "sequence" || data.mode === "multipin" || data.mode === "truefalse") return opts;
+  if (opts.length <= cap) return opts;
+  var correct = opts.filter(function (x) { return x.op.correct; });
+  var others = opts.filter(function (x) { return !x.op.correct; });
+  var need = Math.max(1, cap - correct.length);
+  var keep = hardPool ? others.slice(0, need) : others.slice(-need);
+  return correct.concat(keep).sort(function (a, b) { return a.i - b.i; });
+}
+
+/* ---------- i18n plumbing ---------- */
+function setLang(lang) {
+  App.lang = LANGS.indexOf(lang) >= 0 ? lang : "ru";
+  Store.set(K_LANG, App.lang);
+  document.documentElement.setAttribute("lang", App.lang);
+  document.documentElement.setAttribute("data-lang", App.lang);
+  Array.prototype.forEach.call(D.langSwitch.querySelectorAll("button"), function (b) {
+    b.setAttribute("aria-pressed", b.dataset.lang === App.lang ? "true" : "false");
+  });
+  applyI18N();
+}
+function applyI18N() {
+  Array.prototype.forEach.call(document.querySelectorAll("[data-i18n]"), function (n) {
+    n.textContent = t(n.dataset.i18n);
+  });
+  renderChips();
+  if (App.screen === "session" && App.round) refreshRoundChrome();
+  if (App.screen === "result") renderResult();
+}
+
+/* ---------- start screen ---------- */
+function progressKey(level, topic) { return level + "|" + topic; }
+function getProgress() { return Store.get(K_PROG, {}) || {}; }
+function renderChips() {
+  if (!D.levelChips) return;
+  var prog = getProgress();
+  D.levelChips.innerHTML = "";
+  LEVELS.forEach(function (lv) {
+    var b = el("button", "chip");
+    b.type = "button";
+    b.setAttribute("aria-pressed", lv === App.level ? "true" : "false");
+    b.appendChild(el("span", null, lv));
+    var hint = LEVEL_HINTS[lv] ? LEVEL_HINTS[lv][App.lang] : "";
+    var p = prog[progressKey(lv, App.topic)];
+    b.appendChild(el("span", "chip__meta", p ? p.best + "/" + p.total : hint));
+    b.addEventListener("click", function () { App.level = lv; renderChips(); });
+    D.levelChips.appendChild(b);
+  });
+  D.topicChips.innerHTML = "";
+  TOPICS.forEach(function (tp) {
+    var has = roundsFor(App.level, tp).length > 0;
+    var b = el("button", "chip");
+    b.type = "button";
+    b.disabled = !has;
+    b.setAttribute("aria-pressed", tp === App.topic ? "true" : "false");
+    b.appendChild(el("span", null, TOPIC_NAMES[tp][App.lang]));
+    if (!has) b.appendChild(el("span", "chip__meta", t("start.soon")));
+    b.addEventListener("click", function () { App.topic = tp; renderChips(); });
+    D.topicChips.appendChild(b);
+  });
+}
+
+function showScreen(name) {
+  App.screen = name;
+  D.screenStart.hidden = name !== "start";
+  D.screenSession.hidden = name !== "session";
+  D.screenResult.hidden = name !== "result";
+  window.scrollTo(0, 0);
+}
+
+/* ---------- session ---------- */
+function startSession(queue) {
+  App.queue = queue && queue.length ? queue : buildQueue(App.level, App.topic);
+  if (!App.queue.length) { toast(t("toast.noContent")); return; }
+  App.idx = 0;
+  App.log = [];
+  App.score = 0;
+  App.ad = freshAdaptState(App.level);
+  var saved = Store.get(K_RATE, null);
+  if (saved && RATE_STEPS.indexOf(saved) >= 0) App.ad.rate = saved;
+  AudioEngine.rate = App.ad.rate;
+  showScreen("session");
+  renderRound();
+}
+
+function refreshRoundChrome() {
+  var r = App.round;
+  if (!r) return;
+  D.hudCounter.textContent = (App.idx + 1) + " / " + App.queue.length;
+  D.hudMode.textContent = t("mode." + r.data.mode);
+  D.hudScore.textContent = App.score;
+  D.hudStreak.hidden = App.ad.streak < 2;
+  D.hudStreak.textContent = "🔥 " + App.ad.streak;
+  D.hudBar.style.transform = "scaleX(" + (App.idx / App.queue.length) + ")";
+  D.taskPromptText.textContent = t("task." + r.data.mode);
+  D.btnTranscript.firstElementChild.textContent =
+    r.finished ? (D.transcript.classList.contains("is-open") ? t("session.transcriptHide") : t("session.transcript"))
+               : t("session.locked");
+  paintSpeed();
+  paintReplay();
+}
+
+function paintSpeed() {
+  Array.prototype.forEach.call(D.speedSwitch.querySelectorAll("button"), function (b) {
+    b.setAttribute("aria-pressed", parseFloat(b.dataset.rate) === AudioEngine.rate ? "true" : "false");
+  });
+}
+function paintReplay() {
+  var r = App.round;
+  if (!r) return;
+  var lim = replayLimit(r.data.level);
+  if (lim === Infinity) { D.audioLeft.textContent = ""; D.btnReplay.disabled = false; return; }
+  var left = Math.max(0, lim - r.listens);
+  D.audioLeft.textContent = left > 0 ? t("audio.left", { n: left }) : t("audio.noLeft");
+  D.btnReplay.disabled = left <= 0;
+}
+
+function feedback(kind, text, actionLabel, actionFn) {
+  D.feedback.className = "feedback" + (kind === "ok" ? " is-ok" : kind === "err" ? " is-err" : "");
+  D.feedbackText.textContent = text || "";
+  var old = D.feedback.querySelector(".btn");
+  if (old) old.remove();
+  if (actionLabel) {
+    var b = el("button", "btn btn--primary", actionLabel);
+    b.type = "button";
+    b.id = "btnAdvance";
+    b.addEventListener("click", actionFn);
+    D.feedback.appendChild(b);
+  }
+}
+
+function renderRound() {
+  var data = App.queue[App.idx];
+  App.round = {
+    data: data,
+    listens: 0,
+    attempts: 0,
+    misses: 0,
+    finished: false,
+    chunksHeard: 0,
+    pinsFound: [],
+    visible: visibleOptions(data, App.ad.cap, App.ad.hardPool)
+  };
+  D.transcript.classList.remove("is-open");
+  D.transcriptBody.hidden = true;
+  D.btnTranscript.disabled = true;
+  D.btnTranscript.setAttribute("aria-expanded", "false");
+  D.stageHost.innerHTML = "";
+  feedback("", t("fb.idle"));
+  refreshRoundChrome();
+
+  if (data.mode === "truefalse") buildTrueFalse();
+  else if (data.mode === "sequence") buildSequence();
+  else if (data.mode === "multipin") buildPinStage(data.options[0], data.options[0].hotspots, true);
+  else buildChoose();
+
+  listen(true);
+}
+
+/* ---- audio driving ---- */
+function listen(isFirst) {
+  var r = App.round;
+  var lim = replayLimit(r.data.level);
+  if (!isFirst && r.listens >= lim) return;
+  r.listens++;
+  paintReplay();
+  if (r.data.mode === "elimination" && r.data.chunks) playElimination(0);
+  else AudioEngine.play({ src: MEDIA.resolve(r.data.audio, "audio"), text: r.data.script, accent: r.data.accent });
+}
+function playElimination(from) {
+  var r = App.round, data = r.data, i = from;
+  var step = function () {
+    if (!App.round || App.round !== r || r.finished || i >= data.chunks.length) return;
+    r.chunksHeard = Math.max(r.chunksHeard, i + 1);
+    var src = MEDIA.resolve(data.chunkAudio ? data.chunkAudio[i] : null, "audio");
+    AudioEngine.play({
+      src: src, text: data.chunks[i], accent: data.accent,
+      onEnd: function () {
+        applyEliminate(i);
+        i++;
+        if (i < data.chunks.length) setTimeout(step, 550);
+      }
+    });
+  };
+  step();
+}
+function applyEliminate(chunkIdx) {
+  var r = App.round, list = (r.data.eliminate || [])[chunkIdx] || [];
+  var gone = 0;
+  list.forEach(function (originalIdx) {
+    var node = D.stageHost.querySelector('.opt[data-oi="' + originalIdx + '"]');
+    if (node && !node.classList.contains("is-out")) { node.classList.add("is-out"); gone++; }
+  });
+  if (gone && !r.finished) feedback("", t("fb.eliminated"));
+}
+
+/* ---- option tiles ---- */
+function optionTile(entry, displayIdx) {
+  var b = el("button", "opt");
+  b.type = "button";
+  b.dataset.oi = entry.i;
+  b.dataset.di = displayIdx;
+  b.appendChild(buildMedia(entry.op));
+  var num = el("div", "opt__num", String(displayIdx + 1));
+  b.appendChild(num);
+  var mark = el("div", "opt__mark");
+  mark.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.5-1.4 1.4L9 19 20 8l-1.4-1.4z"/></svg>';
+  b.appendChild(mark);
+  return b;
+}
+
+function buildChoose() {
+  var r = App.round;
+  var shown = shuffle(r.visible);
+  var grid = el("div", "options");
+  grid.dataset.count = String(shown.length);
+  shown.forEach(function (entry, di) {
+    var tile = optionTile(entry, di);
+    tile.addEventListener("click", function () {
+      if (tile.dataset.suppressClick) { delete tile.dataset.suppressClick; return; }
+      answerChoose(entry, tile);
+    });
+    /* large-view + swipe between options (mobile) */
+    attachLongPressViewer(tile, shown, di);
+    grid.appendChild(tile);
+  });
+  r.shown = shown;
+  D.stageHost.appendChild(grid);
+}
+
+function answerChoose(entry, tile) {
+  var r = App.round;
+  if (r.finished || tile.classList.contains("is-out")) return;
+  AudioEngine.stop();
+  r.attempts++;
+  if (entry.op.correct) {
+    tile.classList.add("is-correct", "pop");
+    Sfx.ok(); buzz(18);
+    if (entry.op.hotspots && entry.op.hotspots.length) {
+      feedback("ok", t("fb.correct"));
+      setTimeout(function () { buildPinStage(entry.op, entry.op.hotspots, false); }, 550);
+    } else {
+      finishRound(true);
+    }
+  } else {
+    tile.classList.remove("shake");
+    void tile.offsetWidth;
+    tile.classList.add("shake", "is-wrong");
+    setTimeout(function () { tile.classList.remove("is-wrong"); }, 900);
+    Sfx.wrong(); buzz([12, 40, 12]);
+    feedback("err", t("fb.wrong"));
+  }
+}
+
+/* ---- true / false ---- */
+function buildTrueFalse() {
+  var r = App.round;
+  var wrap = el("div", "options");
+  wrap.dataset.count = "1";
+  var tile = optionTile({ op: r.data.options[0], i: 0 }, 0);
+  tile.disabled = true;
+  tile.querySelector(".opt__num").remove();
+  wrap.appendChild(tile);
+  var box = el("div", "seq");
+  box.appendChild(wrap);
+  var row = el("div", "tf");
+  [["true", true], ["false", false]].forEach(function (pair, i) {
+    var b = el("button", "btn btn--lg " + (pair[1] ? "tf__true" : "tf__false"), t("tf." + pair[0]));
+    b.type = "button";
+    b.dataset.di = i;
+    b.addEventListener("click", function () { answerTF(pair[1], b); });
+    row.appendChild(b);
+  });
+  box.appendChild(row);
+  D.stageHost.appendChild(box);
+  r.shown = [{ op: r.data.options[0], i: 0 }];
+}
+function answerTF(value, btn) {
+  var r = App.round;
+  if (r.finished) return;
+  AudioEngine.stop();
+  r.attempts++;
+  if (value === r.data.tfAnswer) {
+    Sfx.ok(); buzz(18);
+    btn.classList.add("btn--primary");
+    finishRound(true);
+  } else {
+    Sfx.wrong(); buzz([12, 40, 12]);
+    btn.classList.remove("shake"); void btn.offsetWidth; btn.classList.add("shake");
+    feedback("err", t("fb.wrong"));
+  }
+}
+
+/* ---- sequence ---- */
+function buildSequence() {
+  var r = App.round;
+  var box = el("div", "seq");
+  var tray = el("div", "seq__tray");
+  tray.id = "seqTray";
+  var grid = el("div", "options");
+  var shown = shuffle(r.data.options.map(function (op, i) { return { op: op, i: i }; }));
+  grid.dataset.count = String(Math.min(shown.length, 4));
+  r.seq = [];
+  r.shown = shown;
+
+  var renderTray = function () {
+    tray.innerHTML = "";
+    if (!r.seq.length) { tray.appendChild(el("div", "seq__empty", t("fb.seq"))); }
+    r.seq.forEach(function (entry, pos) {
+      var slot = el("div", "seq__slot");
+      slot.draggable = true;
+      slot.dataset.pos = String(pos);
+      var media = buildMedia(entry.op);
+      media.className = "seq__media";
+      slot.appendChild(media);
+      slot.appendChild(el("div", "seq__idx", String(pos + 1)));
+      slot.addEventListener("dragstart", function (e) {
+        slot.classList.add("dragging");
+        try { e.dataTransfer.setData("text/plain", String(pos)); } catch (err) {}
+      });
+      slot.addEventListener("dragend", function () { slot.classList.remove("dragging"); });
+      slot.addEventListener("dragover", function (e) { e.preventDefault(); });
+      slot.addEventListener("drop", function (e) {
+        e.preventDefault();
+        var from = parseInt(e.dataTransfer.getData("text/plain"), 10);
+        if (isNaN(from)) return;
+        var moved = r.seq.splice(from, 1)[0];
+        r.seq.splice(pos, 0, moved);
+        renderTray(); syncTiles();
+      });
+      tray.appendChild(slot);
+    });
+    check.disabled = r.seq.length !== shown.length;
+    undo.disabled = !r.seq.length;
+  };
+  var syncTiles = function () {
+    Array.prototype.forEach.call(grid.querySelectorAll(".opt"), function (tile) {
+      var used = r.seq.some(function (e) { return String(e.i) === tile.dataset.oi; });
+      tile.classList.toggle("is-used", used);
+    });
+  };
+
+  shown.forEach(function (entry, di) {
+    var tile = optionTile(entry, di);
+    tile.addEventListener("click", function () {
+      if (r.finished) return;
+      if (r.seq.some(function (e) { return e.i === entry.i; })) return;
+      r.seq.push(entry);
+      renderTray(); syncTiles();
+    });
+    grid.appendChild(tile);
+  });
+
+  var bar = el("div", "pin__bar");
+  var undo = el("button", "btn btn--ghost", t("session.undo"));
+  undo.type = "button";
+  undo.addEventListener("click", function () { r.seq.pop(); renderTray(); syncTiles(); });
+  var check = el("button", "btn btn--primary", t("session.check"));
+  check.type = "button";
+  check.addEventListener("click", function () {
+    if (r.finished) return;
+    AudioEngine.stop();
+    r.attempts++;
+    var ok = r.seq.every(function (e, i) { return e.i === i; });
+    if (ok) { Sfx.ok(); buzz(18); finishRound(true); }
+    else {
+      Sfx.wrong(); buzz([12, 40, 12]);
+      feedback("err", t("fb.seqWrong"));
+      r.seq = []; renderTray(); syncTiles();
+    }
+  });
+  bar.appendChild(undo); bar.appendChild(check);
+
+  box.appendChild(grid);
+  box.appendChild(tray);
+  box.appendChild(bar);
+  D.stageHost.appendChild(box);
+  renderTray(); syncTiles();
+}
+
+/* ---- pinpoint / multi-pin ----------------------------------------- */
+function buildPinStage(option, hotspots, isMulti) {
+  var r = App.round;
+  r.pinsFound = [];
+  r.pinMiss = 0;
+  D.stageHost.innerHTML = "";
+
+  var box = el("div", "pin");
+  var frame = el("div", "pin__frame");
+  var inner = el("div", "pin__inner");
+  var media = buildMedia(option);
+  while (media.firstChild) inner.appendChild(media.firstChild);
+  frame.appendChild(inner);
+  box.appendChild(frame);
+
+  var bar = el("div", "pin__bar");
+  var count = el("div", "pin__count");
+  var zoom = el("div", "pin__zoom");
+  ["−", "+", "⟲"].forEach(function (sym, i) {
+    var b = el("button", null, sym);
+    b.type = "button";
+    b.setAttribute("aria-label", ["zoom out", "zoom in", "reset"][i]);
+    b.addEventListener("click", function () {
+      if (i === 0) setZoom(view.k / 1.4, 50, 50);
+      else if (i === 1) setZoom(view.k * 1.4, 50, 50);
+      else { view.k = 1; view.x = 0; view.y = 0; apply(); }
+    });
+    zoom.appendChild(b);
+  });
+  bar.appendChild(count); bar.appendChild(zoom);
+  box.appendChild(bar);
+  D.stageHost.appendChild(box);
+
+  var view = { k: 1, x: 0, y: 0 };
+  var apply = function () {
+    inner.style.transform = "translate(" + view.x + "px," + view.y + "px) scale(" + view.k + ")";
+    redrawMarks();
+  };
+  var clamp = function () {
+    var w = frame.clientWidth, h = frame.clientHeight;
+    var maxX = w * (view.k - 1), maxY = h * (view.k - 1);
+    view.x = Math.min(0, Math.max(-maxX, view.x));
+    view.y = Math.min(0, Math.max(-maxY, view.y));
+  };
+  var setZoom = function (k, cxPct, cyPct) {
+    var nk = Math.max(1, Math.min(4, k));
+    var w = frame.clientWidth, h = frame.clientHeight;
+    var cx = (cxPct / 100) * w, cy = (cyPct / 100) * h;
+    var ratio = nk / view.k;
+    view.x = cx - ratio * (cx - view.x);
+    view.y = cy - ratio * (cy - view.y);
+    view.k = nk;
+    clamp(); apply();
+  };
+
+  var updateCount = function () {
+    if (isMulti) count.textContent = t("fb.multi", { n: r.pinsFound.length, t: hotspots.length });
+    else count.textContent = "";
+  };
+
+  var marks = [];
+  var redrawMarks = function () {
+    marks.forEach(function (m) {
+      m.node.style.left = m.x + "%";
+      m.node.style.top = m.y + "%";
+    });
+  };
+  var addMark = function (xPct, yPct, hit) {
+    var d = el("div", "pin__dot " + (hit ? "pin__dot--hit" : "pin__dot--miss"));
+    d.style.left = xPct + "%";
+    d.style.top = yPct + "%";
+    inner.appendChild(d);
+    marks.push({ node: d, x: xPct, y: yPct });
+    if (!hit) setTimeout(function () { d.remove(); }, 1500);
+  };
+  var revealZone = function (h) {
+    if (inner.querySelector('.pin__reveal[data-h="' + h.x + "_" + h.y + '"]')) return;
+    var ring = el("div", "pin__reveal");
+    ring.dataset.h = h.x + "_" + h.y;
+    var rw = Math.max(h.r, 8) * 2;
+    ring.style.left = (h.x - rw / 2) + "%";
+    ring.style.top = (h.y - (rw * 4 / 3) / 2) + "%";
+    ring.style.width = rw + "%";
+    ring.style.height = (rw * 4 / 3) + "%";
+    inner.appendChild(ring);
+  };
+
+  var nextTarget = function () {
+    for (var i = 0; i < hotspots.length; i++) {
+      if (r.pinsFound.indexOf(i) < 0) return { h: hotspots[i], i: i };
+    }
+    return null;
+  };
+  var promptNow = function () {
+    var nt = nextTarget();
+    if (!nt) return;
+    feedback("ok", t("fb.pin", { p: nt.h.prompt || "" }));
+    /* the pin prompt is English audio only — never printed before the answer */
+    AudioEngine.play({ src: MEDIA.resolve(nt.h.audio, "audio"), text: nt.h.prompt || "", accent: r.data.accent });
+  };
+
+  /* hit test in image space; works under zoom / pan because the rect of the
+     transformed node already carries the transform */
+  var hitTest = function (clientX, clientY) {
+    var rect = inner.getBoundingClientRect();
+    var xPct = ((clientX - rect.left) / rect.width) * 100;
+    var yPct = ((clientY - rect.top) / rect.height) * 100;
+    var fingerPct = (44 / rect.width) * 100;   /* at least a 44px finger target */
+    var best = null;
+    hotspots.forEach(function (h, i) {
+      if (r.pinsFound.indexOf(i) >= 0) return;
+      var tol = Math.max(h.r, 8, fingerPct);
+      var dx = xPct - h.x;
+      var dy = (yPct - h.y) * 0.75;           /* 4:3 frame: 1% of height = 0.75% of width */
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist <= tol && (!best || dist < best.dist)) best = { i: i, dist: dist, h: h };
+    });
+    return { xPct: xPct, yPct: yPct, hit: best };
+  };
+
+  var onTap = function (clientX, clientY) {
+    if (r.finished && !isMulti) return;
+    var res = hitTest(clientX, clientY);
+    if (res.hit) {
+      r.pinsFound.push(res.hit.i);
+      addMark(res.hit.h.x, res.hit.h.y, true);
+      Sfx.ok(); buzz(18);
+      r.pinMiss = 0;
+      updateCount();
+      if (r.pinsFound.length >= hotspots.length) {
+        feedback("ok", isMulti ? t("fb.multiDone") : t("fb.pinHit"));
+        finishRound(true);
+      } else {
+        setTimeout(promptNow, 450);
+      }
+    } else {
+      r.misses++;
+      r.pinMiss++;
+      addMark(res.xPct, res.yPct, false);
+      Sfx.wrong(); buzz([12, 40, 12]);
+      if (r.pinMiss >= 2) {
+        var nt = nextTarget();
+        if (nt) revealZone(nt.h);
+        feedback("err", t("fb.pinMiss") + " · " + t("fb.pinMissHint"));
+      } else {
+        feedback("err", t("fb.pinMiss"));
+      }
+    }
+  };
+
+  /* pointer handling: tap vs pan vs pinch */
+  var pts = {}, moved = false, startDist = 0, startK = 1, startMid = null;
+  frame.addEventListener("pointerdown", function (e) {
+    frame.setPointerCapture(e.pointerId);
+    pts[e.pointerId] = { x: e.clientX, y: e.clientY, x0: e.clientX, y0: e.clientY };
+    moved = false;
+    var ids = Object.keys(pts);
+    if (ids.length === 2) {
+      var a = pts[ids[0]], b = pts[ids[1]];
+      startDist = Math.hypot(a.x - b.x, a.y - b.y);
+      startK = view.k;
+      var rect = frame.getBoundingClientRect();
+      startMid = { x: ((a.x + b.x) / 2 - rect.left) / rect.width * 100, y: ((a.y + b.y) / 2 - rect.top) / rect.height * 100 };
+    }
+  });
+  frame.addEventListener("pointermove", function (e) {
+    if (!pts[e.pointerId]) return;
+    var prev = pts[e.pointerId];
+    var dx = e.clientX - prev.x, dy = e.clientY - prev.y;
+    prev.x = e.clientX; prev.y = e.clientY;
+    if (Math.hypot(e.clientX - prev.x0, e.clientY - prev.y0) > 8) moved = true;
+    var ids = Object.keys(pts);
+    if (ids.length === 2 && startDist) {
+      var a = pts[ids[0]], b = pts[ids[1]];
+      var d = Math.hypot(a.x - b.x, a.y - b.y);
+      setZoom(startK * (d / startDist), startMid.x, startMid.y);
+      moved = true;
+    } else if (view.k > 1) {
+      view.x += dx; view.y += dy; clamp(); apply(); moved = true;
+    }
+  });
+  var release = function (e) {
+    var had = pts[e.pointerId];
+    delete pts[e.pointerId];
+    if (Object.keys(pts).length < 2) startDist = 0;
+    if (had && !moved && Object.keys(pts).length === 0) onTap(e.clientX, e.clientY);
+  };
+  frame.addEventListener("pointerup", release);
+  frame.addEventListener("pointercancel", function (e) { delete pts[e.pointerId]; });
+  frame.addEventListener("wheel", function (e) {
+    e.preventDefault();
+    var rect = frame.getBoundingClientRect();
+    setZoom(view.k * (e.deltaY < 0 ? 1.12 : 1 / 1.12),
+      ((e.clientX - rect.left) / rect.width) * 100, ((e.clientY - rect.top) / rect.height) * 100);
+  }, { passive: false });
+
+  updateCount();
+  setTimeout(promptNow, isMulti ? 200 : 100);
+}
+
+/* ---- large view with swipe (mobile-friendly) ---- */
+function attachLongPressViewer(tile, shown, di) {
+  var timer = null, x0 = 0, y0 = 0;
+  tile.addEventListener("pointerdown", function (e) {
+    x0 = e.clientX; y0 = e.clientY;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      tile.dataset.suppressClick = "1";   /* the pointerup that follows must not pick */
+      openViewer(shown, di);
+    }, 480);
+  });
+  tile.addEventListener("pointermove", function (e) {
+    if (Math.hypot(e.clientX - x0, e.clientY - y0) > 10) clearTimeout(timer);
+  });
+  ["pointerup", "pointerleave", "pointercancel"].forEach(function (ev) {
+    tile.addEventListener(ev, function () { clearTimeout(timer); });
+  });
+}
+function openViewer(shown, startIdx) {
+  var i = startIdx;
+  var ov = el("div", "viewer");
+  var media = el("div", "viewer__media");
+  var dots = el("div", "viewer__dots");
+  var draw = function () {
+    media.innerHTML = "";
+    var m = buildMedia(shown[i].op);
+    while (m.firstChild) media.appendChild(m.firstChild);
+    dots.innerHTML = "";
+    shown.forEach(function (_, k) {
+      var d = el("i", k === i ? "on" : null);
+      dots.appendChild(d);
+    });
+  };
+  var go = function (step) { i = (i + step + shown.length) % shown.length; draw(); };
+  var close = function () { ov.remove(); document.removeEventListener("keydown", key, true); };
+  var key = function (e) {
+    if (e.key === "Escape") { e.stopPropagation(); close(); }
+    else if (e.key === "ArrowRight") go(1);
+    else if (e.key === "ArrowLeft") go(-1);
+  };
+  var bar = el("div", "viewer__bar");
+  var prev = el("button", "btn btn--icon btn--ghost", "‹"); prev.type = "button";
+  var next = el("button", "btn btn--icon btn--ghost", "›"); next.type = "button";
+  var pickBtn = el("button", "btn btn--primary", t("viewer.choose")); pickBtn.type = "button";
+  prev.addEventListener("click", function () { go(-1); });
+  next.addEventListener("click", function () { go(1); });
+  pickBtn.addEventListener("click", function () {
+    var tile = D.stageHost.querySelector('.opt[data-oi="' + shown[i].i + '"]');
+    close();
+    if (tile) tile.click();
+  });
+  bar.appendChild(prev); bar.appendChild(pickBtn); bar.appendChild(next);
+  var closeBtn = el("button", "viewer__close", "✕"); closeBtn.type = "button";
+  closeBtn.addEventListener("click", close);
+  ov.appendChild(closeBtn); ov.appendChild(media); ov.appendChild(dots); ov.appendChild(bar);
+  ov.addEventListener("click", function (e) { if (e.target === ov) close(); });
+  /* swipe */
+  var sx = null;
+  ov.addEventListener("pointerdown", function (e) { sx = e.clientX; });
+  ov.addEventListener("pointerup", function (e) {
+    if (sx === null) return;
+    var dx = e.clientX - sx;
+    sx = null;
+    if (Math.abs(dx) > 48) go(dx < 0 ? 1 : -1);
+  });
+  document.addEventListener("keydown", key, true);
+  document.body.appendChild(ov);
+  draw();
+}
+
+/* ---------------------------------------------------------------------
+   Phase 2 — declared here so the session flow already has the seams.
+   Nothing below is switched on; enabling a flag is the only change needed.
+   Data schema additions each one expects are documented inline.
+   --------------------------------------------------------------------- */
+var PHASE2 = {
+  /* round.detail = { audio, question, options:[{img|scene, correct}] }
+     Runs after finishRound(), before the advance button appears. */
+  detailFollowup: {
+    enabled: false,
+    applies: function (data) { return !!data.detail; },
+    run: function (data, done) { done(); }
+  },
+  /* Shadowing. round.shadow = true. Needs MediaRecorder for capture and
+     Web Speech API recognition for scoring — both probed, never assumed. */
+  sayItBack: {
+    enabled: false,
+    supported: function () {
+      return !!(window.MediaRecorder && (window.SpeechRecognition || window.webkitSpeechRecognition));
+    },
+    applies: function (data) { return data.shadow === true; },
+    run: function (data, done) { done(); }
+  },
+  /* Streak combo multiplier applied on top of scoreRound(). */
+  streakCombo: {
+    enabled: false,
+    multiplier: function (streak) { return 1 + Math.min(0.5, Math.floor(streak / 3) * 0.1); }
+  }
+};
+
+/* ---- finishing a round ---- */
+function scoreRound(r) {
+  var base = 100;
+  var pts = Math.max(20, base - 30 * (r.attempts - 1) - 10 * r.misses);
+  if (r.data.mode === "elimination" && r.data.chunks) {
+    pts += 20 * Math.max(0, r.data.chunks.length - r.chunksHeard);
+  }
+  if (PHASE2.streakCombo.enabled) pts = Math.round(pts * PHASE2.streakCombo.multiplier(App.ad.streak));
+  return pts;
+}
+function finishRound(ok) {
+  var r = App.round;
+  if (r.finished) return;
+  r.finished = true;
+  AudioEngine.stop();
+  var firstTry = r.attempts <= 1 && r.misses === 0;
+  var pts = scoreRound(r);
+  App.score += pts;
+  App.ad = adapt(App.ad, firstTry);
+  AudioEngine.rate = App.ad.rate;
+  Store.set(K_RATE, App.ad.rate);
+
+  App.log.push({
+    id: r.data.id, mode: r.data.mode, ok: !!ok, firstTry: firstTry,
+    attempts: r.attempts, misses: r.misses, listens: r.listens, rate: AudioEngine.rate,
+    data: r.data, points: pts
+  });
+
+  /* transcript unlocks only now */
+  D.btnTranscript.disabled = false;
+  buildTranscript(r.data);
+  Array.prototype.forEach.call(D.stageHost.querySelectorAll(".opt"), function (n) { n.disabled = true; });
+  var last = App.idx >= App.queue.length - 1;
+  var offerAdvance = function () {
+    feedback("ok", t("fb.correct") + " +" + pts, last ? t("session.finish") : t("session.next"), nextRound);
+    refreshRoundChrome();
+  };
+  /* phase-2 seams: each stage either runs and calls back, or is skipped */
+  var stages = [PHASE2.detailFollowup, PHASE2.sayItBack].filter(function (st) {
+    return st.enabled && st.applies(r.data) && (!st.supported || st.supported());
+  });
+  (function chain(k) {
+    if (k >= stages.length) { offerAdvance(); return; }
+    stages[k].run(r.data, function () { chain(k + 1); });
+  })(0);
+}
+function nextRound() {
+  if (App.idx >= App.queue.length - 1) { showResult(); return; }
+  App.idx++;
+  renderRound();
+}
+
+function buildTranscript(data) {
+  D.transcriptBody.innerHTML = "";
+  var en = el("div", "transcript__en", data.script);
+  D.transcriptBody.appendChild(en);
+  if (App.lang !== "en") {
+    var tr = el("div", "transcript__tr", data.translations[App.lang] || "");
+    D.transcriptBody.appendChild(tr);
+  }
+  if (data.vocab && data.vocab.length) {
+    var v = el("div", "vocab");
+    data.vocab.forEach(function (w) { v.appendChild(el("span", null, w)); });
+    D.transcriptBody.appendChild(v);
+  }
+}
+
+/* ---- result ---- */
+function showResult() {
+  AudioEngine.stop();
+  var key = progressKey(App.level, App.topic);
+  var prog = getProgress();
+  var correct = App.log.filter(function (x) { return x.firstTry; }).length;
+  var prev = prog[key] || { best: 0, points: 0, plays: 0, total: App.queue.length };
+  prog[key] = {
+    best: Math.max(prev.best, correct),
+    total: App.queue.length,
+    points: Math.max(prev.points, App.score),
+    plays: (prev.plays || 0) + 1
+  };
+  Store.set(K_PROG, prog);
+  showScreen("result");
+  renderResult();
+}
+function renderResult() {
+  var total = App.log.length || 1;
+  var correct = App.log.filter(function (x) { return x.firstTry; }).length;
+  var replays = App.log.reduce(function (a, x) { return a + Math.max(0, x.listens - 1); }, 0);
+  var avg = App.log.reduce(function (a, x) { return a + x.rate; }, 0) / total;
+  D.scoreValue.textContent = App.score;
+  D.scoreRing.style.setProperty("--p", Math.round((correct / total) * 100) + "%");
+  D.resultSub.textContent = t("result.sub", { c: correct, t: total });
+  D.statCorrect.textContent = correct + " / " + total;
+  D.statReplays.textContent = replays;
+  D.statSpeed.textContent = avg.toFixed(2).replace(/0$/, "") + "×";
+  D.statStreak.textContent = App.ad ? App.ad.bestStreak : 0;
+  D.wordList.innerHTML = "";
+  App.log.forEach(function (x) {
+    var row = el("div", "wordrow");
+    row.appendChild(el("b", null, (x.data.vocab || []).join(" · ") || x.data.script));
+    row.appendChild(el("span", null, App.lang === "en" ? x.data.script : (x.data.translations[App.lang] || "")));
+    D.wordList.appendChild(row);
+  });
+}
+
+/* ---- toast ---- */
+var toastTimer = 0;
+function toast(msg) {
+  D.toast.textContent = msg;
+  D.toast.classList.add("is-on");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () { D.toast.classList.remove("is-on"); }, 2200);
+}
+
+/* ---- theme ---- */
+function applyTheme(mode) {
+  Store.set(K_THEME, mode);
+  if (mode === "auto") document.documentElement.removeAttribute("data-theme");
+  else document.documentElement.setAttribute("data-theme", mode);
+}
+
+/* ---------------------------------------------------------------------
+   9. Boot
+   --------------------------------------------------------------------- */
+function boot() {
+  ["screenStart", "screenSession", "screenResult", "langSwitch", "levelChips", "topicChips",
+   "btnStart", "btnResetProgress", "hudCounter", "hudMode", "hudStreak", "hudScore", "hudBar",
+   "audioBox", "btnReplay", "audioTrack", "audioPlayed", "audioLeft", "audioStatus", "speedSwitch",
+   "btnQuit", "taskPromptText", "stageHost", "feedback", "feedbackText", "transcript",
+   "btnTranscript", "transcriptBody", "scoreRing", "scoreValue", "resultSub", "statCorrect",
+   "statReplays", "statSpeed", "statStreak", "wordList", "btnNextSet", "btnRepeatMistakes",
+   "btnHome", "toast", "btnTheme"].forEach(function (id) { D[id] = $(id); });
+
+  AudioEngine.init({ box: D.audioBox, played: D.audioPlayed, track: D.audioTrack, status: D.audioStatus });
+  AudioEngine.rate = Store.get(K_RATE, 1);
+  applyTheme(Store.get(K_THEME, "auto"));
+  setLang(Store.get(K_LANG, (navigator.language || "ru").slice(0, 2) === "kk" ? "kz" :
+    (navigator.language || "ru").slice(0, 2) === "en" ? "en" : "ru"));
+
+  D.langSwitch.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-lang]");
+    if (b) setLang(b.dataset.lang);
+  });
+  D.btnTheme.addEventListener("click", function () {
+    var cur = Store.get(K_THEME, "auto");
+    applyTheme(cur === "auto" ? "light" : cur === "light" ? "dark" : "auto");
+  });
+  D.btnStart.addEventListener("click", function () { Sfx.ac(); startSession(null); });
+  D.btnResetProgress.addEventListener("click", function () {
+    Store.del(K_PROG); renderChips(); toast(t("toast.reset"));
+  });
+  D.btnQuit.addEventListener("click", function () { AudioEngine.stop(); showScreen("start"); renderChips(); });
+  D.btnReplay.addEventListener("click", function () { listen(false); });
+  D.speedSwitch.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-rate]");
+    if (!b) return;
+    AudioEngine.setRate(parseFloat(b.dataset.rate));
+    if (App.ad) App.ad.rate = AudioEngine.rate;
+    paintSpeed();
+  });
+  var seekFromEvent = function (e) {
+    if (!AudioEngine.seekable()) return;
+    var r = D.audioTrack.getBoundingClientRect();
+    AudioEngine.seek((e.clientX - r.left) / r.width);
+  };
+  D.audioTrack.addEventListener("pointerdown", seekFromEvent);
+  D.audioTrack.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+      e.preventDefault();
+      if (AudioEngine.seekable()) {
+        var p = AudioEngine.el.currentTime / AudioEngine.el.duration;
+        AudioEngine.seek(p + (e.key === "ArrowRight" ? 0.05 : -0.05));
+      }
+    }
+  });
+  D.btnTranscript.addEventListener("click", function () {
+    if (D.btnTranscript.disabled) return;
+    var open = D.transcript.classList.toggle("is-open");
+    D.transcriptBody.hidden = !open;
+    D.btnTranscript.setAttribute("aria-expanded", open ? "true" : "false");
+    D.btnTranscript.firstElementChild.textContent = open ? t("session.transcriptHide") : t("session.transcript");
+  });
+  D.btnNextSet.addEventListener("click", function () { startSession(null); });
+  D.btnHome.addEventListener("click", function () { showScreen("start"); renderChips(); });
+  D.btnRepeatMistakes.addEventListener("click", function () {
+    var bad = App.log.filter(function (x) { return !x.firstTry; }).map(function (x) { return x.data; });
+    if (!bad.length) { toast(t("toast.noMistakes")); return; }
+    startSession(alternateModes(bad));
+  });
+
+  /* keyboard: Space = replay, 1..6 = pick, Enter = next, S = speed */
+  document.addEventListener("keydown", function (e) {
+    if (App.screen !== "session") return;
+    var tag = (e.target.tagName || "").toLowerCase();
+    if (tag === "input" || tag === "textarea") return;
+    if (e.code === "Space") {
+      e.preventDefault();
+      if (!D.btnReplay.disabled) listen(false);
+    } else if (e.key === "Enter") {
+      var adv = $("btnAdvance");
+      if (adv) { e.preventDefault(); adv.click(); }
+    } else if (e.key === "s" || e.key === "S" || e.key === "ы" || e.key === "Ы") {
+      var i = RATE_STEPS.indexOf(AudioEngine.rate);
+      AudioEngine.setRate(RATE_STEPS[(i + 1) % RATE_STEPS.length]);
+      paintSpeed();
+      toast(t("toast.speed", { n: AudioEngine.rate }));
+    } else if (/^[1-6]$/.test(e.key)) {
+      var n = parseInt(e.key, 10) - 1;
+      var node = D.stageHost.querySelector('[data-di="' + n + '"]');
+      if (node && !node.disabled) node.click();
+    }
+  });
+
+  /* speechSynthesis voices arrive asynchronously in some browsers */
+  if (window.speechSynthesis) {
+    window.speechSynthesis.onvoiceschanged = function () { /* cached lazily on next speak */ };
+  }
+
+  renderChips();
+  runSelfTests();
+}
+
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+else boot();
+</script>
+</body>
+</html>
