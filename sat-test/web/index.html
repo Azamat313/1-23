@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>Тестовое задание SAT — JTS</title>
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <noscript><p class="noscript">Для прохождения теста включите JavaScript.</p></noscript>
+
+  <div id="net-banner" class="net-banner" role="status" hidden>
+    Нет связи, ответы сохранены на устройстве, не закрывайте страницу
+  </div>
+
+  <!-- Загрузка -->
+  <main class="screen screen--center" data-screen="loading" hidden>
+    <div class="spinner" aria-hidden="true"></div>
+    <p class="muted">Загрузка…</p>
+  </main>
+
+  <!-- 4.1 Стартовая страница -->
+  <main class="screen" data-screen="start" hidden>
+    <div class="card card--narrow">
+      <img class="logo logo--big" src="logo.svg" alt="JTS">
+      <h1>Тестовое задание: преподаватель SAT (Math + Reading &amp; Writing)</h1>
+      <ul class="facts">
+        <li><strong data-bind="questionCount">8</strong> заданий: <span data-bind="mathCount">4</span> Math и <span data-bind="rwCount">4</span> Reading &amp; Writing</li>
+        <li><strong data-bind="durationMin">30</strong> минут на весь тест</li>
+        <li>К каждому ответу — письменное объяснение, как для ученика</li>
+        <li>Проходите с компьютера со стабильным интернетом</li>
+      </ul>
+      <button type="button" class="btn btn--primary btn--wide" data-action="to-form">Начать</button>
+    </div>
+  </main>
+
+  <!-- 4.2 Анкета -->
+  <main class="screen" data-screen="form" hidden>
+    <form class="card card--narrow" id="candidate-form" novalidate autocomplete="on">
+      <img class="logo" src="logo.svg" alt="JTS">
+      <h1>Анкета</h1>
+      <p class="muted">Таймер ещё не идёт. Поля со звёздочкой обязательны.</p>
+
+      <div class="field">
+        <label for="f-fullName">ФИО <span class="req">*</span></label>
+        <input id="f-fullName" name="fullName" type="text" maxlength="100" autocomplete="name" required>
+        <p class="error" data-error="fullName"></p>
+      </div>
+
+      <div class="field">
+        <label for="f-phone">Телефон <span class="req">*</span></label>
+        <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" value="+7 " required>
+        <p class="hint">Можно указать другой код страны, например +996</p>
+        <p class="error" data-error="phone"></p>
+      </div>
+
+      <div class="field">
+        <label for="f-email">Email <span class="req">*</span></label>
+        <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required>
+        <p class="error" data-error="email"></p>
+      </div>
+
+      <div class="field">
+        <label for="f-telegram">Telegram</label>
+        <input id="f-telegram" name="telegram" type="text" autocomplete="off" placeholder="@username" maxlength="40">
+        <p class="error" data-error="telegram"></p>
+      </div>
+
+      <fieldset class="field-group">
+        <legend>Баллы <span class="req">*</span></legend>
+        <p class="hint">Укажите обе секции SAT или IELTS (можно и то, и другое)</p>
+        <div class="row">
+          <div class="field">
+            <label for="f-satMath">SAT Math</label>
+            <input id="f-satMath" name="satMath" type="text" inputmode="numeric" placeholder="200–800" maxlength="3">
+            <p class="error" data-error="satMath"></p>
+          </div>
+          <div class="field">
+            <label for="f-satRW">SAT R&amp;W</label>
+            <input id="f-satRW" name="satRW" type="text" inputmode="numeric" placeholder="200–800" maxlength="3">
+            <p class="error" data-error="satRW"></p>
+          </div>
+          <div class="field">
+            <label for="f-ielts">IELTS</label>
+            <input id="f-ielts" name="ielts" type="text" inputmode="decimal" placeholder="0–9" maxlength="3">
+            <p class="error" data-error="ielts"></p>
+          </div>
+        </div>
+        <p class="error" data-error="scores"></p>
+      </fieldset>
+
+      <div class="field">
+        <label for="f-mathBackground">Математическая база <span class="req" id="mathbg-req" hidden>*</span></label>
+        <textarea id="f-mathBackground" name="mathBackground" rows="2" maxlength="300"
+          placeholder="Мат. факультет, олимпиады, NIS / РФМШ / БИЛ"></textarea>
+        <p class="hint">Обязательно, если указан только IELTS. До 300 символов.</p>
+        <p class="error" data-error="mathBackground"></p>
+      </div>
+
+      <div class="field">
+        <label for="f-experience">Опыт преподавания SAT <span class="req">*</span></label>
+        <select id="f-experience" name="experience" required></select>
+        <p class="error" data-error="experience"></p>
+      </div>
+
+      <div class="field">
+        <label for="f-source">Откуда узнали о вакансии <span class="req">*</span></label>
+        <select id="f-source" name="source" required></select>
+        <p class="error" data-error="source"></p>
+      </div>
+
+      <div class="hp" aria-hidden="true">
+        <label>Сайт <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      </div>
+
+      <div class="field field--check">
+        <label class="check">
+          <input type="checkbox" name="consent" id="f-consent">
+          <span>Согласен(на) на сбор и обработку персональных данных
+            (<a id="consent-link" href="#" target="_blank" rel="noopener">текст согласия</a>) <span class="req">*</span></span>
+        </label>
+        <p class="error" data-error="consent"></p>
+      </div>
+
+      <p class="error error--form" id="form-error" role="alert"></p>
+      <div class="actions">
+        <button type="button" class="btn" data-action="to-start">Назад</button>
+        <button type="submit" class="btn btn--primary" id="form-next">Далее</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- 4.3 Правила -->
+  <main class="screen" data-screen="rules" hidden>
+    <div class="card card--narrow">
+      <img class="logo" src="logo.svg" alt="JTS">
+      <h1>Правила</h1>
+      <ul class="rules">
+        <li><strong><span data-bind="durationMin">30</span> минут</strong>, таймер нельзя остановить; время идёт, даже если закрыть вкладку.</li>
+        <li><span data-bind="questionCount">8</span> заданий: <span data-bind="mathCount">4</span> Math и <span data-bind="rwCount">4</span> Reading &amp; Writing. К каждому — ответ и объяснение, как для ученика, на русском или казахском.</li>
+        <li>Между заданиями можно свободно переходить; ответы сохраняются автоматически.</li>
+        <li>Когда таймер дойдёт до 00:00, ответы отправятся сами.</li>
+        <li>Нельзя пользоваться ИИ-помощниками и помощью других людей. Уходы со страницы и вставка текста фиксируются.</li>
+        <li id="rule-calculator">Можно пользоваться черновиком. Калькулятор и Desmos не нужны: задачи решаются без них.</li>
+        <li>Попытка одна.</li>
+      </ul>
+      <label class="check">
+        <input type="checkbox" id="rules-ok">
+        <span>Правила прочитал(а)</span>
+      </label>
+      <p class="error error--form" id="rules-error" role="alert"></p>
+      <div class="actions">
+        <button type="button" class="btn" data-action="to-form">Назад</button>
+        <button type="button" class="btn btn--primary" id="rules-start" disabled>Начать тест</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- 4.4 Экран теста -->
+  <div class="screen screen--test" data-screen="test" hidden>
+    <header class="test-header">
+      <img class="logo logo--small" src="logo.svg" alt="JTS">
+      <div class="timer" id="timer" aria-label="Осталось времени">30:00</div>
+      <div class="test-meta">
+        <div id="answered">Отвечено: 0 из 8</div>
+        <div id="save-status" class="save-status" aria-live="polite"></div>
+      </div>
+    </header>
+
+    <nav class="qnav" id="qnav" aria-label="Задания"></nav>
+
+    <main class="test-main">
+      <article class="card qcard" id="qcard" aria-live="polite"></article>
+      <div class="actions actions--test">
+        <button type="button" class="btn" id="btn-prev">← Назад</button>
+        <button type="button" class="btn" id="btn-next">Далее →</button>
+        <button type="button" class="btn btn--primary" id="btn-finish">Завершить тест</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- 4.6 Спасибо -->
+  <main class="screen" data-screen="thanks" hidden>
+    <div class="card card--narrow card--center">
+      <img class="logo logo--big" src="logo.svg" alt="JTS">
+      <div class="big-icon" aria-hidden="true">✓</div>
+      <h1 id="thanks-title">Спасибо!</h1>
+      <p id="thanks-text">Ответы отправлены.</p>
+      <p class="hr-contact" data-hr-contact></p>
+    </div>
+  </main>
+
+  <!-- Системные состояния -->
+  <main class="screen" data-screen="message" hidden>
+    <div class="card card--narrow card--center">
+      <img class="logo logo--big" src="logo.svg" alt="JTS">
+      <h1 id="message-title"></h1>
+      <p id="message-text"></p>
+      <p class="hr-contact" data-hr-contact></p>
+      <div class="actions actions--center">
+        <button type="button" class="btn btn--primary" id="message-action" hidden></button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Модальные окна -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <h2 id="modal-title"></h2>
+      <div id="modal-body"></div>
+      <div class="actions">
+        <button type="button" class="btn" id="modal-cancel"></button>
+        <button type="button" class="btn btn--primary" id="modal-ok"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay" hidden>
+    <div class="overlay__box" role="alertdialog" aria-live="assertive">
+      <div class="spinner" aria-hidden="true"></div>
+      <p id="overlay-text">Отправляем ответы…</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

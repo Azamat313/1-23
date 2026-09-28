@@ -1,0 +1,21 @@
+name: SAT test
+
+on:
+  push:
+    paths: ["sat-test/**", ".github/workflows/sat-test.yml"]
+  pull_request:
+    paths: ["sat-test/**", ".github/workflows/sat-test.yml"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: sat-test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --check web/app.js
+      - run: npm test

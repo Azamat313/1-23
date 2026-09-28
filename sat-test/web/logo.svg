@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 48" role="img" aria-label="JTS">
+  <!-- Временный логотип: замените файл на фирменный логотип JTS -->
+  <rect width="120" height="48" rx="10" fill="#1f3a8a"/>
+  <text x="60" y="33" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#ffffff" letter-spacing="2">JTS</text>
+</svg>

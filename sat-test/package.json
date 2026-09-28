@@ -1,0 +1,18 @@
+{
+  "name": "jts-sat-test",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Тестовое задание SAT: статический сайт + Google Apps Script + Google Sheets",
+  "scripts": {
+    "dev": "node dev/server.js",
+    "test": "node --test tests/*.test.js",
+    "e2e": "node tests/e2e/run.mjs",
+    "size": "du -cb web/* | tail -1"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.0"
+  }
+}
