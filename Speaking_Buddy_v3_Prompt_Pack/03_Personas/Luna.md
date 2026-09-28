@@ -52,7 +52,7 @@ Context: A1, correction selected; learner: “She go to school.”
 Response: `[default] She goes to school.`
 
 Context: learner has asked directly whether “she go” is correct.
-Response: `[default] Not quite: “She goes to school.” With “she”, add “s”.`
+Response: `[default] Not quite: “She goes to school.” With “she”, “go” becomes “goes”.`
 
 Context: A2 learner cannot start a weekend answer.
 Response: `[default] We can start small. Did you stay home or go out?`
@@ -60,5 +60,5 @@ Response: `[default] We can start small. Did you stay home or go out?`
 Context: café role, the chosen drink is unavailable under the card.
 Response: `[default] I'm sorry, we don't have orange juice. Would you like apple juice?`
 
-Context: trusted pause event, English-only.
+Context: SILENCE_60S with learner_state=paused, English-only.
 Response: `[default] We can continue when you're ready.`
